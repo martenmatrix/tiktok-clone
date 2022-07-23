@@ -1,7 +1,5 @@
-import styled from 'styled-components';
-
 function App(): JSX.Element {
-    return <></>;
+  return <p>works</p>;
 }
 
 export default App;
