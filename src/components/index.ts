@@ -1,3 +1,4 @@
 import App from './App';
+import InteractionButtons from './InteractionButtons';
 
-export { App };
+export { App, InteractionButtons };
