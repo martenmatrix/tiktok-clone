@@ -1,5 +1,7 @@
+import InteractionButtons from '../InteractionButtons';
+
 function App(): JSX.Element {
-  return <p>works</p>;
+  return <InteractionButtons />;
 }
 
 export default App;

@@ -1,5 +1,25 @@
 import styled from 'styled-components';
 
+import HeartIcon from './assets/heart.svg';
+import CommentIcon from './assets/chat.svg';
+import ShareIcon from './assets/chain.svg';
+
+const Icon = styled.img`
+  width: 34px;
+  height: 34px;
+`;
+
+const Button = styled.div.attrs({ role: 'button' })`
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
 type RoundButtonProps = {
   interaction: string;
   image: string;
@@ -8,9 +28,9 @@ type RoundButtonProps = {
 
 function RoundButton({ interaction, image, alt }: RoundButtonProps): JSX.Element {
   return (
-    <div role="button" aria-label={interaction}>
-      <img src={image} alt={alt} />
-    </div>
+    <Button aria-label={interaction}>
+      <Icon src={image} alt={alt} />
+    </Button>
   );
 }
 
@@ -24,9 +44,9 @@ const Container = styled.div`
 function InteractionButtons(): JSX.Element {
   return (
     <Container>
-      <RoundButton interaction="Like" image="https://img.icons8.com/color/48/000000/like.png" alt="Like" />
-      <RoundButton interaction="Comment" image="https://img.icons8.com/color/48/000000/comment.png" alt="Comment" />
-      <RoundButton interaction="Copy link" image="https://img.icons8.com/color/48/000000/share.png" alt="Copy link" />
+      <RoundButton interaction="Like" image={HeartIcon} alt="Like" />
+      <RoundButton interaction="Comment" image={CommentIcon} alt="Comment" />
+      <RoundButton interaction="Copy link" image={ShareIcon} alt="Copy link" />
     </Container>
   );
 }
