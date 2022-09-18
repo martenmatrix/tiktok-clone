@@ -26,7 +26,7 @@ type RoundButtonProps = {
   alt: string;
 }
 
-function RoundButton({ interaction, image, alt }: RoundButtonProps): JSX.Element {
+function ButtonWithIcon({ interaction, image, alt }: RoundButtonProps): JSX.Element {
   return (
     <Button aria-label={interaction}>
       <Icon src={image} alt={alt} />
@@ -44,9 +44,9 @@ const Container = styled.div`
 function InteractionButtons(): JSX.Element {
   return (
     <Container>
-      <RoundButton interaction="Like" image={HeartIcon} alt="Like" />
-      <RoundButton interaction="Comment" image={CommentIcon} alt="Comment" />
-      <RoundButton interaction="Copy link" image={ShareIcon} alt="Copy link" />
+      <ButtonWithIcon interaction="Like" image={HeartIcon} alt="Like" />
+      <ButtonWithIcon interaction="Comment" image={CommentIcon} alt="Comment" />
+      <ButtonWithIcon interaction="Copy link" image={ShareIcon} alt="Copy link" />
     </Container>
   );
 }
