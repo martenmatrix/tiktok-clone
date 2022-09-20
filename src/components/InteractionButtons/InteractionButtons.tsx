@@ -79,7 +79,9 @@ function LikeButton(): JSX.Element {
 function CommentButton(): JSX.Element {
   return (
     <Button aria-label="Open comment section">
-      <CommentIcon />
+      <IconContainer iconColor="white">
+        <CommentIcon />
+      </IconContainer>
     </Button>
   );
 }
@@ -87,7 +89,9 @@ function CommentButton(): JSX.Element {
 function ShareButton(): JSX.Element {
   return (
     <Button aria-label="Copy link">
-      <ShareIcon />
+      <IconContainer iconColor="white">
+        <ShareIcon />
+      </IconContainer>
     </Button>
   );
 }
