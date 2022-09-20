@@ -1,18 +1,22 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
-import HeartIcon from './assets/heart.svg';
-import CommentIcon from './assets/chat.svg';
-import ShareIcon from './assets/chain.svg';
+import HeartIcon from './assets/heartSVG.js';
+import CommentIcon from './assets/chatSVG.js';
+import ShareIcon from './assets/chainSVG.js';
 import ProfilePicturePlaceholder from './assets/profilePicturePlaceholder.png';
 
+type CallbackFunction = () => void;
+
 type Image = {
-  src: string;
-  alt: string;
+  iconColor?: string;
+  onClick?: CallbackFunction;
 }
 
-const Icon = styled.img<Image>`
+const IconContainer = styled.div<Image>`
   width: 34px;
   height: 34px;
+  color: ${(props) => props.iconColor || 'canvastext'}
 `;
 
 const ProfilePicture = styled.img<Image>`
@@ -47,21 +51,54 @@ const Container = styled.div`
   justify-content: center; 
 `;
 
+function ProfileButton(): JSX.Element {
+  return (
+    <Button aria-label="Go to profile">
+      <ProfilePicture src={ProfilePicturePlaceholder} alt="Profile picture" />
+    </Button>
+  );
+}
+
+function LikeButton(): JSX.Element {
+  const [isLiked, setIsLiked] = useState(false);
+
+  function addOrRevokeLike() {
+    if (isLiked) setIsLiked(false);
+    else if (!isLiked) setIsLiked(true);
+  }
+
+  return (
+    <Button aria-label="Like" onClick={() => addOrRevokeLike()}>
+      <IconContainer iconColor={(isLiked ? 'red' : 'white')}>
+        <HeartIcon />
+      </IconContainer>
+    </Button>
+  );
+}
+
+function CommentButton(): JSX.Element {
+  return (
+    <Button aria-label="Open comment section">
+      <CommentIcon />
+    </Button>
+  );
+}
+
+function ShareButton(): JSX.Element {
+  return (
+    <Button aria-label="Copy link">
+      <ShareIcon />
+    </Button>
+  );
+}
+
 function InteractionButtons(): JSX.Element {
   return (
     <Container>
-      <Button aria-label="Go to profile">
-        <ProfilePicture src={ProfilePicturePlaceholder} alt="Profile picture" />
-      </Button>
-      <Button aria-label="Like">
-        <Icon src={HeartIcon} alt="Profile picture" />
-      </Button>
-      <Button aria-label="Comment">
-        <Icon src={CommentIcon} alt="Comment" />
-      </Button>
-      <Button aria-label="Copy link">
-        <Icon src={ShareIcon} alt="Copy link" />
-      </Button>
+      <ProfileButton />
+      <LikeButton />
+      <CommentButton />
+      <ShareButton />
     </Container>
   );
 }
