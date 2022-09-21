@@ -14,5 +14,3 @@ test('onLikeChange triggers if like button is clicked', async () => {
 
   expect(mockFunction).toHaveBeenCalled();
 });
-
-test.todo('if liked heart icon is red');
