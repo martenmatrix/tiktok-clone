@@ -12,11 +12,16 @@ const Container = styled.div`
   justify-content: center; 
 `;
 
-function InteractionButtons(): JSX.Element {
+type InteractionButtonsProps = {
+  onLikeChange: () => void;
+  isLiked: boolean;
+}
+
+function InteractionButtons({ onLikeChange, isLiked }: InteractionButtonsProps): JSX.Element {
   return (
     <Container>
       <ProfileButton />
-      <LikeButton />
+      <LikeButton {...{ onChange: onLikeChange, isLiked }} />
       <CommentButton />
       <ShareButton />
     </Container>
