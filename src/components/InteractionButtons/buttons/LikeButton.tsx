@@ -1,18 +1,15 @@
-import { useState } from 'react';
 import Button from './Button';
 import IconContainer from './IconContainer';
 import HeartIcon from '../assets/heartSVG.js';
 
-function LikeButton(): JSX.Element {
-  const [isLiked, setIsLiked] = useState(false);
+type LikeButtonProps = {
+  onChange: () => void;
+  isLiked: boolean;
+}
 
-  function addOrRevokeLike() {
-    if (isLiked) setIsLiked(false);
-    else if (!isLiked) setIsLiked(true);
-  }
-
+function LikeButton({ onChange, isLiked }: LikeButtonProps): JSX.Element {
   return (
-    <Button aria-label="Like" onClick={() => addOrRevokeLike()}>
+    <Button aria-label="Like" onClick={onChange}>
       <IconContainer iconColor={(isLiked ? 'red' : 'white')}>
         <HeartIcon />
       </IconContainer>
