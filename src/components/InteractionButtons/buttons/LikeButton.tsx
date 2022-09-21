@@ -3,9 +3,14 @@ import IconContainer from './IconContainer';
 import HeartIcon from '../assets/heartSVG.js';
 
 type LikeButtonProps = {
-  onChange: () => void;
-  isLiked: boolean;
+  onChange?: () => void;
+  isLiked?: boolean;
 }
+
+const LikeButtonDefaultProps = {
+  onChange: () => undefined,
+  isLiked: false,
+};
 
 function LikeButton({ onChange, isLiked }: LikeButtonProps): JSX.Element {
   return (
@@ -16,5 +21,7 @@ function LikeButton({ onChange, isLiked }: LikeButtonProps): JSX.Element {
     </Button>
   );
 }
+
+LikeButton.defaultProps = LikeButtonDefaultProps;
 
 export default LikeButton;
