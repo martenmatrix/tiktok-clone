@@ -5,10 +5,14 @@ import ShareIcon from '../assets/chainSVG.js';
 
 function ShareButton(): JSX.Element {
   async function onClick(): Promise<void> {
-    if (navigator.clipboard) {
-      const currentHREF = window.location.href;
-      await navigator.clipboard.writeText(currentHREF);
+    async function copyHrefToClipboard(): Promise<void> {
+      if (navigator.clipboard) {
+        const currentHREF = window.location.href;
+        await navigator.clipboard.writeText(currentHREF);
+      }
     }
+
+    await copyHrefToClipboard();
   }
 
   return (
