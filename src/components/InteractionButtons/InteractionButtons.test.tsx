@@ -22,3 +22,15 @@ test('aria-pressed for like button is true when isLiked is true', () => {
 
   expect(likeButton).toBeInTheDocument();
 });
+
+test('clicking the share button copies the current url to the clipboard', async () => {
+  render(<InteractionButtons onLikeChange={() => undefined} isLiked />);
+  const shareButton = screen.getByRole('button', { name: 'Copy link' });
+  const currentHREF = window.location.href;
+  const user = userEvent.setup();
+
+  await user.click(shareButton);
+
+  const clipboardContent = await navigator.clipboard.readText();
+  expect(clipboardContent).toBe(currentHREF);
+});
