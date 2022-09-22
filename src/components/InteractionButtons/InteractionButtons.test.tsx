@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import InteractionButtons from './InteractionButtons';
 
@@ -13,4 +14,11 @@ test('onLikeChange triggers if like button is clicked', async () => {
   await user.click(likeButton);
 
   expect(mockFunction).toHaveBeenCalled();
+});
+
+test('aria-pressed for like button is true when isLiked is true', () => {
+  render(<InteractionButtons onLikeChange={() => undefined} isLiked />);
+  const likeButton = screen.getByRole('button', { name: 'Like', pressed: true });
+
+  expect(likeButton).toBeInTheDocument();
 });
