@@ -14,7 +14,7 @@ const LikeButtonDefaultProps = {
 
 function LikeButton({ onChange, isLiked }: LikeButtonProps): JSX.Element {
   return (
-    <Button aria-label="Like" onClick={onChange}>
+    <Button aria-label="Like" aria-pressed={isLiked} onClick={onChange}>
       <IconContainer iconColor={(isLiked ? 'red' : 'white')}>
         <HeartIcon />
       </IconContainer>
