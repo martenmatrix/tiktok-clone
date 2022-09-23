@@ -15,14 +15,15 @@ const Container = styled.div`
 type InteractionButtonsProps = {
   onLikeChange: () => void;
   isLiked: boolean;
+  onCommentClick: () => void;
 }
 
-function InteractionButtons({ onLikeChange, isLiked }: InteractionButtonsProps): JSX.Element {
+function InteractionButtons({ onLikeChange, isLiked, onCommentClick }: InteractionButtonsProps): JSX.Element {
   return (
     <Container>
       <ProfileButton />
       <LikeButton {...{ onChange: onLikeChange, isLiked }} />
-      <CommentButton />
+      <CommentButton onClick={onCommentClick} />
       <ShareButton />
     </Container>
   );
