@@ -34,3 +34,18 @@ test('clicking the share button copies the current url to the clipboard', async 
   const clipboardContent = await navigator.clipboard.readText();
   expect(clipboardContent).toBe(currentHREF);
 });
+
+test('clicking on the comment button calls openCommentSection', async () => {
+  const openCommentSectionMock = jest.fn();
+  render(<InteractionButtons
+    onLikeChange={() => undefined}
+    isLiked
+    onCommentClick={openCommentSectionMock}
+  />);
+  const commentButton = screen.getByRole('button', { name: 'Open comment section' });
+  const user = userEvent.setup();
+
+  await user.click(commentButton);
+
+  expect(openCommentSectionMock).toHaveBeenCalled();
+});
