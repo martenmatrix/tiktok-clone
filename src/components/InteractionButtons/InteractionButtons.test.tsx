@@ -1,13 +1,24 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import InteractionButtons from './InteractionButtons';
+import InteractionButtons, { InteractionButtonsProps } from './InteractionButtons';
+
+function renderInteractionButtons(props: Partial<InteractionButtonsProps> = {}) {
+  const defaultProps: InteractionButtonsProps = {
+    onLikeChange: () => {},
+    isLiked: true,
+    onCommentClick: () => {},
+  };
+
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  render(<InteractionButtons {...defaultProps} {...props} />);
+}
 
 test.todo('provided username links to profile');
 
 test('onLikeChange triggers if like button is clicked', async () => {
   const mockFunction = jest.fn();
-  render(<InteractionButtons onLikeChange={mockFunction} isLiked />);
+  renderInteractionButtons({ onLikeChange: mockFunction });
   const user = userEvent.setup();
   const likeButton = screen.getByRole('button', { name: 'Like' });
 
@@ -17,14 +28,14 @@ test('onLikeChange triggers if like button is clicked', async () => {
 });
 
 test('aria-pressed for like button is true when isLiked is true', () => {
-  render(<InteractionButtons onLikeChange={() => undefined} isLiked />);
+  renderInteractionButtons({ isLiked: true });
   const likeButton = screen.getByRole('button', { name: 'Like', pressed: true });
 
   expect(likeButton).toBeInTheDocument();
 });
 
 test('clicking the share button copies the current url to the clipboard', async () => {
-  render(<InteractionButtons onLikeChange={() => undefined} isLiked />);
+  renderInteractionButtons();
   const shareButton = screen.getByRole('button', { name: 'Copy link' });
   const currentHREF = window.location.href;
   const user = userEvent.setup();
@@ -37,11 +48,7 @@ test('clicking the share button copies the current url to the clipboard', async 
 
 test('clicking on the comment button calls openCommentSection', async () => {
   const openCommentSectionMock = jest.fn();
-  render(<InteractionButtons
-    onLikeChange={() => undefined}
-    isLiked
-    onCommentClick={openCommentSectionMock}
-  />);
+  renderInteractionButtons({ onCommentClick: openCommentSectionMock });
   const commentButton = screen.getByRole('button', { name: 'Open comment section' });
   const user = userEvent.setup();
 

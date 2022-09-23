@@ -12,7 +12,7 @@ const Container = styled.div`
   justify-content: center; 
 `;
 
-type InteractionButtonsProps = {
+export type InteractionButtonsProps = {
   onLikeChange: () => void;
   isLiked: boolean;
   onCommentClick: () => void;
