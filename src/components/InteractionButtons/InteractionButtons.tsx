@@ -13,6 +13,7 @@ const Container = styled.div`
 `;
 
 export type InteractionButtonsProps = {
+  profileId: string;
   onLikeChange: () => void;
   isLiked: boolean;
   onCommentClick: () => void;
