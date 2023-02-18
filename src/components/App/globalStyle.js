@@ -8,6 +8,11 @@ const GlobalStyle = createGlobalStyle`
         width: 100vw;
         height: 100vh;
     }
+
+    #root {
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 export default GlobalStyle;
