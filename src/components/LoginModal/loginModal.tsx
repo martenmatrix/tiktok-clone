@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Close from './assets/close.svg';
 import AppleLogo from './assets/apple_logo.svg';
 import GitHubLogo from './assets/github_logo.svg';
 import TwitterLogo from './assets/twitter_logo.svg';
@@ -27,20 +28,20 @@ const Container = styled.div`
 const Modal = styled.div`
   width: 100%;
   max-width: 30rem;
-  height: 25%;
-  min-width: 5rem;
-  min-height: 2.5rem;
+  height: 100%;
+  max-height: 20rem;
+
   display: block;
   position: relative;
-  border: 1px solid black;
+  
+  background: #87878770;
+  border-radius: 0.5rem;
 `;
 
-const CloseButton = styled.div`
-  transform: rotate(45deg);
-  font-size: 2.5rem;
+const CloseButton = styled.img.attrs({ src: Close, alt: 'Close' })`
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
   position: absolute;
+  top: 1rem;
   right: 1rem;
 `;
 
@@ -56,6 +57,7 @@ const Logo = styled.img`
   display: block;
   width: 5rem;
   height: 5rem;
+  cursor: pointer;
 `;
 
 function LoginButtons(): JSX.Element {
@@ -78,8 +80,8 @@ function LoginModal({
   return (
     <Container>
       <Modal>
-        <CloseButton>+</CloseButton>
         <LoginButtons />
+        <CloseButton />
       </Modal>
     </Container>
   );
