@@ -63,6 +63,14 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
+const Header = styled.h2`
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 32px;
+`;
+
 function LoginButtons({
   onGitHubLogin,
   onGoogleLogin,
@@ -94,6 +102,7 @@ function LoginModal({
   return (
     <Container role="dialog">
       <Modal>
+        <Header>Please login</Header>
         <LoginButtons
           onGitHubLogin={onGitHubLogin}
           onGoogleLogin={onGoogleLogin}
