@@ -108,7 +108,13 @@ function LoginModal({
   onAppleLogin,
 }: LoginModalProps): JSX.Element {
   return (
-    <Container role="dialog">
+    <Container
+      role="dialog"
+      onClick={(e) => {
+        if (!(e.target === e.currentTarget)) return;
+        onClose();
+      }}
+    >
       <Modal>
         <Header>Please login</Header>
         <LoginButtons
