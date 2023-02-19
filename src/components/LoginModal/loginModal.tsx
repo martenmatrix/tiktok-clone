@@ -20,6 +20,8 @@ interface LoginModalProps extends LoginFunctions {
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  background: #00000025;
+  backdrop-filter: blur(1rem);
   position: absolute;
   top: 0;
   left: 0;
