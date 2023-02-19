@@ -89,12 +89,18 @@ function LoginModal({
   onGitHubLogin,
   onGoogleLogin,
   onTwitterLogin,
-  onAppleLogin }: LoginModalProps): JSX.Element {
+  onAppleLogin,
+}: LoginModalProps): JSX.Element {
   return (
-    <Container>
+    <Container role="dialog">
       <Modal>
-        <LoginButtons />
-        <CloseButton />
+        <LoginButtons
+          onGitHubLogin={onGitHubLogin}
+          onGoogleLogin={onGoogleLogin}
+          onTwitterLogin={onTwitterLogin}
+          onAppleLogin={onAppleLogin}
+        />
+        <CloseButton onClick={onClose} />
       </Modal>
     </Container>
   );
