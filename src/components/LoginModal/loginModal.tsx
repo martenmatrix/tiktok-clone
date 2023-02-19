@@ -61,11 +61,11 @@ const Logo = styled.img`
 `;
 
 function LoginButtons(): JSX.Element {
-  const logos: string[] = [AppleLogo, GoogleLogo, TwitterLogo, GitHubLogo];
+  const logos: { src: string, alt: string }[] = [{ src: GoogleLogo, alt: 'Google Login' }, { src: TwitterLogo, alt: 'Twitter Login' }, { src: AppleLogo, alt: 'Apple Login' }, { src: GitHubLogo, alt: 'GitHub Login' }];
 
   return (
     <LogoContainer>
-      {logos.map((logo) => <Logo src={logo} />)}
+      {logos.map((logo) => <Logo src={logo.src} alt={logo.alt} />)}
     </LogoContainer>
   );
 }
