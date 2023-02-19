@@ -30,11 +30,14 @@ const Container = styled.div`
 
 const Modal = styled.div`
   width: 100%;
-  max-width: 30rem;
+  max-width: 20rem;
   height: 100%;
-  max-height: 20rem;
+  max-height: 17rem;
 
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
   position: relative;
   
   background: #87878770;
@@ -44,22 +47,25 @@ const Modal = styled.div`
 const CloseButton = styled.img.attrs({ src: Close, alt: 'Close' })`
   cursor: pointer;
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
 `;
 
 const LogoContainer = styled.div`
   width: 100%;
   height: 10rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  gap: 5px;
 `;
 
 const Logo = styled.img`
   display: block;
-  width: 5rem;
-  height: 5rem;
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
 `;
 
