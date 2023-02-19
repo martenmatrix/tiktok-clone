@@ -1,6 +1,3 @@
-/* eslint-disable */
-// @ts-nocheck
-
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
@@ -13,27 +10,31 @@ const mockAppleLogin = jest.fn();
 const mockGitHubLogin = jest.fn();
 
 test('if isVisible is true modal gets shown', () => {
-    render(<LoginModal isVisible
-        onClose={mockOnClose}
-        onGoogleLogin={mockGoogleLogin}
-        onTwitterLogin={mockTwitterLogin}
-        onAppleLogin={mockAppleLogin}
-        onGitHubLogin={mockGitHubLogin} />);
+  render(<LoginModal
+    isVisible
+    onClose={mockOnClose}
+    onGoogleLogin={mockGoogleLogin}
+    onTwitterLogin={mockTwitterLogin}
+    onAppleLogin={mockAppleLogin}
+    onGitHubLogin={mockGitHubLogin}
+  />);
 
-    const modal = screen.getByRole('dialog');
-    expect(modal).toBeVisible();
+  const modal = screen.getByRole('dialog');
+  expect(modal).toBeVisible();
 });
 
 test('if isVisible is false modal is hidden', () => {
-    render(<LoginModal isVisible={false}
-        onClose={mockOnClose}
-        onGoogleLogin={mockGoogleLogin}
-        onTwitterLogin={mockTwitterLogin}
-        onAppleLogin={mockAppleLogin}
-        onGitHubLogin={mockGitHubLogin} />);
+  render(<LoginModal
+    isVisible={false}
+    onClose={mockOnClose}
+    onGoogleLogin={mockGoogleLogin}
+    onTwitterLogin={mockTwitterLogin}
+    onAppleLogin={mockAppleLogin}
+    onGitHubLogin={mockGitHubLogin}
+  />);
 
-    const modal = screen.getByRole('dialog');
-    expect(modal).not.toBeVisible();
+  const modal = screen.getByRole('dialog');
+  expect(modal).not.toBeVisible();
 });
 
 test.todo('if if close button is clicked onClose() is called');
