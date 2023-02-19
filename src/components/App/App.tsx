@@ -16,6 +16,7 @@ function App(): JSX.Element {
     <MainContainer>
       <GlobalStyle />
       <InteractionButtons onLikeChange={() => {}} isLiked onCommentClick={() => {}} />
+      <LoginModal isVisible onClose={() => {}} />
     </MainContainer>
   );
 }
