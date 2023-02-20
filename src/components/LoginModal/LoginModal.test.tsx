@@ -33,7 +33,7 @@ test('if isVisible is false modal is hidden', () => {
     onGitHubLogin={mockGitHubLogin}
   />);
 
-  const modal = screen.getByRole('dialog');
+  const modal = screen.getByRole('dialog', { hidden: true });
   expect(modal).not.toBeVisible();
 });
 
