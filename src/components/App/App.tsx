@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import GlobalStyle from './globalStyle.js';
-import InteractionButtons from '../InteractionButtons';
-import LoginModal from '../LoginModal';
 
 const MainContainer = styled.div`
   display: block;
@@ -15,8 +13,6 @@ function App(): JSX.Element {
   return (
     <MainContainer>
       <GlobalStyle />
-      <InteractionButtons onLikeChange={() => {}} isLiked onCommentClick={() => {}} />
-      <LoginModal isVisible onClose={() => {}} />
     </MainContainer>
   );
 }
