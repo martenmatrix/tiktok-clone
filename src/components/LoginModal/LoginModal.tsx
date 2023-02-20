@@ -50,7 +50,7 @@ const Modal = styled.div`
   border-radius: 0.5rem;
 `;
 
-const CloseButton = styled.img.attrs({ src: Close, alt: 'Close' })`
+const CloseButton = styled.img.attrs({ src: Close, name: 'Close', role: 'button' })`
   cursor: pointer;
   position: absolute;
   top: 0.5rem;
@@ -98,7 +98,14 @@ function LoginButtons({
 
   return (
     <LogoContainer>
-      {logos.map((logo) => <Logo src={logo.src} alt={logo.alt} onClick={logo.onClick} />)}
+      {logos.map((logo) => (
+        <Logo
+          src={logo.src}
+          alt={logo.alt}
+          onClick={logo.onClick}
+          key={logo.alt}
+        />
+      ))}
     </LogoContainer>
   );
 }
