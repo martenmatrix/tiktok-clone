@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { fadeIn, fadeOut } from '../animations/fade.style';
 import Close from './assets/close.svg';
 import AppleLogo from './assets/apple_logo.svg';
 import GitHubLogo from './assets/github_logo.svg';
@@ -17,7 +18,7 @@ interface LoginModalProps extends LoginFunctions {
   onClose: () => void;
 }
 
-const Container = styled.div`
+const Container = styled.div<{ open: boolean }>`
   width: 100%;
   height: 100%;
   background: #00000025;
@@ -28,6 +29,9 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  animation: 1s ${(props) => ((props.open) ? fadeIn : fadeOut)};
+  visibility: ${(props) => ((props.open) ? 'visible' : 'hidden')};
 `;
 
 const Modal = styled.div`
@@ -114,6 +118,7 @@ function LoginModal({
         if (!(e.target === e.currentTarget)) return;
         onClose();
       }}
+      open={isVisible}
     >
       <Modal>
         <Header>Please login</Header>
