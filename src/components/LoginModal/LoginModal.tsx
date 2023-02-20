@@ -90,10 +90,10 @@ function LoginButtons({
   onAppleLogin,
 }: LoginFunctions): JSX.Element {
   const logos: { src: string, alt: string, onClick: () => void | null }[] = [
-    { src: GoogleLogo, alt: 'Google Login', onClick: onGoogleLogin },
-    { src: TwitterLogo, alt: 'Twitter Login', onClick: onTwitterLogin },
-    { src: AppleLogo, alt: 'Apple Login', onClick: onAppleLogin },
-    { src: GitHubLogo, alt: 'GitHub Login', onClick: onGitHubLogin },
+    { src: GoogleLogo, alt: 'google', onClick: onGoogleLogin },
+    { src: TwitterLogo, alt: 'twitter', onClick: onTwitterLogin },
+    { src: AppleLogo, alt: 'apple', onClick: onAppleLogin },
+    { src: GitHubLogo, alt: 'github', onClick: onGitHubLogin },
   ];
 
   return (
@@ -104,6 +104,8 @@ function LoginButtons({
           alt={logo.alt}
           onClick={logo.onClick}
           key={logo.alt}
+          role="button"
+          aria-label={`login with ${logo.alt}`}
         />
       ))}
     </LogoContainer>
