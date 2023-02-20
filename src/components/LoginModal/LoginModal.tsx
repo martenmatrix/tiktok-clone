@@ -50,7 +50,7 @@ const Modal = styled.div`
   border-radius: 0.5rem;
 `;
 
-const CloseButton = styled.img.attrs({ src: Close, name: 'Close', role: 'button' })`
+const CloseButton = styled.img.attrs({ src: Close, role: 'button', 'aria-label': 'close dialog' })`
   cursor: pointer;
   position: absolute;
   top: 0.5rem;
