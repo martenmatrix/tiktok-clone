@@ -15,7 +15,7 @@ function App(): JSX.Element {
   return (
     <MainContainer>
       <GlobalStyle />
-      <NavigationBar />
+      <NavigationBar onUpload={() => {}} />
     </MainContainer>
   );
 }
