@@ -11,6 +11,9 @@ const NavigationBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+  padding: 1rem;
+
   width: 100%;
   height: 4.75rem;
   border-radius: 0.625rem 0.625rem 0 0;
