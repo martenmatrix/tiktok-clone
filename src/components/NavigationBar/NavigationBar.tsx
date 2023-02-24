@@ -46,7 +46,15 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
 `;
 
 function NavigationBar(): JSX.Element {
-  return <NavigationBarContainer />;
+  return (
+    <NavigationBarContainer>
+      <ExploreButton />
+      <UploadButton>
+        <Icon src={UploadIcon} />
+      </UploadButton>
+      <AccountButton />
+    </NavigationBarContainer>
+  );
 }
 
 export default NavigationBar;
