@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import AccountIcon from './assets/account.svg';
+import ExploreIcon from './assets/explore.svg';
+import UploadIcon from './assets/upload.svg';
 
 const NavigationBarContainer = styled.div`
   position: absolute;
