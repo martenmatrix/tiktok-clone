@@ -12,5 +12,3 @@ test('onUpload gets called when upload button is clicked', async () => {
 
   expect(mockOnUpload).toHaveBeenCalledTimes(1);
 });
-
-export {};
