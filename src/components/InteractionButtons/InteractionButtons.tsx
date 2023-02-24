@@ -18,7 +18,11 @@ export type InteractionButtonsProps = {
   onCommentClick: () => void;
 }
 
-function InteractionButtons({ onLikeChange, isLiked, onCommentClick }: InteractionButtonsProps): JSX.Element {
+function InteractionButtons({
+  onLikeChange,
+  isLiked,
+  onCommentClick,
+}: InteractionButtonsProps): JSX.Element {
   return (
     <Container>
       <ProfileButton />
