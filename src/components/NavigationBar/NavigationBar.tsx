@@ -20,6 +20,31 @@ const NavigationBarContainer = styled.div`
   background: #87878750;
 `;
 
+const UploadButton = styled.div.attrs({ role: 'button', 'aria-label': 'upload video' })`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #00000040;
+  width: 76px;
+  height: 43px;
+  border-radius: 0.625rem;
+  cursor: pointer;
+`;
+
+const Icon = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+const ExploreButton = styled(Icon).attrs({ src: ExploreIcon, role: 'button', 'aria-label': 'go to explore page' })`
+  cursor: pointer;
+`;
+
+const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'aria-label': 'go to account settings' })`
+  cursor: pointer;
+`;
+
 function NavigationBar(): JSX.Element {
   return <NavigationBarContainer />;
 }
