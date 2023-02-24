@@ -3,6 +3,10 @@ import AccountIcon from './assets/account.svg';
 import ExploreIcon from './assets/explore.svg';
 import UploadIcon from './assets/upload.svg';
 
+type NavigationBarType = {
+  onUpload: () => void,
+}
+
 const NavigationBarContainer = styled.div`
   position: absolute;
   bottom: 0;
@@ -45,11 +49,11 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
   cursor: pointer;
 `;
 
-function NavigationBar(): JSX.Element {
+function NavigationBar({ onUpload }: NavigationBarType): JSX.Element {
   return (
     <NavigationBarContainer>
       <ExploreButton />
-      <UploadButton>
+      <UploadButton onClick={onUpload}>
         <Icon src={UploadIcon} />
       </UploadButton>
       <AccountButton />
