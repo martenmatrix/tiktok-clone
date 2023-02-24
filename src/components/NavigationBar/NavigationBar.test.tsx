@@ -8,7 +8,7 @@ test('onUpload gets called when upload button is clicked', async () => {
 
   render(<NavigationBar onUpload={mockOnUpload} />);
   const uploadButton = screen.getByRole('button', { name: 'upload video' });
-  user.click(uploadButton);
+  await user.click(uploadButton);
 
   expect(mockOnUpload).toHaveBeenCalledTimes(1);
 });
