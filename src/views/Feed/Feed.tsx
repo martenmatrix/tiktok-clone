@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, useCallback } from 'react';
 import InteractionButtons from '../../components/InteractionButtons';
+import SampleVideo from './assets/sample1.mp4';
 
 const FeedContainer = styled.div`
   position: relative;
@@ -8,8 +9,13 @@ const FeedContainer = styled.div`
   height: 100%;
 `;
 
-const VideoContainer = styled.div`
-  display: flex;
+// unable to pass muted attribute here, because following bug: https://github.com/facebook/react/issues/10389
+const VideoContainer = styled.video.attrs({
+  controls: false, autoPlay: true, loop: true,
+})`
+  display: block;
+  width: 100%;
+  height: 100%;
 `;
 
 const InteractionButtonsMidRight = styled(InteractionButtons)`
@@ -33,7 +39,9 @@ function Feed(): JSX.Element {
         onCommentClick={() => {}}
         onLikeChange={handleLikeChange}
       />
-      <VideoContainer />
+      <VideoContainer muted>
+        <source src={SampleVideo} type="video/mp4" />
+      </VideoContainer>
     </FeedContainer>
   );
 }
