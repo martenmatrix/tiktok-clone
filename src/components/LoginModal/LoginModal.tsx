@@ -43,7 +43,7 @@ const Modal = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: space-between;
+  align-content: space-between;
   position: relative;
   
   background: #87878770;
