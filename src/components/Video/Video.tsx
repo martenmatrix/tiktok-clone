@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {useState, useCallback, useEffect} from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import InteractionButtons from '../InteractionButtons';
 import LoadingVideo from './assets/sample1.mp4';
 
