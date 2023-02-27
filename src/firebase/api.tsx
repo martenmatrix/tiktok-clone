@@ -6,4 +6,8 @@ async function fetchVideoLikeStatus(id: number): Promise<boolean> {
   return false;
 }
 
-export { fetchVideo, fetchVideoLikeStatus };
+async function setLikeStatus(id: number, liked: boolean): Promise<void> {
+  console.log('liked');
+}
+
+export { fetchVideo, fetchVideoLikeStatus, setLikeStatus };
