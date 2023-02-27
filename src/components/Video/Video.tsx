@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useCallback } from 'react';
+import {useState, useCallback, useEffect} from 'react';
 import InteractionButtons from '../InteractionButtons';
 import SampleVideo from './assets/sample1.mp4';
 
@@ -26,12 +26,26 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
   z-index: 1;
 `;
 
-function Video(): JSX.Element {
+function Video({ id }: VideoType): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [videoURL, setVideoURL] = useState<string>(LoadingVideo);
 
   const handleLikeChange = useCallback(() => {
     setIsLiked(!isLiked);
   }, [isLiked]);
+
+  function getVideo(): void {
+    setVideoURL(LoadingVideo);
+  }
+
+  function getLikeStatus(): void {
+    setIsLiked(true);
+  }
+
+  useEffect(() => {
+    getVideo();
+    getLikeStatus();
+  }, []);
 
   return (
     <ContentContainer>
@@ -41,7 +55,7 @@ function Video(): JSX.Element {
         onLikeChange={handleLikeChange}
       />
       <VideoContainer muted>
-        <source src={SampleVideo} type="video/mp4" />
+        <source src={videoURL} type="video/mp4" />
       </VideoContainer>
     </ContentContainer>
   );
