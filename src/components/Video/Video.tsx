@@ -66,7 +66,7 @@ function Video({ id }: VideoType): JSX.Element {
         onLikeChange={handleLikeChange}
       />
       <VideoContainer muted>
-        <source src={videoURL} type="video/mp4" />
+        <source src={videoURL} type="video/mp4" data-testid="source-element" />
       </VideoContainer>
     </ContentContainer>
   );
