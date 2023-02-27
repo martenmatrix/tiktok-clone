@@ -4,7 +4,7 @@ import InteractionButtons from '../InteractionButtons';
 import LoadingVideo from './assets/sample1.mp4';
 
 type VideoType = {
-  id: string
+  id: number
 }
 
 const ContentContainer = styled.div`
