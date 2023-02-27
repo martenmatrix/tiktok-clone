@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useCallback, useEffect } from 'react';
 import InteractionButtons from '../InteractionButtons';
-import { fetchVideo, fetchVideoLikeStatus } from '../../firebase/api';
+import { fetchVideo, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
 import LoadingVideo from './assets/sample1.mp4';
 
 type VideoType = {
@@ -35,9 +35,10 @@ function Video({ id }: VideoType): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>(LoadingVideo);
 
-  const handleLikeChange = useCallback(() => {
+  const handleLikeChange = useCallback(async () => {
     setIsLiked(!isLiked);
-  }, [isLiked]);
+    await setLikeStatus(id, isLiked);
+  }, [id, isLiked]);
 
   async function getVideo(): Promise<void> {
     const newVideoURL: string = await fetchVideo(id);
