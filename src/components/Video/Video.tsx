@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {useState, useCallback, useEffect} from 'react';
 import InteractionButtons from '../InteractionButtons';
-import SampleVideo from './assets/sample1.mp4';
+import LoadingVideo from './assets/sample1.mp4';
 
 const ContentContainer = styled.div`
   position: relative;
