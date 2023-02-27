@@ -1,8 +1,8 @@
-function fetchVideo(id: number): string {
+async function fetchVideo(id: number): Promise<string> {
   return 'ERROR';
 }
 
-function fetchVideoLikeStatus(id: number): boolean {
+async function fetchVideoLikeStatus(id: number): Promise<boolean> {
   return false;
 }
 
