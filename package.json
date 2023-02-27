@@ -24,8 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "emulate": "ttab -t 'Starting emulators...' firebase emulators:start",
-    "serve:dev": "npm run start & npm run emulate"
+    "emulate": "firebase emulators:start",
+    "openEmulatorUI": "open http://localhost:4000"
   },
   "browserslist": {
     "production": [
@@ -49,7 +49,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.30.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "ttab": "^0.8.0"
+    "eslint-plugin-react-hooks": "^4.6.0"
   }
 }
