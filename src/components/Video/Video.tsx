@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useState, useCallback, useEffect } from 'react';
 import InteractionButtons from '../InteractionButtons';
 import { fetchVideo, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
-import LoadingVideo from './assets/sample1.mp4';
 
 type VideoType = {
   id: number
@@ -33,7 +32,7 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
 
 function Video({ id }: VideoType): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const [videoURL, setVideoURL] = useState<string>(LoadingVideo);
+  const [videoURL, setVideoURL] = useState<string>('');
 
   const handleLikeChange = useCallback(async () => {
     setIsLiked(!isLiked);
