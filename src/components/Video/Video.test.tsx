@@ -28,12 +28,15 @@ test('if video is liked likeStatus is set correctly and setLikeStatus is called 
   const user = userEvent.setup();
   const likeButton = screen.getByRole('button', { name: 'Like' });
 
+  // mocked function in line 16 updates like state to true
+  await waitFor(() => expect(likeButton).toHaveAttribute('aria-pressed', 'true'));
+
   await act(async () => {
     await user.click(likeButton);
   });
 
-  expect(likeButton).toHaveAttribute('aria-pressed', 'true');
-  expect(mockSetLikeStatus).toHaveBeenCalledWith(5, true);
+  expect(likeButton).toHaveAttribute('aria-pressed', 'false');
+  expect(mockSetLikeStatus).toHaveBeenCalledWith(5, false);
 });
 
 test('calls fetchVideo with correct id and sets response as video src', async () => {
