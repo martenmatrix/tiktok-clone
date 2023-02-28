@@ -4,21 +4,25 @@ import {
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Video from './Video';
+import { fetchVideo, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
 
-const mockFetchVideo = jest.fn().mockReturnValue(Promise.resolve('https://example.com/video.mp4'));
-const mockFetchVideoLikeStatus = jest.fn().mockReturnValue(Promise.resolve(true));
-const mockSetLikeStatus = jest.fn().mockReturnValue(Promise.resolve());
-jest.mock('../../firebase/api', () => {
-  const originalModule = jest.requireActual('../../firebase/api');
+jest.mock('../../firebase/api');
+const mockFetchVideo = fetchVideo as jest.MockedFunction<typeof fetchVideo>;
+// eslint-disable-next-line max-len
+const mockFetchVideoLikeStatus = fetchVideoLikeStatus as jest.MockedFunction<typeof fetchVideoLikeStatus>;
+const mockSetLikeStatus = setLikeStatus as jest.MockedFunction<typeof setLikeStatus>;
 
-  return {
-    __esModule: true,
-    ...originalModule,
-    fetchVideo: (...args: any[]) => mockFetchVideo(...args),
-    fetchVideoLikeStatus: (...args: any[]) => mockFetchVideoLikeStatus(...args),
-    setLikeStatus: (...args: any[]) => mockSetLikeStatus(...args),
-  };
+beforeEach(() => {
+  mockFetchVideo.mockResolvedValue('https://example.com/video.mp4');
+  mockFetchVideoLikeStatus.mockResolvedValue(true);
 });
+
+afterEach(() => {
+  mockFetchVideo.mockClear();
+  mockFetchVideoLikeStatus.mockClear();
+  mockSetLikeStatus.mockClear();
+});
+
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
   render(<Video id={5} />);
   const user = userEvent.setup();
