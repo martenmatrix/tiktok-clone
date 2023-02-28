@@ -43,4 +43,11 @@ test('calls fetchVideo with correct id and sets response as video src', async ()
   expect(mockFetchVideo).toHaveBeenCalledWith(2);
   await waitFor(() => expect(video).toHaveAttribute('src', 'https://example.com/video.mp4'));
 });
-test.todo('calls fetchLikeStatus with correct and id and sets response as like status');
+
+test('calls fetchLikeStatus with correct and id and sets response as like status', async () => {
+  render(<Video id={1} />);
+  const likeButton = screen.getByRole('button', { name: 'Like' });
+
+  expect(mockFetchVideoLikeStatus).toHaveBeenCalledWith(1);
+  await waitFor(() => expect(likeButton).toHaveAttribute('aria-pressed', 'true'));
+});
