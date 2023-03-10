@@ -1,23 +1,24 @@
 import styled from 'styled-components';
-import InteractionButtons from '../InteractionButtons';
+import GlobalStyle from './globalStyle.js';
+import NavigationBar from '../NavigationBar';
+import Video from '../Video';
 
-const AppContainer = styled.div`
-  width: 100%;
+const MainContainer = styled.div`
+  display: block;
+  position: relative;
   height: 100%;
-  max-width: 16rem;
-  
+  width: 100%;
+  max-width: 50rem;
   margin: 0 auto;
 `;
 
 function App(): JSX.Element {
   return (
-    <AppContainer>
-      <InteractionButtons
-        onLikeChange={() => undefined}
-        isLiked
-        onCommentClick={() => undefined}
-      />
-    </AppContainer>
+    <MainContainer>
+      <GlobalStyle />
+      <Video />
+      <NavigationBar onUpload={() => {}} />
+    </MainContainer>
   );
 }
 

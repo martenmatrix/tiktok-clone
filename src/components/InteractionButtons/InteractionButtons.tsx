@@ -13,16 +13,20 @@ const Container = styled.div`
 `;
 
 export type InteractionButtonsProps = {
-  profileId: string;
+  className?: string,
   onLikeChange: () => void;
   isLiked: boolean;
   onCommentClick: () => void;
 }
 
-function InteractionButtons({ onLikeChange, isLiked, onCommentClick }: InteractionButtonsProps):
-  JSX.Element {
+function InteractionButtons({
+  className,
+  onLikeChange,
+  isLiked,
+  onCommentClick,
+}: InteractionButtonsProps): JSX.Element {
   return (
-    <Container>
+    <Container className={className}>
       <ProfileButton />
       <LikeButton {...{ onChange: onLikeChange, isLiked }} />
       <CommentButton onClick={onCommentClick} />
@@ -30,5 +34,9 @@ function InteractionButtons({ onLikeChange, isLiked, onCommentClick }: Interacti
     </Container>
   );
 }
+
+InteractionButtons.defaultProps = {
+  className: '',
+};
 
 export default InteractionButtons;
