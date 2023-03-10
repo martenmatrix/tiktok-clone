@@ -34,6 +34,7 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
 function Video({ id }: VideoType): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>(LoadingVideo);
+  const [profileId, setProfileId] = useState<string>('');
 
   const handleLikeChange = useCallback(async () => {
     setIsLiked(!isLiked);
@@ -61,6 +62,7 @@ function Video({ id }: VideoType): JSX.Element {
   return (
     <ContentContainer>
       <InteractionButtonsMidRight
+        profileId={profileId}
         isLiked={isLiked}
         onCommentClick={() => {}}
         onLikeChange={handleLikeChange}
