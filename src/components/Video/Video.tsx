@@ -55,7 +55,9 @@ function Video({ id }: VideoType): JSX.Element {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line no-alert
     getVideo().catch((e) => alert(e));
+    // eslint-disable-next-line no-alert
     getLikeStatus().catch((e) => alert(e));
   }, []);
 
