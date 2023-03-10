@@ -15,7 +15,7 @@ function renderInteractionButtons(props: Partial<InteractionButtonsProps> = {}) 
   render(<InteractionButtons {...defaultProps} {...props} />);
 }
 
-test.skip('provided username links to profile', () => {
+test('provided username links to profile', () => {
   renderInteractionButtons();
   const profilePictureButton = screen.getByRole('button', { name: 'Go to profile' });
   expect(profilePictureButton.dataset.to).toBe('peter_baller187');
