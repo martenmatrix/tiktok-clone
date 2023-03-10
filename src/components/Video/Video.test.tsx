@@ -14,9 +14,9 @@ jest.mock('../../firebase/api', () => {
   return {
     __esModule: true,
     ...originalModule,
-    fetchVideo: (...args) => mockFetchVideo(...args),
-    fetchVideoLikeStatus: (...args) => mockFetchVideoLikeStatus(...args),
-    setLikeStatus: (...args) => mockSetLikeStatus(...args),
+    fetchVideo: (...args: any[]) => mockFetchVideo(...args),
+    fetchVideoLikeStatus: (...args: any[]) => mockFetchVideoLikeStatus(...args),
+    setLikeStatus: (...args: any[]) => mockSetLikeStatus(...args),
   };
 });
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
