@@ -1,6 +1,4 @@
 import { initializeApp } from 'firebase/app';
-import inDevEnvironment from './inDevEnvironment';
-import createDevEnvironment from './createDevEnvironment';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA-2SqpVNiMlmVKplqZIswTpvgcGCF9rVY',
@@ -13,8 +11,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-if (inDevEnvironment()) {
-  createDevEnvironment();
-}
 
 export default app;
