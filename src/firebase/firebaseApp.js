@@ -1,6 +1,8 @@
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
+import createDevEnvironment from './createDevEnvironment';
 import inDevEnvironment from './inDevEnvironment';
 
 const firebaseConfig = {
@@ -14,12 +16,18 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
 if (inDevEnvironment()) {
+  console.warn('Operating in development environment.');
+  connectAuthEmulator(auth, 'http://localhost:4000');
   connectStorageEmulator(storage, 'localhost', 9199);
   connectFirestoreEmulator(db, 'localhost', 8080);
+  createDevEnvironment().catch((e) => console.warn(`Unable to create dev environment: ${e}.`));
 }
 
-export { app, db, storage };
+export {
+  app, auth, db, storage,
+};

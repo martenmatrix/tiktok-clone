@@ -1,23 +1,15 @@
 import {
-  getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInAnonymously,
-  connectAuthEmulator,
 } from 'firebase/auth';
-import inDevEnvironment from './inDevEnvironment';
-import app from './firebaseApp.js';
+import { auth } from './firebaseApp.js';
 
-console.log(app); // needed, otherwise app won't be initialized
 const providerGoogle = new GoogleAuthProvider();
 const providerGithub = new GithubAuthProvider();
-const auth = getAuth();
-if (inDevEnvironment()) {
-  connectAuthEmulator(auth, 'http://localhost:4000');
-}
 async function loginWithGoogle(): Promise<void> {
   await signInWithPopup(auth, providerGoogle);
 }
