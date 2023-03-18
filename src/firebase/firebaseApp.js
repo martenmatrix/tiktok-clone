@@ -21,8 +21,7 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 if (inDevEnvironment()) {
-  console.warn('Operating in development environment.');
-  connectAuthEmulator(auth, 'http://localhost:4000');
+  connectAuthEmulator(auth, 'http://localhost:9099');
   connectStorageEmulator(storage, 'localhost', 9199);
   connectFirestoreEmulator(db, 'localhost', 8080);
   createDevEnvironment().catch((e) => console.warn(`Unable to create dev environment: ${e}.`));
