@@ -1,6 +1,6 @@
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import inDevEnvironment from './inDevEnvironment';
-import app from './initialize.js';
+import app from './firebaseApp.js';
 
 const db = getFirestore(app);
 if (inDevEnvironment()) {

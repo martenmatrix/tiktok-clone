@@ -9,7 +9,7 @@ import {
   connectAuthEmulator,
 } from 'firebase/auth';
 import inDevEnvironment from './inDevEnvironment';
-import app from './initialize.js';
+import app from './firebaseApp.js';
 
 console.log(app); // needed, otherwise app won't be initialized
 const providerGoogle = new GoogleAuthProvider();

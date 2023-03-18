@@ -1,5 +1,5 @@
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
-import app from './initialize.js';
+import app from './firebaseApp.js';
 import inDevEnvironment from './inDevEnvironment';
 
 const storage = getStorage(app);
