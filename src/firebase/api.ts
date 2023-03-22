@@ -1,6 +1,6 @@
 import { ref, uploadBytes } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
-import { v5 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { db, storage } from './firebaseApp.js';
 
 async function fetchVideo(id: number): Promise<string> {
