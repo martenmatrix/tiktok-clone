@@ -31,5 +31,5 @@ async function uploadVideo(source: File | Blob): Promise<void> {
 }
 
 export {
-  fetchVideo, fetchVideoLikeStatus, setLikeStatus, uploadVideo
+  fetchVideo, fetchVideoLikeStatus, setLikeStatus, uploadVideo,
 };
