@@ -16,7 +16,10 @@ async function setLikeStatus(id: number, liked: boolean): Promise<void> {
 }
 
 async function uploadVideo(source: File | Blob): Promise<void> {
-  const storageRef = ref(storage, `videos/${uuid()}`);
+  if (!auth.currentUser) return;
+
+  const videoId = uuid();
+  const storageRef = ref(storage, `videos/${videoId}`);
   await uploadBytes(storageRef, source);
 
   await addDoc(collection(db, 'videos'), {
