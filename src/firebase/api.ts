@@ -23,9 +23,8 @@ async function uploadVideo(source: File | Blob): Promise<void> {
   await uploadBytes(storageRef, source);
 
   await addDoc(collection(db, 'videos'), {
-    totalLikes: 0,
-    likedBy: [],
-    storageRef,
+    author: auth.currentUser.uid,
+    videoId,
   });
 }
 
