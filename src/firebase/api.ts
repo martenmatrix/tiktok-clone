@@ -1,10 +1,12 @@
-import { ref, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytes, getBlob } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
-import { db, storage } from './firebaseApp.js';
+import { auth, db, storage } from './firebaseApp.js';
 
-async function fetchVideo(id: number): Promise<string> {
-  return 'ERROR';
+async function fetchVideo(id: string): Promise<Blob> {
+  const pathReference = ref(storage, `videos/${id}`);
+  const videoBlob: Blob = await getBlob(pathReference);
+  return videoBlob;
 }
 
 async function fetchVideoLikeStatus(id: number): Promise<boolean> {
