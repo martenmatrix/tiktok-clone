@@ -1,5 +1,5 @@
-import { ref } from 'firebase/storage';
-import { collection, addDoc, uploadBytes } from 'firebase/firestore';
+import { ref, uploadBytes } from 'firebase/storage';
+import { collection, addDoc } from 'firebase/firestore';
 import { v5 as uuid } from 'uuid';
 import { db, storage } from './firebaseApp.js';
 
