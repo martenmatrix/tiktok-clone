@@ -15,7 +15,7 @@ async function setLikeStatus(id: number, liked: boolean): Promise<void> {
   console.log('liked');
 }
 
-async function uploadVideo(source: string): Promise<void> {
+async function uploadVideo(source: File | Blob): Promise<void> {
   const storageRef = ref(storage, `videos/${uuid()}`);
   await uploadBytes(storageRef, source);
 
