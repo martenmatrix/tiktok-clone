@@ -23,13 +23,9 @@ async function uploadSampleVideos(): Promise<void> {
   const videoBlob2 = new Blob([sample2], { type: 'video/mp4' });
   const videoBlob3 = new Blob([sample3], { type: 'video/mp4' });
 
-  try {
-    await uploadVideo(videoBlob1);
-    await uploadVideo(videoBlob2);
-    await uploadVideo(videoBlob3);
-  } catch (e) {
-    console.warn('Unable to upload sample videos.');
-  }
+  await uploadVideo(videoBlob1);
+  await uploadVideo(videoBlob2);
+  await uploadVideo(videoBlob3);
 }
 
 async function createDevEnvironment(): Promise<void> {
