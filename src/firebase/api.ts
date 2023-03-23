@@ -1,14 +1,13 @@
-import { ref, uploadBytes, getBlob } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
   collection, addDoc, query, getDocs,
 } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 import { auth, db, storage } from './firebaseApp.js';
 
-async function fetchVideo(id: string): Promise<Blob> {
+async function getVideoURL(id: string): Promise<string> {
   const pathReference = ref(storage, `videos/${id}`);
-  const videoBlob: Blob = await getBlob(pathReference);
-  return videoBlob;
+  return getDownloadURL(pathReference);
 }
 
 async function fetchVideoLikeStatus(id: number): Promise<boolean> {
@@ -40,5 +39,5 @@ async function getAllVideoIds(): Promise<string[]> {
 }
 
 export {
-  fetchVideo, fetchVideoLikeStatus, setLikeStatus, uploadVideo, getAllVideoIds,
+  getVideoURL, fetchVideoLikeStatus, setLikeStatus, uploadVideo, getAllVideoIds,
 };
