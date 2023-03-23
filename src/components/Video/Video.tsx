@@ -4,7 +4,7 @@ import InteractionButtons from '../InteractionButtons';
 import { fetchVideo, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
 
 type VideoType = {
-  id: number
+  id: string
 }
 
 const ContentContainer = styled.div`
