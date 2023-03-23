@@ -1,5 +1,7 @@
 import { ref, uploadBytes, getBlob } from 'firebase/storage';
-import { collection, addDoc } from 'firebase/firestore';
+import {
+  collection, addDoc, query, getDocs,
+} from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 import { auth, db, storage } from './firebaseApp.js';
 
@@ -29,6 +31,13 @@ async function uploadVideo(source: File | Blob): Promise<void> {
     viewedBy: [],
     videoId,
   });
+}
+
+async function getAllVideoIds(): Promise<string[]> {
+  const ids: string[] = [];
+  const querySnapshot = await getDocs(query(collection(db, 'videos')));
+  querySnapshot.forEach((doc) => ids.push(doc.data().videoId));
+  return ids;
 }
 
 export {
