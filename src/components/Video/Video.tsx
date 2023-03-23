@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useCallback, useEffect } from 'react';
 import InteractionButtons from '../InteractionButtons';
-import { fetchVideo, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
+import { getVideoURL, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
 
 type VideoType = {
   id: string
@@ -44,7 +44,7 @@ function Video({ id }: VideoType): JSX.Element {
   }, [isLiked]);
 
   async function getVideo(): Promise<void> {
-    const newVideoURL: string = await fetchVideo(id);
+    const newVideoURL: string = await getVideoURL(id);
     setVideoURL(newVideoURL);
   }
 
