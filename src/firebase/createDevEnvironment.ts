@@ -3,7 +3,7 @@
  * so that the application can be used without
  * manipulating the real database.
  */
-import sample1 from './assets/sample1.mp4';
+import sample1 from './assets/sample1.base64.txt';
 import sample2 from './assets/sample2.mp4';
 import sample3 from './assets/sample3.mp4';
 import { loginWithMail, registerWithMail } from './login';
@@ -19,7 +19,7 @@ async function createFakeUsers(): Promise<void> {
 }
 
 async function uploadSampleVideos(): Promise<void> {
-  const videoBlob1 = new Blob([sample1], { type: 'video/mp4' });
+  const videoBlob1 = new File([sample1], 'sample1');
   const videoBlob2 = new Blob([sample2], { type: 'video/mp4' });
   const videoBlob3 = new Blob([sample3], { type: 'video/mp4' });
 
