@@ -40,5 +40,5 @@ async function getAllVideoIds(): Promise<string[]> {
 }
 
 export {
-  fetchVideo, fetchVideoLikeStatus, setLikeStatus, uploadVideo,
+  fetchVideo, fetchVideoLikeStatus, setLikeStatus, uploadVideo, getAllVideoIds,
 };
