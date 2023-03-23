@@ -26,6 +26,7 @@ async function uploadVideo(source: File | Blob): Promise<void> {
 
   await addDoc(collection(db, 'videos'), {
     author: auth.currentUser.uid,
+    viewedBy: [],
     videoId,
   });
 }
