@@ -3,6 +3,8 @@
  * so that the application can be used without
  * manipulating the real database.
  */
+// eslint-disable-next-line max-len
+// TODO: Do these imports cost performance or does the bundler recognize that it can ignore those imports in production?
 import sample1 from './assets/sample1.base64.js';
 import sample2 from './assets/sample2.base64.js';
 import sample3 from './assets/sample3.base64.js';
