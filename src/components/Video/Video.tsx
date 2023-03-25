@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { useState, useCallback, useEffect } from 'react';
+import {
+  useState, useCallback, useEffect, useRef,
+} from 'react';
 import InteractionButtons from '../InteractionButtons';
 import { getVideoURL, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
 
@@ -14,9 +16,9 @@ const ContentContainer = styled.div`
 `;
 
 // unable to pass muted attribute here, because following bug: https://github.com/facebook/react/issues/10389
-const VideoContainer = styled.video.attrs({
-  controls: true, autoPlay: true, loop: true, playsInline: true,
-})`
+const VideoContainer = styled.video.attrs((ref) => ({
+  controls: true, autoPlay: true, loop: true, playsInline: true, ref,
+}))`
   display: block;
   width: 100%;
   height: 100%;
@@ -31,6 +33,8 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
 `;
 
 function Video({ id }: VideoType): JSX.Element {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>('');
   const [profileId, setProfileId] = useState<string>('');
@@ -60,6 +64,12 @@ function Video({ id }: VideoType): JSX.Element {
     getLikeStatus().catch((e) => alert(e));
   }, []);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [videoURL]);
+
   return (
     <ContentContainer>
       <InteractionButtonsMidRight
@@ -68,7 +78,7 @@ function Video({ id }: VideoType): JSX.Element {
         onCommentClick={() => {}}
         onLikeChange={handleLikeChange}
       />
-      <VideoContainer muted>
+      <VideoContainer muted ref={videoRef}>
         <source src={videoURL} type="video/mp4" data-testid="source-element" />
       </VideoContainer>
     </ContentContainer>
