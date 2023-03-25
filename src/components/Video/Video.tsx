@@ -17,7 +17,7 @@ const ContentContainer = styled.div`
 
 // unable to pass muted attribute here, because following bug: https://github.com/facebook/react/issues/10389
 const VideoContainer = styled.video.attrs((ref) => ({
-  controls: true, autoPlay: true, loop: true, playsInline: true, ref,
+  controls: false, autoPlay: true, loop: true, playsInline: true, ref,
 }))`
   display: block;
   width: 100%;
