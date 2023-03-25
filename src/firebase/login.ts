@@ -1,34 +1,23 @@
 import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  GithubAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInAnonymously,
 } from 'firebase/auth';
-import { auth } from './firebaseApp.js';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth, db } from './firebaseApp.js';
 
-const providerGoogle = new GoogleAuthProvider();
-const providerGithub = new GithubAuthProvider();
-async function loginWithGoogle(): Promise<void> {
-  await signInWithPopup(auth, providerGoogle);
-}
-
-async function loginWithGitHub(): Promise<void> {
-  await signInWithPopup(auth, providerGithub);
+async function createUserDBEntry(userId: string): Promise<void> {
+  const userCollection = collection(db, 'users', userId);
+  await addDoc(userCollection, { profilePicture: 'undefined' });
 }
 
 async function registerWithMail(mail: string, password: string): Promise<void> {
   await createUserWithEmailAndPassword(auth, mail, password);
+  if (auth.currentUser) await createUserDBEntry(auth.currentUser.uid);
 }
 async function loginWithMail(mail: string, password: string) {
   await signInWithEmailAndPassword(auth, mail, password);
 }
 
-async function loginAnonymous() {
-  await signInAnonymously(auth);
-}
-
 export {
-  loginWithGoogle, loginWithGitHub, registerWithMail, loginWithMail, loginAnonymous,
+  registerWithMail, loginWithMail,
 };
