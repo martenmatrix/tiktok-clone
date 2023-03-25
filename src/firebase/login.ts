@@ -2,17 +2,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 import { auth, db } from './firebaseApp.js';
 
 async function createUserDBEntry(userId: string): Promise<void> {
-  const userCollection = collection(db, 'users', userId);
-  await addDoc(userCollection, { profilePicture: 'undefined' });
+  const userDoc = doc(db, 'users', userId);
+  await setDoc(userDoc, { profilePicture: 'undefined' });
 }
 
 async function registerWithMail(mail: string, password: string): Promise<void> {
-  await createUserWithEmailAndPassword(auth, mail, password);
-  if (auth.currentUser) await createUserDBEntry(auth.currentUser.uid);
+  const response = await createUserWithEmailAndPassword(auth, mail, password);
+  await createUserDBEntry(response.user.uid);
 }
 async function loginWithMail(mail: string, password: string) {
   await signInWithEmailAndPassword(auth, mail, password);
