@@ -3,7 +3,7 @@ import {
   useState, useCallback, useEffect, useRef,
 } from 'react';
 import InteractionButtons from '../InteractionButtons';
-import { getVideoURL, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
+import { getVideoURL, hasLiked, setLikeStatus } from '../../firebase/api';
 
 type VideoType = {
   id: string
@@ -53,7 +53,7 @@ function Video({ id }: VideoType): JSX.Element {
   }
 
   async function getLikeStatus(): Promise<void> {
-    const likeStatus: boolean = await fetchVideoLikeStatus(id);
+    const likeStatus: boolean = await hasLiked(id);
     setIsLiked(likeStatus);
   }
 

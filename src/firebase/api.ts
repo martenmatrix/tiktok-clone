@@ -1,6 +1,6 @@
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
-  collection, addDoc, query, getDocs,
+  collection, getDoc, addDoc, setDoc, deleteDoc, query, getDocs, doc,
 } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 import { auth, db, storage } from './firebaseApp.js';
@@ -10,12 +10,26 @@ async function getVideoURL(id: string): Promise<string> {
   return getDownloadURL(pathReference);
 }
 
-async function fetchVideoLikeStatus(id: number): Promise<boolean> {
+async function hasLiked(id: string): Promise<boolean> {
+  if (auth.currentUser) {
+    const userDoc = doc(db, 'users', auth.currentUser.uid);
+    const likeDoc = doc(userDoc, id);
+    const snapshot = await getDoc(likeDoc);
+    return snapshot.exists();
+  }
   return false;
 }
 
-async function setLikeStatus(id: number, liked: boolean): Promise<void> {
-  console.log('liked');
+async function setLikeStatus(id: string, liked: boolean): Promise<void> {
+  if (!auth.currentUser) return;
+  const userDoc = doc(db, 'users', auth.currentUser.uid);
+  const likeCollectionRef = collection(userDoc, 'likes');
+  const likeDoc = doc(likeCollectionRef, id);
+  if (liked) {
+    await setDoc(likeDoc, { likedAt: Date.now() });
+  } else {
+    await deleteDoc(likeDoc);
+  }
 }
 
 async function uploadVideo(source: File | Blob): Promise<void> {
@@ -34,10 +48,10 @@ async function uploadVideo(source: File | Blob): Promise<void> {
 async function getAllVideoIds(): Promise<string[]> {
   const ids: string[] = [];
   const querySnapshot = await getDocs(query(collection(db, 'videos')));
-  querySnapshot.forEach((doc) => ids.push(doc.data().videoId));
+  querySnapshot.forEach((document) => ids.push(document.data().videoId));
   return ids;
 }
 
 export {
-  getVideoURL, fetchVideoLikeStatus, setLikeStatus, uploadVideo, getAllVideoIds,
+  getVideoURL, hasLiked, setLikeStatus, uploadVideo, getAllVideoIds,
 };
