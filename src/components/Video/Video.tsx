@@ -44,7 +44,8 @@ function Video({ id }: VideoType): JSX.Element {
   }, [id, isLiked]);
 
   useEffect(() => {
-    setLikeStatus(id, isLiked);
+    // eslint-disable-next-line no-alert
+    setLikeStatus(id, isLiked).catch((e) => alert(e));
   }, [isLiked]);
 
   async function getVideo(): Promise<void> {
