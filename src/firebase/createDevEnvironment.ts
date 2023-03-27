@@ -8,14 +8,17 @@
 import sample1 from './assets/sample1.base64.js';
 import sample2 from './assets/sample2.base64.js';
 import sample3 from './assets/sample3.base64.js';
+import profilePic from './assets/profilePic.base64.js';
 import { loginWithMail, registerWithMail } from './login';
-import { uploadVideo } from './api';
+import { uploadVideo, setProfilePicture } from './api';
 
 async function createFakeUsers(): Promise<void> {
   try {
     await registerWithMail('peter@example.org', 'einszweidreivier');
     await registerWithMail('parker@example.org', 'totallysafe');
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(`Unable to create accounts. Already created? ${e}`);
     await loginWithMail('parker@example.org', 'totallysafe');
   }
 }
@@ -39,9 +42,16 @@ async function uploadSampleVideos(): Promise<void> {
   await uploadVideo(videoBlob3);
 }
 
+async function uploadProfilePicture(): Promise<void> {
+  const profilePicRes = await fetch(profilePic);
+  const profilePicBlob = await profilePicRes.blob();
+  await setProfilePicture(profilePicBlob);
+}
+
 async function createDevEnvironment(): Promise<void> {
   await createFakeUsers();
   await uploadSampleVideos();
+  await uploadProfilePicture();
 }
 
 export default createDevEnvironment;
