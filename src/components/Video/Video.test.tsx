@@ -4,7 +4,9 @@ import {
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Video from './Video';
-import { getVideoURL, hasLiked, setLikeStatus } from '../../firebase/api';
+import {
+  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
+} from '../../firebase/api';
 
 jest.mock('../../firebase/api');
 const mockGetVideoURL = getVideoURL as jest.MockedFunction<typeof getVideoURL>;
