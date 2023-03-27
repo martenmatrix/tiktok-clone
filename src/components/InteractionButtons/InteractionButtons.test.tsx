@@ -6,6 +6,7 @@ import InteractionButtons, { InteractionButtonsProps } from './InteractionButton
 function renderInteractionButtons(props: Partial<InteractionButtonsProps> = {}) {
   const defaultProps: InteractionButtonsProps = {
     profileId: 'peter_baller187',
+    profilePictureURL: 'https://www.example.org',
     onLikeChange: () => {},
     isLiked: true,
     onCommentClick: () => {},
@@ -19,6 +20,12 @@ test('provided username links to profile', () => {
   renderInteractionButtons();
   const profilePictureButton = screen.getByRole('button', { name: 'Go to profile' });
   expect(profilePictureButton.dataset.to).toBe('peter_baller187');
+});
+
+test('provided imageURL gets set on image container as src', () => {
+  renderInteractionButtons();
+  const profilePictureContainer = screen.getByAltText('Profile picture');
+  expect(profilePictureContainer).toHaveAttribute('src', 'https://www.example.org');
 });
 
 test('onLikeChange triggers if like button is clicked', async () => {

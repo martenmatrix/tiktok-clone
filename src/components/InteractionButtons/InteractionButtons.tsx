@@ -15,6 +15,7 @@ const Container = styled.div`
 export type InteractionButtonsProps = {
   className?: string,
   profileId: string,
+  profilePictureURL: string,
   onLikeChange: () => void;
   isLiked: boolean;
   onCommentClick: () => void;
@@ -22,13 +23,14 @@ export type InteractionButtonsProps = {
 
 function InteractionButtons({
   className,
+  profilePictureURL,
   onLikeChange,
   isLiked,
   onCommentClick,
 }: InteractionButtonsProps): JSX.Element {
   return (
     <Container className={className}>
-      <ProfileButton />
+      <ProfileButton imageSrc={profilePictureURL} />
       <LikeButton {...{ onChange: onLikeChange, isLiked }} />
       <CommentButton onClick={onCommentClick} />
       <ShareButton />
