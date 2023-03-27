@@ -68,15 +68,12 @@ function Video({ id }: VideoType): JSX.Element {
   }, [profileId]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-alert
-    setLikeStatus(id, isLiked).catch((e) => alert(e));
+    setLikeStatus(id, isLiked);
   }, [isLiked]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-alert
-    getVideo().catch((e) => alert(e));
-    // eslint-disable-next-line no-alert
-    getLikeStatus().catch((e) => alert(e));
+    getVideo();
+    getLikeStatus();
   }, []);
 
   useEffect(() => {
