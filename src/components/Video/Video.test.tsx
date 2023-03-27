@@ -4,12 +4,12 @@ import {
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Video from './Video';
-import { getVideoURL, fetchVideoLikeStatus, setLikeStatus } from '../../firebase/api';
+import { getVideoURL, hasLiked, setLikeStatus } from '../../firebase/api';
 
 jest.mock('../../firebase/api');
 const mockGetVideoURL = getVideoURL as jest.MockedFunction<typeof getVideoURL>;
 // eslint-disable-next-line max-len
-const mockFetchVideoLikeStatus = fetchVideoLikeStatus as jest.MockedFunction<typeof fetchVideoLikeStatus>;
+const mockFetchVideoLikeStatus = hasLiked as jest.MockedFunction<typeof hasLiked>;
 const mockSetLikeStatus = setLikeStatus as jest.MockedFunction<typeof setLikeStatus>;
 
 beforeEach(() => {

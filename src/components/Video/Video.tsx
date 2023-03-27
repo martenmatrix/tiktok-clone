@@ -3,7 +3,9 @@ import {
   useState, useCallback, useEffect, useRef,
 } from 'react';
 import InteractionButtons from '../InteractionButtons';
-import { getVideoURL, hasLiked, setLikeStatus } from '../../firebase/api';
+import {
+  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
+} from '../../firebase/api';
 
 type VideoType = {
   id: string
@@ -38,15 +40,11 @@ function Video({ id }: VideoType): JSX.Element {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>('');
   const [profileId, setProfileId] = useState<string>('');
+  const [profilePicURL, setProfilePicURL] = useState<string>('');
 
   const handleLikeChange = useCallback(async () => {
     setIsLiked(!isLiked);
   }, [id, isLiked]);
-
-  useEffect(() => {
-    // eslint-disable-next-line no-alert
-    setLikeStatus(id, isLiked).catch((e) => alert(e));
-  }, [isLiked]);
 
   async function getVideo(): Promise<void> {
     const newVideoURL: string = await getVideoURL(id);
@@ -57,6 +55,22 @@ function Video({ id }: VideoType): JSX.Element {
     const likeStatus: boolean = await hasLiked(id);
     setIsLiked(likeStatus);
   }
+
+  useEffect(() => {
+    getVideoAuthorUid(id).then((res) => setProfileId(res));
+  }, [id]);
+
+  useEffect(() => {
+    getProfilePicture(profileId).then((picURL) => {
+      if (picURL === 'undefined') return;
+      setProfilePicURL(picURL);
+    });
+  }, [profileId]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-alert
+    setLikeStatus(id, isLiked).catch((e) => alert(e));
+  }, [isLiked]);
 
   useEffect(() => {
     // eslint-disable-next-line no-alert
@@ -75,6 +89,7 @@ function Video({ id }: VideoType): JSX.Element {
     <ContentContainer>
       <InteractionButtonsMidRight
         profileId={profileId}
+        profilePictureURL={profilePicURL}
         isLiked={isLiked}
         onCommentClick={() => {}}
         onLikeChange={handleLikeChange}

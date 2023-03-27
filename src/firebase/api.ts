@@ -1,6 +1,6 @@
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
-  collection, getDoc, addDoc, setDoc, deleteDoc, query, getDocs, doc,
+  collection, getDoc, addDoc, setDoc, deleteDoc, query, getDocs, doc, where,
 } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 import { auth, db, storage } from './firebaseApp.js';
@@ -8,6 +8,16 @@ import { auth, db, storage } from './firebaseApp.js';
 async function getVideoURL(id: string): Promise<string> {
   const pathReference = ref(storage, `videos/${id}`);
   return getDownloadURL(pathReference);
+}
+
+async function getVideoAuthorUid(id: string): Promise<string> {
+  const videoRef = collection(db, 'videos');
+  const videoQuery = await query(videoRef, where('videoId', '==', id));
+  const videoSnap = await getDocs(videoQuery);
+  if (!videoSnap.empty) {
+    return videoSnap.docs[0].data().author;
+  }
+  return 'undefined';
 }
 
 async function hasLiked(id: string): Promise<boolean> {
@@ -45,8 +55,17 @@ async function uploadVideo(source: File | Blob): Promise<void> {
   });
 }
 
-async function getProfilePicture(uid: string) {
+async function getProfilePicture(uid?: string): Promise<string> {
+  if (!(uid && auth.currentUser)) return 'undefined';
+  const userDoc = doc(db, 'users', uid || auth.currentUser.uid);
+  const userSnap = await getDoc(userDoc);
+  if (userSnap.exists()) {
+    const profilePictureName = userSnap.data().profilePicture;
+    const profileRef = ref(storage, `profilePictures/${profilePictureName}`);
+    return getDownloadURL(profileRef);
+  }
 
+  return 'undefined';
 }
 
 async function setProfilePicture(image: File | Blob) {
@@ -68,5 +87,12 @@ async function getAllVideoIds(): Promise<string[]> {
 }
 
 export {
-  getVideoURL, hasLiked, setLikeStatus, setProfilePicture, uploadVideo, getAllVideoIds,
+  getVideoURL,
+  hasLiked,
+  setLikeStatus,
+  setProfilePicture,
+  getProfilePicture,
+  uploadVideo,
+  getVideoAuthorUid,
+  getAllVideoIds,
 };
