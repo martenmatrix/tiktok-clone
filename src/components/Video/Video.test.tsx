@@ -33,6 +33,7 @@ afterEach(() => {
 });
 
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
+  render(<Video id="5" />);
   const user = userEvent.setup();
   const likeButton = screen.getByRole('button', { name: 'Like' });
 
