@@ -49,14 +49,14 @@ async function getProfilePicture(uid: string) {
 
 }
 
-async function setProfilePicture(uid: string, image: File | Blob) {
+async function setProfilePicture(image: File | Blob) {
   if (!auth.currentUser) return;
 
   const pictureId = uuid();
   const storageRef = ref(storage, `profilePictures/${pictureId}`);
   await uploadBytes(storageRef, image);
 
-  const userDoc = doc(db, 'users', uid);
+  const userDoc = doc(db, 'users', auth.currentUser.uid);
   await setDoc(userDoc, { profilePicture: pictureId });
 }
 
