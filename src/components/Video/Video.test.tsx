@@ -28,6 +28,8 @@ afterEach(() => {
   mockGetVideoURL.mockClear();
   mockFetchVideoLikeStatus.mockClear();
   mockSetLikeStatus.mockClear();
+  mockGetVideoAuthorUid.mockClear();
+  mockGetProfilePicture.mockClear();
 });
 
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
