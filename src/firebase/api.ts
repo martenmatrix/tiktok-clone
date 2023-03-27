@@ -45,6 +45,21 @@ async function uploadVideo(source: File | Blob): Promise<void> {
   });
 }
 
+async function getProfilePicture(uid: string) {
+
+}
+
+async function setProfilePicture(uid: string, image: File | Blob) {
+  if (!auth.currentUser) return;
+
+  const pictureId = uuid();
+  const storageRef = ref(storage, `profilePictures/${pictureId}`);
+  await uploadBytes(storageRef, image);
+
+  const userDoc = doc(db, 'users', uid);
+  await setDoc(userDoc, { profilePicture: pictureId });
+}
+
 async function getAllVideoIds(): Promise<string[]> {
   const ids: string[] = [];
   const querySnapshot = await getDocs(query(collection(db, 'videos')));
@@ -53,5 +68,5 @@ async function getAllVideoIds(): Promise<string[]> {
 }
 
 export {
-  getVideoURL, hasLiked, setLikeStatus, uploadVideo, getAllVideoIds,
+  getVideoURL, hasLiked, setLikeStatus, setProfilePicture, uploadVideo, getAllVideoIds,
 };
