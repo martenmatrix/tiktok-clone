@@ -14,7 +14,6 @@ import { uploadVideo, setProfilePicture } from './api';
 
 async function createFakeUsers(): Promise<void> {
   try {
-    await registerWithMail('peter@example.org', 'einszweidreivier');
     await registerWithMail('parker@example.org', 'totallysafe');
   } catch (e) {
     // eslint-disable-next-line no-console
