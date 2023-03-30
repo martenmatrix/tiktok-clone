@@ -1,6 +1,6 @@
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import {
-  collection, getDoc, addDoc, setDoc, deleteDoc, query, getDocs, doc, where,
+  collection, getDoc, addDoc, setDoc, deleteDoc, updateDoc, query, getDocs, doc, where,
 } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 import { auth, db, storage } from './firebaseApp.js';
@@ -76,7 +76,7 @@ async function setProfilePicture(image: File | Blob) {
   await uploadBytes(storageRef, image);
 
   const userDoc = doc(db, 'users', auth.currentUser.uid);
-  await setDoc(userDoc, { profilePicture: pictureId });
+  await updateDoc(userDoc, { profilePicture: pictureId });
 }
 
 async function getAllVideoIds(): Promise<string[]> {
