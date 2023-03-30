@@ -23,7 +23,7 @@ async function getVideoAuthorUid(id: string): Promise<string> {
 async function hasLiked(id: string): Promise<boolean> {
   if (auth.currentUser) {
     const userDoc = doc(db, 'users', auth.currentUser.uid);
-    const likeDoc = doc(userDoc, id);
+    const likeDoc = doc(userDoc, 'likes', id);
     const snapshot = await getDoc(likeDoc);
     return snapshot.exists();
   }
