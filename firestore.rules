@@ -4,6 +4,11 @@ service cloud.firestore {
     match /users/{userId} {
         allow write, create: if request.auth != null && request.auth.uid == userId;
         allow read: if request.auth != null;
+
+        match /likes/{like} {
+            allow write, create: if request.auth != null && request.auth.uid == userId;
+            allow read: if request.auth != null;
+        }
     }
 
     match /videos/{videoId} {
