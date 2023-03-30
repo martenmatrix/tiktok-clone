@@ -2,12 +2,16 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { setDoc, doc } from 'firebase/firestore';
+import { getDoc, setDoc, doc } from 'firebase/firestore';
 import { auth, db } from './firebaseApp.js';
 
 async function createUserDBEntry(userId: string): Promise<void> {
   const userDoc = doc(db, 'users', userId);
-  await setDoc(userDoc, { profilePicture: 'undefined' });
+  const userSnap = await getDoc(userDoc);
+
+  if (!userSnap.exists()) {
+    await setDoc(userDoc, { profilePicture: 'undefined' });
+  }
 }
 
 async function registerWithMail(mail: string, password: string): Promise<void> {
