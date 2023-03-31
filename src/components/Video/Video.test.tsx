@@ -75,3 +75,9 @@ test('calls getProfilePicture with correct id and sets response as src on image'
     expect(profilePictureElement).toHaveAttribute('src', 'https://example.com/video.mp4');
   });
 });
+
+test('setLikeStatus does NOT get called, if there is no interaction with the like button', () => {
+  render(<Video id="6" />);
+
+  expect(mockSetLikeStatus).toHaveBeenCalledTimes(0);
+});
