@@ -7,6 +7,7 @@ const FeedContainer = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   cursor: grab;
 `;
 
