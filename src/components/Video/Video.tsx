@@ -6,6 +6,7 @@ import InteractionButtons from '../InteractionButtons';
 import {
   getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
 } from '../../firebase/api';
+import { useFirstRender } from '../hooks';
 
 type VideoType = {
   id: string
@@ -36,6 +37,7 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
 
 function Video({ id }: VideoType): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const firstRender = useFirstRender();
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>('');
@@ -68,7 +70,9 @@ function Video({ id }: VideoType): JSX.Element {
   }, [profileId]);
 
   useEffect(() => {
-    setLikeStatus(id, isLiked);
+    if (!firstRender) {
+      setLikeStatus(id, isLiked);
+    }
   }, [isLiked]);
 
   useEffect(() => {
