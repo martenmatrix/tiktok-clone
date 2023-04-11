@@ -1,4 +1,4 @@
 import useFirstRender from './useFirstRender';
+import useTriggerIfInViewport from './useTriggerIfInViewport';
 
-// eslint-disable-next-line import/prefer-default-export
-export { useFirstRender };
+export { useFirstRender, useTriggerIfInViewport };
