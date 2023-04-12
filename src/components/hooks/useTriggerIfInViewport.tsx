@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
-function useTriggerIfInViewport({ callbackFn }: { callbackFn: () => void }) {
+// eslint-disable-next-line max-len
+type callbackFnType = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => void;
+function useTriggerIfInViewport(callbackFn: callbackFnType) {
   const [observer, setObserver] = useState<null | IntersectionObserver>(null);
 
   useEffect(() => {
