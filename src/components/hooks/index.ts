@@ -1,4 +1,4 @@
 import useFirstRender from './useFirstRender';
-import useTriggerIfInViewport from './useTriggerIfInViewport';
+import inViewport from './inViewport';
 
-export { useFirstRender, useTriggerIfInViewport };
+export { useFirstRender, inViewport };
