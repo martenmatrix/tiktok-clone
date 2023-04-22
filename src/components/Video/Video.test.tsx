@@ -64,15 +64,15 @@ test('calls fetchLikeStatus with correct and id and sets response as like status
   await waitFor(() => expect(likeButton).toHaveAttribute('aria-pressed', 'true'));
 });
 
-test('calls getProfilePicture with correct id and sets response as src on image', () => {
+test('calls getProfilePicture with correct id and sets response as src on image', async () => {
   render(<Video id="8" />);
 
-  const profilePictureElement = screen.getAllByAltText('Profile picture');
+  const profilePictureElement = screen.getByAltText('Profile picture');
 
   expect(getVideoAuthorUid).toHaveBeenCalledWith('8');
-  waitFor(() => {
+  await waitFor(() => {
     expect(getProfilePicture).toHaveBeenCalledWith('anid');
-    expect(profilePictureElement).toHaveAttribute('src', 'https://example.com/video.mp4');
+    expect(profilePictureElement).toHaveAttribute('src', 'https://www.example.org');
   });
 });
 
