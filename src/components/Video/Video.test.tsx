@@ -10,12 +10,29 @@ import {
 
 jest.mock('../../firebase/api');
 jest.spyOn(window.HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
+
+const playVideoMock = jest.fn();
+const pauseVideoMock = jest.fn();
+
+jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(playVideoMock);
+jest.spyOn(window.HTMLMediaElement.prototype, 'pause').mockImplementation(pauseVideoMock);
+
 const mockGetVideoURL = getVideoURL as jest.MockedFunction<typeof getVideoURL>;
-// eslint-disable-next-line max-len
 const mockFetchVideoLikeStatus = hasLiked as jest.MockedFunction<typeof hasLiked>;
 const mockSetLikeStatus = setLikeStatus as jest.MockedFunction<typeof setLikeStatus>;
 const mockGetVideoAuthorUid = getVideoAuthorUid as jest.MockedFunction<typeof getVideoAuthorUid>;
 const mockGetProfilePicture = getProfilePicture as jest.MockedFunction<typeof getProfilePicture>;
+
+const mockInViewport = jest.fn().mockReturnValue(false);
+jest.mock('../hooks/inViewport', () => {
+  const originalModule = jest.requireActual('../hooks/inViewport');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    default: (...args: any[]) => mockInViewport(...args),
+  };
+});
 
 beforeEach(() => {
   mockGetVideoURL.mockResolvedValue('https://example.com/video.mp4');
@@ -30,6 +47,8 @@ afterEach(() => {
   mockSetLikeStatus.mockClear();
   mockGetVideoAuthorUid.mockClear();
   mockGetProfilePicture.mockClear();
+  pauseVideoMock.mockClear();
+  playVideoMock.mockClear();
 });
 
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
@@ -80,4 +99,20 @@ test('setLikeStatus does NOT get called, if there is no interaction with the lik
   render(<Video id="6" />);
 
   expect(mockSetLikeStatus).toHaveBeenCalledTimes(0);
+});
+
+test('pauses video if not visible based on inViewport() hook', async () => {
+  mockInViewport.mockImplementation(() => {}).mockReturnValue(false);
+  render(<Video id="1" />);
+  await waitFor(() => {
+    expect(pauseVideoMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+test('plays video if visible based on inViewport() hook', async () => {
+  mockInViewport.mockImplementation(() => {}).mockReturnValue(true);
+  await waitFor(() => {
+    expect(playVideoMock).toHaveBeenCalledTimes(1);
+    expect(pauseVideoMock).toHaveBeenCalledTimes(0);
+  });
 });
