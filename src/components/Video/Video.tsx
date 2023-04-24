@@ -6,7 +6,7 @@ import InteractionButtons from '../InteractionButtons';
 import {
   getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
 } from '../../firebase/api';
-import { useFirstRender } from '../hooks';
+import { useFirstRender, inViewport } from '../hooks';
 
 type VideoType = {
   id: string
@@ -39,6 +39,7 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
 function Video({ id }: VideoType): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const firstRender = useFirstRender();
+  const videoVisible = inViewport(videoRef);
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>('');
@@ -86,6 +87,15 @@ function Video({ id }: VideoType): JSX.Element {
       videoRef.current.load();
     }
   }, [videoURL]);
+
+  useEffect(() => {
+    if (videoRef.current === null) return;
+    if (videoVisible) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+  }, [videoVisible]);
 
   return (
     <ContentContainer>
