@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import GlobalStyle from './globalStyle.js';
 import NavigationBar from '../NavigationBar';
-import Video from '../Video';
+import Feed from '../../views/Feed';
 
 const MainContainer = styled.div`
   display: block;
@@ -16,7 +16,7 @@ function App(): JSX.Element {
   return (
     <MainContainer>
       <GlobalStyle />
-      <Video />
+      <Feed />
       <NavigationBar onUpload={() => {}} />
     </MainContainer>
   );
