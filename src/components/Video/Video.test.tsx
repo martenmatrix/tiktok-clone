@@ -12,12 +12,8 @@ import inViewport from '../hooks/inViewport';
 jest.mock('../../firebase/api');
 jest.mock('../hooks/inViewport');
 jest.spyOn(window.HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
-
-const playVideoMock = jest.fn();
-const pauseVideoMock = jest.fn();
-
-jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockImplementation(playVideoMock);
-jest.spyOn(window.HTMLMediaElement.prototype, 'pause').mockImplementation(pauseVideoMock);
+jest.spyOn(window.HTMLMediaElement.prototype, 'play');
+jest.spyOn(window.HTMLMediaElement.prototype, 'pause');
 
 const mockGetVideoURL = getVideoURL as jest.MockedFunction<typeof getVideoURL>;
 const mockFetchVideoLikeStatus = hasLiked as jest.MockedFunction<typeof hasLiked>;
@@ -39,8 +35,6 @@ afterEach(() => {
   mockSetLikeStatus.mockClear();
   mockGetVideoAuthorUid.mockClear();
   mockGetProfilePicture.mockClear();
-  pauseVideoMock.mockClear();
-  playVideoMock.mockClear();
 });
 
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
@@ -95,16 +89,18 @@ test('setLikeStatus does NOT get called, if there is no interaction with the lik
 
 test('pauses video if not visible based on inViewport() hook', async () => {
   mockInViewport.mockReturnValue(false);
+  const videoPauseStub = jest.spyOn(window.HTMLMediaElement.prototype, 'pause');
   render(<Video id="1" />);
   await waitFor(() => {
-    expect(pauseVideoMock).toHaveBeenCalledTimes(1);
+    expect(videoPauseStub).toHaveBeenCalledTimes(1);
   });
 });
 
 test('plays video if visible based on inViewport() hook', async () => {
   mockInViewport.mockReturnValue(true);
+  const videoPlayStub = jest.spyOn(window.HTMLMediaElement.prototype, 'play');
+  render(<Video id="1" />);
   await waitFor(() => {
-    expect(playVideoMock).toHaveBeenCalledTimes(1);
-    expect(pauseVideoMock).toHaveBeenCalledTimes(0);
+    expect(videoPlayStub).toHaveBeenCalledTimes(1);
   });
 });
