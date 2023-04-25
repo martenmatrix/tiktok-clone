@@ -7,8 +7,10 @@ import Video from './Video';
 import {
   getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
 } from '../../firebase/api';
+import inViewport from '../hooks/inViewport';
 
 jest.mock('../../firebase/api');
+jest.mock('../hooks/inViewport');
 jest.spyOn(window.HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
 
 const playVideoMock = jest.fn();
@@ -22,17 +24,7 @@ const mockFetchVideoLikeStatus = hasLiked as jest.MockedFunction<typeof hasLiked
 const mockSetLikeStatus = setLikeStatus as jest.MockedFunction<typeof setLikeStatus>;
 const mockGetVideoAuthorUid = getVideoAuthorUid as jest.MockedFunction<typeof getVideoAuthorUid>;
 const mockGetProfilePicture = getProfilePicture as jest.MockedFunction<typeof getProfilePicture>;
-
-const mockInViewport = jest.fn().mockReturnValue(false);
-jest.mock('../hooks/inViewport', () => {
-  const originalModule = jest.requireActual('../hooks/inViewport');
-
-  return {
-    __esModule: true,
-    ...originalModule,
-    default: (...args: any[]) => mockInViewport(...args),
-  };
-});
+const mockInViewport = inViewport as jest.MockedFunction<typeof inViewport>;
 
 beforeEach(() => {
   mockGetVideoURL.mockResolvedValue('https://example.com/video.mp4');
@@ -102,7 +94,7 @@ test('setLikeStatus does NOT get called, if there is no interaction with the lik
 });
 
 test('pauses video if not visible based on inViewport() hook', async () => {
-  mockInViewport.mockImplementation(() => {}).mockReturnValue(false);
+  mockInViewport.mockReturnValue(false);
   render(<Video id="1" />);
   await waitFor(() => {
     expect(pauseVideoMock).toHaveBeenCalledTimes(1);
@@ -110,7 +102,7 @@ test('pauses video if not visible based on inViewport() hook', async () => {
 });
 
 test('plays video if visible based on inViewport() hook', async () => {
-  mockInViewport.mockImplementation(() => {}).mockReturnValue(true);
+  mockInViewport.mockReturnValue(true);
   await waitFor(() => {
     expect(playVideoMock).toHaveBeenCalledTimes(1);
     expect(pauseVideoMock).toHaveBeenCalledTimes(0);
