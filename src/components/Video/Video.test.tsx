@@ -81,6 +81,7 @@ test('calls getProfilePicture with correct id and sets response as src on image'
   });
 });
 
+// TODO tests below throw an act error, i cannot figure out why
 test('pauses video if not visible based on inViewport() hook', async () => {
   mockInViewport.mockReturnValue(false);
   const videoPauseStub = jest.spyOn(window.HTMLMediaElement.prototype, 'pause');
