@@ -81,8 +81,10 @@ test('calls getProfilePicture with correct id and sets response as src on image'
   });
 });
 
-test('setLikeStatus does NOT get called, if there is no interaction with the like button', () => {
+test('setLikeStatus does NOT get called, if there is no interaction with the like button', async () => {
   render(<Video id="6" />);
+
+  await act(() => {});
 
   expect(mockSetLikeStatus).toHaveBeenCalledTimes(0);
 });
