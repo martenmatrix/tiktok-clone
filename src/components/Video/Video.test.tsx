@@ -8,6 +8,7 @@ import {
   getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
 } from '../../firebase/api';
 import inViewport from '../hooks/inViewport';
+import {wait} from '@testing-library/user-event/utils/misc/wait';
 
 jest.mock('../../firebase/api');
 jest.mock('../hooks/inViewport');
@@ -99,3 +100,19 @@ test('plays video if visible based on inViewport() hook', async () => {
     expect(videoPlayStub).toHaveBeenCalledTimes(1);
   });
 });
+
+// TODO unable to test this because of following react issue https://github.com/facebook/react/issues/10389
+test.skip('clicking the mute button initially unmutes the video and clicking it again mutes the video', async () => {
+  render(<Video id="1" />);
+  const user = userEvent.setup();
+  const muteButton = screen.getByRole('button', { name: 'Mute video' });
+  const video = screen.getByTestId('video-element');
+
+  expect(video).toHaveAttribute('muted');
+  await act(async () => {
+    await user.click(muteButton);
+  });
+  expect(video).not.toHaveAttribute('muted');
+});
+
+test.todo('video tries to autoplay unmuted, if not allow, tries to autoplay muted');
