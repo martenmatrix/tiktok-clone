@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import ProfileButton from './buttons/ProfileButton';
 import LikeButton from './buttons/LikeButton';
-import CommentButton from './buttons/CommentButton';
+import MuteButton from './buttons/MuteButton';
 import ShareButton from './buttons/ShareButton';
 
 const Container = styled.div`
@@ -18,7 +18,8 @@ export type InteractionButtonsProps = {
   profilePictureURL: string,
   onLikeChange: () => void;
   isLiked: boolean;
-  onCommentClick: () => void;
+  isMute: boolean;
+  onMuteClick: () => void;
 }
 
 function InteractionButtons({
@@ -26,13 +27,14 @@ function InteractionButtons({
   profilePictureURL,
   onLikeChange,
   isLiked,
-  onCommentClick,
+  isMute,
+  onMuteClick,
 }: InteractionButtonsProps): JSX.Element {
   return (
     <Container className={className}>
       <ProfileButton imageSrc={profilePictureURL} />
       <LikeButton {...{ onChange: onLikeChange, isLiked }} />
-      <CommentButton onClick={onCommentClick} />
+      <MuteButton onClick={onMuteClick} isMute={isMute} />
       <ShareButton />
     </Container>
   );

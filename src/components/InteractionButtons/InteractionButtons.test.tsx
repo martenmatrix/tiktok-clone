@@ -9,7 +9,8 @@ function renderInteractionButtons(props: Partial<InteractionButtonsProps> = {}) 
     profilePictureURL: 'https://www.example.org',
     onLikeChange: () => {},
     isLiked: true,
-    onCommentClick: () => {},
+    isMute: true,
+    onMuteClick: () => {},
   };
 
   // eslint-disable-next-line react/jsx-props-no-spreading
@@ -58,13 +59,13 @@ test('clicking the share button copies the current url to the clipboard', async 
   expect(clipboardContent).toBe(currentHREF);
 });
 
-test('clicking on the comment button calls openCommentSection', async () => {
-  const openCommentSectionMock = jest.fn();
-  renderInteractionButtons({ onCommentClick: openCommentSectionMock });
-  const commentButton = screen.getByRole('button', { name: 'Open comment section' });
+test('clicking the mute button calls onMuteClick', async () => {
+  const mockFunction = jest.fn();
+  renderInteractionButtons({ onMuteClick: mockFunction });
   const user = userEvent.setup();
+  const muteButton = screen.getByRole('button', { name: 'Mute video' });
 
-  await user.click(commentButton);
+  await user.click(muteButton);
 
-  expect(openCommentSectionMock).toHaveBeenCalled();
+  expect(mockFunction).toHaveBeenCalled();
 });
