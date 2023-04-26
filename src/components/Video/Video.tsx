@@ -45,6 +45,7 @@ function Video({ id }: VideoType): JSX.Element {
   const [videoURL, setVideoURL] = useState<string>('');
   const [profileId, setProfileId] = useState<string>('');
   const [profilePicURL, setProfilePicURL] = useState<string>('');
+  const [muted, setMuted] = useState<boolean>(true);
 
   const handleLikeChange = useCallback(async () => {
     setIsLiked(!isLiked);
@@ -59,6 +60,28 @@ function Video({ id }: VideoType): JSX.Element {
     const likeStatus: boolean = await hasLiked(id);
     setIsLiked(likeStatus);
   }
+
+  async function tryToAutoPlayUnmuted() {
+    if (videoRef.current === null) return;
+    try {
+      await videoRef.current.play();
+      setMuted(false);
+    } catch (e) {
+      videoRef.current.muted = true;
+      await videoRef.current.play();
+    }
+  }
+
+  const handleMuteToggle = useCallback(() => {
+    if (videoRef.current === null) return;
+    setMuted((prevMuted) => !prevMuted);
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current !== null) {
+      videoRef.current.muted = muted;
+    }
+  }, [muted]);
 
   useEffect(() => {
     getVideoAuthorUid(id).then((res) => setProfileId(res));
@@ -91,7 +114,7 @@ function Video({ id }: VideoType): JSX.Element {
   useEffect(() => {
     if (videoRef.current === null) return;
     if (videoVisible) {
-      videoRef.current.play();
+      tryToAutoPlayUnmuted();
     } else {
       videoRef.current.pause();
     }
@@ -103,10 +126,11 @@ function Video({ id }: VideoType): JSX.Element {
         profileId={profileId}
         profilePictureURL={profilePicURL}
         isLiked={isLiked}
-        onCommentClick={() => {}}
+        isMute={muted}
+        onMuteClick={handleMuteToggle}
         onLikeChange={handleLikeChange}
       />
-      <VideoContainer muted ref={videoRef}>
+      <VideoContainer ref={videoRef} data-testid="video-element">
         <source src={videoURL} type="video/mp4" data-testid="source-element" />
       </VideoContainer>
     </ContentContainer>
