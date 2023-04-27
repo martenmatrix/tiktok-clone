@@ -130,7 +130,7 @@ function Video({ id }: VideoType): JSX.Element {
         onMuteClick={handleMuteToggle}
         onLikeChange={handleLikeChange}
       />
-      <VideoContainer ref={videoRef} data-testid="video-element">
+      <VideoContainer ref={videoRef} data-testid="video-element" data-muted={muted}>
         <source src={videoURL} type="video/mp4" data-testid="source-element" />
       </VideoContainer>
     </ContentContainer>
