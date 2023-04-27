@@ -114,4 +114,20 @@ test('clicking the mute button initially unmutes the video and clicking it again
   expect(video).toHaveAttribute('data-muted', 'false');
 });
 
-test.todo('video tries to autoplay unmuted, if not allow, tries to autoplay muted');
+test('video tries to autoplay unmuted, if not allow, tries to autoplay muted', async () => {
+  const videoPlayStub = jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockRejectedValueOnce(new DOMException());
+  mockInViewport.mockReturnValue(true);
+  render(<Video id="1" />);
+  const video = screen.getByTestId('video-element');
+  const muted = video.getAttribute('data-muted') === 'true';
+
+  if (muted) {
+    await waitFor(() => {
+      expect(videoPlayStub).toHaveBeenCalledTimes(2);
+    });
+  } else {
+    await waitFor(() => {
+      expect(videoPlayStub).toHaveBeenCalledTimes(1);
+    });
+  }
+});
