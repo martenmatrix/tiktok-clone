@@ -51,28 +51,6 @@ function Video({ id }: VideoType): JSX.Element {
     setIsLiked(!isLiked);
   }, [id, isLiked]);
 
-  async function getVideo(): Promise<void> {
-    const newVideoURL: string = await getVideoURL(id);
-    setVideoURL(newVideoURL);
-  }
-
-  async function getLikeStatus(): Promise<void> {
-    const likeStatus: boolean = await hasLiked(id);
-    setIsLiked(likeStatus);
-  }
-
-  async function tryToAutoPlayUnmuted() {
-    if (videoRef.current === null) return;
-    try {
-      await videoRef.current.play();
-      setMuted(false);
-    } catch (e) {
-      videoRef.current.muted = true;
-      await videoRef.current.play();
-      setMuted(true);
-    }
-  }
-
   const handleMuteToggle = useCallback(() => {
     if (videoRef.current === null) return;
     setMuted((prevMuted) => !prevMuted);
@@ -96,8 +74,20 @@ function Video({ id }: VideoType): JSX.Element {
   }, [isLiked]);
 
   useEffect(() => {
-    getVideo();
-    getLikeStatus();
+    async function getVideo(): Promise<void> {
+      const newVideoURL: string = await getVideoURL(id);
+      setVideoURL(newVideoURL);
+    }
+
+    async function getLikeStatus(): Promise<void> {
+      const likeStatus: boolean = await hasLiked(id);
+      setIsLiked(likeStatus);
+    }
+    async function getData() {
+      await getVideo();
+      await getLikeStatus();
+    }
+    getData().catch((e) => console.warn(e));
   }, []);
 
   useEffect(() => {
@@ -107,6 +97,19 @@ function Video({ id }: VideoType): JSX.Element {
   }, [videoURL]);
 
   useEffect(() => {
+    async function tryToAutoPlayUnmuted() {
+      try {
+        // @ts-ignore
+        await videoRef.current.play();
+        setMuted(false);
+      } catch (e) {
+        // @ts-ignore
+        videoRef.current.muted = true;
+        // @ts-ignore
+        await videoRef.current.play();
+        setMuted(true);
+      }
+    }
     if (videoRef.current === null) return;
     if (videoVisible) {
       tryToAutoPlayUnmuted();
