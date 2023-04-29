@@ -69,6 +69,7 @@ function Video({ id }: VideoType): JSX.Element {
     } catch (e) {
       videoRef.current.muted = true;
       await videoRef.current.play();
+      setMuted(true);
     }
   }
 
@@ -76,12 +77,6 @@ function Video({ id }: VideoType): JSX.Element {
     if (videoRef.current === null) return;
     setMuted((prevMuted) => !prevMuted);
   }, []);
-
-  useEffect(() => {
-    if (videoRef.current !== null) {
-      videoRef.current.muted = muted;
-    }
-  }, [muted]);
 
   useEffect(() => {
     getVideoAuthorUid(id).then((res) => setProfileId(res));
