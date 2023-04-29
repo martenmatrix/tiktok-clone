@@ -57,16 +57,20 @@ test('calls fetchVideo with correct id and sets response as video src', async ()
   render(<Video id="2" />);
   const video = screen.getByTestId('source-element');
 
-  expect(mockGetVideoURL).toHaveBeenCalledWith('2');
-  await waitFor(() => expect(video).toHaveAttribute('src', 'https://example.com/video.mp4'));
+  await waitFor(() => {
+    expect(video).toHaveAttribute('src', 'https://example.com/video.mp4');
+    expect(mockGetVideoURL).toHaveBeenCalledWith('2');
+  });
 });
 
 test('calls fetchLikeStatus with correct and id and sets response as like status', async () => {
   render(<Video id="1" />);
   const likeButton = screen.getByRole('button', { name: 'Like' });
 
-  expect(mockFetchVideoLikeStatus).toHaveBeenCalledWith('1');
-  await waitFor(() => expect(likeButton).toHaveAttribute('aria-pressed', 'true'));
+  await waitFor(() => {
+    expect(likeButton).toHaveAttribute('aria-pressed', 'true');
+    expect(mockFetchVideoLikeStatus).toHaveBeenCalledWith('1');
+  });
 });
 
 test('calls getProfilePicture with correct id and sets response as src on image', async () => {
@@ -74,10 +78,10 @@ test('calls getProfilePicture with correct id and sets response as src on image'
 
   const profilePictureElement = screen.getByAltText('Profile picture');
 
-  expect(getVideoAuthorUid).toHaveBeenCalledWith('8');
   await waitFor(() => {
     expect(getProfilePicture).toHaveBeenCalledWith('anid');
     expect(profilePictureElement).toHaveAttribute('src', 'https://www.example.org');
+    expect(getVideoAuthorUid).toHaveBeenCalledWith('8');
   });
 });
 
