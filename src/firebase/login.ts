@@ -10,7 +10,7 @@ async function createUserDBEntry(userId: string): Promise<void> {
   const userSnap = await getDoc(userDoc);
 
   if (!userSnap.exists()) {
-    await setDoc(userDoc, { profilePicture: 'undefined' });
+    await setDoc(userDoc, { profilePicture: 'undefined', username: userId });
   }
 }
 
