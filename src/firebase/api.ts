@@ -57,6 +57,7 @@ async function uploadVideo(source: File | Blob): Promise<void> {
 
 async function getProfilePicture(uid?: string): Promise<string> {
   if (!uid && !auth.currentUser) return 'undefined';
+  // @ts-ignore
   const userDoc = doc(db, 'users', uid || auth.currentUser.uid);
   const userSnap = await getDoc(userDoc);
   if (userSnap.exists()) {
