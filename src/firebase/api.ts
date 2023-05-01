@@ -79,6 +79,24 @@ async function setProfilePicture(image: File | Blob) {
   await updateDoc(userDoc, { profilePicture: pictureId });
 }
 
+async function getUsername(uid?: string): Promise<string> {
+  if (!uid && !auth.currentUser) return 'undefined';
+  const userId = uid || uuid();
+  const userDoc = doc(db, 'users', userId);
+  const userSnap = await getDoc(userDoc);
+  if (userSnap.exists()) {
+    return userSnap.data().profilePicture;
+  }
+  return 'undefined';
+}
+
+async function setUsername(newName: string): Promise<void> {
+  if (!auth.currentUser) return;
+
+  const userDoc = doc(db, 'users', auth.currentUser.uid);
+  await updateDoc(userDoc, { username: newName });
+}
+
 async function getAllVideoIds(): Promise<string[]> {
   const ids: string[] = [];
   const querySnapshot = await getDocs(query(collection(db, 'videos')));
@@ -92,6 +110,8 @@ export {
   setLikeStatus,
   setProfilePicture,
   getProfilePicture,
+  getUsername,
+  setUsername,
   uploadVideo,
   getVideoAuthorUid,
   getAllVideoIds,
