@@ -24,24 +24,19 @@ const InputContainer = styled.div`
 type InputType = {
   label: string,
   // eslint-disable-next-line no-unused-vars
-  onChange?: (newInput: string) => void,
+  onChange?: (e: any) => void,
+  value: string,
   disabled?: boolean,
 }
 
-function Input({ onChange, label, disabled = false }: InputType): JSX.Element {
-  const [value, setValue] = useState<string>('');
-
-  const onValueChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newInput = e.target.value;
-    onChange && onChange(newInput);
-    setValue(newInput);
-  }, []);
-
+function Input({
+  onChange = (() => {}), value, label, disabled = false
+}: InputType): JSX.Element {
   return (
     <InputContainer>
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput onChange={onValueChange} value={value} name="username" id={label} type="text" disabled={disabled} />
+      <StyledInput onChange={onChange} value={value} name="username" id={label} type="text" disabled={disabled} />
     </InputContainer>
   );
 }
@@ -56,12 +51,21 @@ const UserSettingsContainer = styled.div`
 `;
 
 function UserSettings(): JSX.Element {
-  const [username, setUsername] = useState<string>('undefined');
+  const [name, setName] = useState('');
+  const [mail, setMail] = useState('');
+
+  const onUsernameChange = useCallback((e: any) => {
+    setName(e.target.value);
+  }, []);
+
+  const onMailChange = useCallback((e: any) => {
+    setMail(e.target.value);
+  }, []);
 
   return (
     <UserSettingsContainer>
-      <Input label="Username" />
-      <Input label="Mail" />
+      <Input label="Username" value={name} onChange={onUsernameChange} />
+      <Input label="Mail" value={mail} onChange={onMailChange} />
     </UserSettingsContainer>
   );
 }
