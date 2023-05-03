@@ -29,7 +29,7 @@ function Input({ onChange, label, disabled = false }: InputType): JSX.Element {
   return (
     <InputContainer>
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label htmlFor={label}>label</label>
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
       <StyledInput onChange={onValueChange} value={value} name="username" id={label} type="text" disabled={disabled} />
     </InputContainer>
   );
