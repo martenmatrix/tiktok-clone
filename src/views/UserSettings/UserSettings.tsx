@@ -3,11 +3,22 @@ import styled from 'styled-components';
 import { getUsername, setUsername } from '../../firebase/api';
 
 const StyledInput = styled.input`
+  border: solid 1px #00000030;
+  font-size: 20px;
+  color: #000000;
+  height: 40px;
+  border-radius: 5px;
+`;
+
+const StyledLabel = styled.label`
+  font-size: 15px;
 `;
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  color: #00000050;
 `;
 
 type InputType = {
@@ -35,10 +46,24 @@ function Input({ onChange, label, disabled = false }: InputType): JSX.Element {
   );
 }
 
+const UserSettingsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+`;
+
 function UserSettings(): JSX.Element {
   const [username, setUsername] = useState<string>('undefined');
 
-  return <Input label="Username" />;
+  return (
+    <UserSettingsContainer>
+      <Input label="Username" />
+      <Input label="Mail" />
+    </UserSettingsContainer>
+  );
 }
 
 export default UserSettings;
