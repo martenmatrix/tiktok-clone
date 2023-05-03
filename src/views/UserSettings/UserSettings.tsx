@@ -59,14 +59,10 @@ function UserSettings(): JSX.Element {
     setName(e.target.value);
   }, []);
 
-  const onMailChange = useCallback((e: any) => {
-    setMail(e.target.value);
-  }, []);
-
   return (
     <UserSettingsContainer>
       <Input label="Username" value={name} onChange={onUsernameChange} />
-      <Input label="Mail" value={mail} onChange={onMailChange} />
+      <Input label="Mail" value={mail} disabled />
     </UserSettingsContainer>
   );
 }
