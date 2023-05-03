@@ -31,7 +31,7 @@ type InputType = {
 }
 
 function Input({
-  onChange = (() => {}), value, label, disabled = false
+  onChange = (() => {}), value, label, disabled = false,
 }: InputType): JSX.Element {
   return (
     <InputContainer>
