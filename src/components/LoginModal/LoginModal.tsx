@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import { fadeIn, fadeOut } from '../animations/fade.style';
 import Close from './assets/close.svg';
 import Arrow from './assets/green_right_arrow.svg';
+import Input from '../Input';
 
 interface LoginModalProps {
   isVisible: boolean;
@@ -62,6 +64,9 @@ function LoginModal({
   isVisible,
   onClose,
 }: LoginModalProps): JSX.Element {
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <Container
       role="dialog"
@@ -74,6 +79,8 @@ function LoginModal({
       <Modal>
         <CloseButton onClick={onClose} />
         <SubmitButton />
+        <Input label="Mail" value={mail} type="email" />
+        <Input label="Password" value={password} type="password" />
       </Modal>
     </Container>
   );
