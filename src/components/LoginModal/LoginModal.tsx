@@ -1,19 +1,8 @@
 import styled from 'styled-components';
 import { fadeIn, fadeOut } from '../animations/fade.style';
 import Close from './assets/close.svg';
-import AppleLogo from './assets/apple_logo.svg';
-import GitHubLogo from './assets/github_logo.svg';
-import TwitterLogo from './assets/twitter_logo.svg';
-import GoogleLogo from './assets/google_logo.svg';
 
-type LoginFunctions = {
-    onGitHubLogin: () => void;
-    onGoogleLogin: () => void;
-    onTwitterLogin: () => void;
-    onAppleLogin: () => void;
-}
-
-interface LoginModalProps extends LoginFunctions {
+interface LoginModalProps {
   isVisible: boolean;
   onClose: () => void;
 }
@@ -36,9 +25,9 @@ const Container = styled.div<{ open: boolean }>`
 
 const Modal = styled.div`
   width: 100%;
-  max-width: 20rem;
+  max-width: 40rem;
   height: 100%;
-  max-height: 17rem;
+  max-height: 20rem;
 
   display: flex;
   flex-direction: column;
@@ -59,66 +48,9 @@ const CloseButton = styled.img.attrs({ src: Close, role: 'button', 'aria-label':
   height: 2rem;
 `;
 
-const LogoContainer = styled.div`
-  width: 100%;
-  height: 10rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-`;
-
-const Logo = styled.img`
-  display: block;
-  width: 3rem;
-  height: 3rem;
-  cursor: pointer;
-`;
-
-const Header = styled.h2`
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  font-size: 32px;
-`;
-
-function LoginButtons({
-  onGitHubLogin,
-  onGoogleLogin,
-  onTwitterLogin,
-  onAppleLogin,
-}: LoginFunctions): JSX.Element {
-  const logos: { src: string, alt: string, onClick: () => void | null }[] = [
-    { src: GoogleLogo, alt: 'google', onClick: onGoogleLogin },
-    { src: TwitterLogo, alt: 'twitter', onClick: onTwitterLogin },
-    { src: AppleLogo, alt: 'apple', onClick: onAppleLogin },
-    { src: GitHubLogo, alt: 'github', onClick: onGitHubLogin },
-  ];
-
-  return (
-    <LogoContainer>
-      {logos.map((logo) => (
-        <Logo
-          src={logo.src}
-          alt={logo.alt}
-          onClick={logo.onClick}
-          key={logo.alt}
-          role="button"
-          aria-label={`login with ${logo.alt}`}
-        />
-      ))}
-    </LogoContainer>
-  );
-}
-
 function LoginModal({
   isVisible,
   onClose,
-  onGitHubLogin,
-  onGoogleLogin,
-  onTwitterLogin,
-  onAppleLogin,
 }: LoginModalProps): JSX.Element {
   return (
     <Container
@@ -130,13 +62,6 @@ function LoginModal({
       open={isVisible}
     >
       <Modal>
-        <Header>Please login</Header>
-        <LoginButtons
-          onGitHubLogin={onGitHubLogin}
-          onGoogleLogin={onGoogleLogin}
-          onTwitterLogin={onTwitterLogin}
-          onAppleLogin={onAppleLogin}
-        />
         <CloseButton onClick={onClose} />
       </Modal>
     </Container>
