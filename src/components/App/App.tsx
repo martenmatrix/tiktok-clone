@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import GlobalStyle from './globalStyle.js';
 import NavigationBar from '../NavigationBar';
 import UserSettings from '../../views/UserSettings/UserSettings';
+import LoginModal from '../LoginModal';
 
 const MainContainer = styled.div`
   display: block;
@@ -17,6 +18,7 @@ function App(): JSX.Element {
     <MainContainer>
       <GlobalStyle />
       <UserSettings />
+      <LoginModal isVisible onClose={() => {}} />
       <NavigationBar onUpload={() => {}} />
     </MainContainer>
   );
