@@ -22,8 +22,8 @@ function UserSettings(): JSX.Element {
 
   return (
     <UserSettingsContainer>
-      <Input label="Username" value={name} onChange={onUsernameChange} />
-      <Input label="Mail" value={mail} disabled />
+      <Input label="Username" type="text" value={name} onChange={onUsernameChange} />
+      <Input label="Mail" type="email" value={mail} disabled />
     </UserSettingsContainer>
   );
 }
