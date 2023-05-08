@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { fadeIn, fadeOut } from '../animations/fade.style';
 import Close from './assets/close.svg';
+import Arrow from './assets/green_right_arrow.svg';
 
 interface LoginModalProps {
   isVisible: boolean;
@@ -48,6 +49,15 @@ const CloseButton = styled.img.attrs({ src: Close, role: 'button', 'aria-label':
   height: 2rem;
 `;
 
+const SubmitButton = styled.img.attrs({ src: Arrow, role: 'button', 'aria-label': 'submit form' })`
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 6rem;
+  height: 6rem;
+`;
+
 function LoginModal({
   isVisible,
   onClose,
@@ -63,6 +73,7 @@ function LoginModal({
     >
       <Modal>
         <CloseButton onClick={onClose} />
+        <SubmitButton />
       </Modal>
     </Container>
   );
