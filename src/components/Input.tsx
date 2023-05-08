@@ -26,17 +26,18 @@ type InputType = {
   // eslint-disable-next-line no-unused-vars
   onChange?: (e: any) => void,
   value: string,
+  type: string,
   disabled?: boolean,
 }
 
 function Input({
-  onChange = (() => {}), value, label, disabled = false,
+  onChange = (() => {}), value, label, type, disabled = false,
 }: InputType): JSX.Element {
   return (
     <InputContainer>
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput onChange={onChange} value={value} name="username" id={label} type="text" disabled={disabled} />
+      <StyledInput onChange={onChange} value={value} name="username" id={label} type={type} disabled={disabled} />
     </InputContainer>
   );
 }
