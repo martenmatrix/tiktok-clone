@@ -11,6 +11,7 @@ const StyledInput = styled.input`
   color: #000000;
   height: 40px;
   border-radius: 5px;
+  background: transparent;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
 `;
 
