@@ -8,6 +8,7 @@ import Input from '../Input';
 interface LoginModalProps {
   isVisible: boolean;
   onClose: () => void;
+  onSuccess: () => void;
 }
 
 const Container = styled.div<{ open: boolean }>`
@@ -63,6 +64,7 @@ const SubmitButton = styled.img.attrs({ src: Arrow, role: 'button', 'aria-label'
 function LoginModal({
   isVisible,
   onClose,
+  onSuccess,
 }: LoginModalProps): JSX.Element {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
