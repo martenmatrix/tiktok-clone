@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { fadeIn, fadeOut } from '../animations/fade.style';
+import { registerWithMail, loginWithMail } from '../../firebase/login';
 import Close from './assets/close.svg';
 import Arrow from './assets/green_right_arrow.svg';
 import Input from '../Input';
