@@ -6,6 +6,8 @@ import LoginModal from './LoginModal';
 const mockOnClose = jest.fn();
 const mockOnSuccess = jest.fn();
 
+beforeEach(() => jest.clearAllMocks());
+
 test('if isVisible is true modal gets shown', () => {
   render(<LoginModal
     isVisible
