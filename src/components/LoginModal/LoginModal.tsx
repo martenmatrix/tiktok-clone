@@ -69,6 +69,25 @@ function LoginModal({
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
 
+  const onMailChange = useCallback((e: any) => {
+    const newMail = e.target.value;
+    setMail(newMail);
+  }, []);
+
+  const onPasswordChange = useCallback((e: any) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+  }, []);
+
+  const loginOrSignup = useCallback(async () => {
+    try {
+      await loginWithMail(mail, password);
+      onSuccess();
+    } catch (e) {
+      await registerWithMail(mail, password).then(onSuccess);
+    }
+  }, [mail, password]);
+
   return (
     <Container
       role="dialog"
@@ -80,9 +99,9 @@ function LoginModal({
     >
       <Modal>
         <CloseButton onClick={onClose} />
-        <SubmitButton />
-        <Input label="Mail" value={mail} type="email" />
-        <Input label="Password" value={password} type="password" />
+        <SubmitButton onClick={loginOrSignup} />
+        <Input label="Mail" value={mail} onChange={onMailChange} type="email" />
+        <Input label="Password" value={password} onChange={onPasswordChange} type="password" />
       </Modal>
     </Container>
   );
