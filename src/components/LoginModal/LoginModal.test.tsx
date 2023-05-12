@@ -4,19 +4,11 @@ import userEvent from '@testing-library/user-event';
 import LoginModal from './LoginModal';
 
 const mockOnClose = jest.fn();
-const mockGoogleLogin = jest.fn();
-const mockTwitterLogin = jest.fn();
-const mockAppleLogin = jest.fn();
-const mockGitHubLogin = jest.fn();
 
 test('if isVisible is true modal gets shown', () => {
   render(<LoginModal
     isVisible
     onClose={mockOnClose}
-    onGoogleLogin={mockGoogleLogin}
-    onTwitterLogin={mockTwitterLogin}
-    onAppleLogin={mockAppleLogin}
-    onGitHubLogin={mockGitHubLogin}
   />);
 
   const modal = screen.getByRole('dialog');
@@ -27,10 +19,6 @@ test('if isVisible is false modal is hidden', () => {
   render(<LoginModal
     isVisible={false}
     onClose={mockOnClose}
-    onGoogleLogin={mockGoogleLogin}
-    onTwitterLogin={mockTwitterLogin}
-    onAppleLogin={mockAppleLogin}
-    onGitHubLogin={mockGitHubLogin}
   />);
 
   const modal = screen.getByRole('dialog', { hidden: true });
@@ -42,10 +30,6 @@ test('if if close button is clicked onClose() is called', async () => {
   render(<LoginModal
     isVisible
     onClose={mockOnClose}
-    onGoogleLogin={mockGoogleLogin}
-    onTwitterLogin={mockTwitterLogin}
-    onAppleLogin={mockAppleLogin}
-    onGitHubLogin={mockGitHubLogin}
   />);
 
   const closeButton = screen.getByRole('button', { name: 'close dialog' });
