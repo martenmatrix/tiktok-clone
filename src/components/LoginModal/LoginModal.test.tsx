@@ -4,11 +4,13 @@ import userEvent from '@testing-library/user-event';
 import LoginModal from './LoginModal';
 
 const mockOnClose = jest.fn();
+const mockOnSuccess = jest.fn();
 
 test('if isVisible is true modal gets shown', () => {
   render(<LoginModal
     isVisible
     onClose={mockOnClose}
+    onSuccess={mockOnSuccess}
   />);
 
   const modal = screen.getByRole('dialog');
@@ -19,6 +21,7 @@ test('if isVisible is false modal is hidden', () => {
   render(<LoginModal
     isVisible={false}
     onClose={mockOnClose}
+    onSuccess={mockOnSuccess}
   />);
 
   const modal = screen.getByRole('dialog', { hidden: true });
@@ -30,6 +33,7 @@ test('if if close button is clicked onClose() is called', async () => {
   render(<LoginModal
     isVisible
     onClose={mockOnClose}
+    onSuccess={mockOnSuccess}
   />);
 
   const closeButton = screen.getByRole('button', { name: 'close dialog' });
