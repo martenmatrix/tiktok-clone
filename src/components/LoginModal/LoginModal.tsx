@@ -53,11 +53,20 @@ const CloseButton = styled.img.attrs({ src: Close, role: 'button', 'aria-label':
   height: 2rem;
 `;
 
-const SubmitButton = styled.img.attrs({ src: Arrow, role: 'button', 'aria-label': 'submit form' })`
+const SubmitButton = styled.button`
+  border: none;
+  color: transparent;
+  background: none;
   cursor: pointer;
+  outline: none;
   position: absolute;
   bottom: 0;
   right: 0;
+`;
+
+const SubmitButtonImage = styled.img.attrs({
+  src: Arrow, alt: 'green arrow pointing right', type: 'submit',
+})`
   width: 6rem;
   height: 6rem;
 `;
@@ -100,9 +109,13 @@ function LoginModal({
     >
       <Modal>
         <CloseButton onClick={onClose} />
-        <SubmitButton onClick={loginOrSignup} />
-        <Input label="Mail" value={mail} onChange={onMailChange} type="email" />
-        <Input label="Password" value={password} onChange={onPasswordChange} type="password" />
+        <form onSubmit={loginOrSignup}>
+          <Input label="Mail" value={mail} onChange={onMailChange} type="email" required />
+          <Input label="Password" value={password} onChange={onPasswordChange} type="password" required />
+          <SubmitButton>
+            <SubmitButtonImage />
+          </SubmitButton>
+        </form>
       </Modal>
     </Container>
   );
