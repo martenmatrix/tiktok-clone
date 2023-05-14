@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
+import * as firebaseUtil from '../../firebase/login';
+import '@testing-library/jest-dom';
 import LoginModal from './LoginModal';
 
 const mockOnClose = jest.fn();
@@ -43,7 +44,23 @@ test('if if close button is clicked onClose() is called', async () => {
   expect(mockOnClose).toHaveBeenCalledTimes(1);
 });
 
-test.todo('if loginWithMail succeeds calls onSuccess and does not call registerWithMail');
+test('if loginWithMail succeeds calls onSuccess and does not call registerWithMail', async () => {
+  const loginMailMock = jest.spyOn(firebaseUtil, 'loginWithMail').mockResolvedValue();
+  const registerMailMock = jest.spyOn(firebaseUtil, 'registerWithMail').mockResolvedValue();
+  const user = userEvent.setup();
+  render(<LoginModal
+    isVisible
+    onClose={mockOnClose}
+    onSuccess={mockOnSuccess}
+  />);
+  const loginButton = screen.getByRole('button', { name: 'submit form' });
+
+  await user.click(loginButton);
+
+  expect(loginMailMock).toHaveBeenCalledTimes(1);
+  expect(registerMailMock).toHaveBeenCalledTimes(0);
+});
+
 test.todo('if loginWithMail does not succeed calls registerWithMail');
 test.todo('if loginWithMail and registerWithMail does not succeed do not call registerWithMail');
 test.todo('does not execute if mail is empty');
