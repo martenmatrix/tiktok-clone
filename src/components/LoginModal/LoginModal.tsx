@@ -65,7 +65,7 @@ const SubmitButton = styled.button`
 `;
 
 const SubmitButtonImage = styled.img.attrs({
-  src: Arrow, alt: 'green arrow pointing right', type: 'submit',
+  src: Arrow, alt: 'green arrow pointing right',
 })`
   width: 6rem;
   height: 6rem;
