@@ -18,7 +18,7 @@ function App(): JSX.Element {
     <MainContainer>
       <GlobalStyle />
       <UserSettings />
-      <LoginModal isVisible onClose={() => {}} />
+      <LoginModal isVisible onClose={() => {}} onSuccess={() => {}} />
       <NavigationBar onUpload={() => {}} />
     </MainContainer>
   );
