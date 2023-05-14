@@ -61,7 +61,26 @@ test('if loginWithMail succeeds calls onSuccess and does not call registerWithMa
   expect(registerMailMock).toHaveBeenCalledTimes(0);
 });
 
-test.todo('if loginWithMail does not succeed calls registerWithMail');
+test('if loginWithMail does not succeed calls registerWithMail', async () => {
+  const loginMailMock = jest.spyOn(firebaseUtil, 'loginWithMail').mockRejectedValue(false);
+  const registerMailMock = jest.spyOn(firebaseUtil, 'registerWithMail').mockResolvedValue();
+  const user = userEvent.setup();
+  render(<LoginModal
+    isVisible
+    onClose={mockOnClose}
+    onSuccess={mockOnSuccess}
+  />);
+  const loginButton = screen.getByRole('button', { name: 'submit form' });
+
+  await user.click(loginButton);
+
+  expect(loginMailMock).toHaveBeenCalledTimes(1);
+  expect(registerMailMock).toHaveBeenCalledTimes(1);
+});
 test.todo('if loginWithMail and registerWithMail does not succeed do not call registerWithMail');
-test.todo('does not execute if mail is empty');
+test.skip('does not execute if mail is empty', () => {
+  const mailInput = screen.getByLabelText('Mail');
+  const passwordInput = screen.getByLabelText('Password');
+  const loginButton = screen.getByRole('button', { name: 'submit form' });
+});
 test.todo('does not execute if password is less than 6 characters');
