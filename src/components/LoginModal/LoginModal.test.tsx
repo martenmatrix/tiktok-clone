@@ -77,7 +77,6 @@ test('if loginWithMail does not succeed calls registerWithMail', async () => {
   expect(loginMailMock).toHaveBeenCalledTimes(1);
   expect(registerMailMock).toHaveBeenCalledTimes(1);
 });
-test.todo('if loginWithMail and registerWithMail does not succeed do not call registerWithMail');
 test.skip('does not execute if mail is empty', () => {
   const mailInput = screen.getByLabelText('Mail');
   const passwordInput = screen.getByLabelText('Password');
