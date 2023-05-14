@@ -29,16 +29,17 @@ type InputType = {
   value: string,
   type: string,
   disabled?: boolean,
+  required?: boolean,
 }
 
 function Input({
-  onChange = (() => {}), value, label, type, disabled = false,
+  onChange = (() => {}), value, label, type, disabled = false, required = false,
 }: InputType): JSX.Element {
   return (
     <InputContainer>
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput onChange={onChange} value={value} name="username" id={label} type={type} disabled={disabled} />
+      <StyledInput onChange={onChange} value={value} name="username" id={label} type={type} disabled={disabled} required={required} />
     </InputContainer>
   );
 }
