@@ -53,7 +53,7 @@ const CloseButton = styled.img.attrs({ src: Close, role: 'button', 'aria-label':
   height: 2rem;
 `;
 
-const SubmitButton = styled.button`
+const SubmitButton = styled.button.attrs({ 'aria-label': 'submit form' })`
   border: none;
   color: transparent;
   background: none;
