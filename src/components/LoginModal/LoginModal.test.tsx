@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event';
 import * as firebaseUtil from '../../firebase/login';
 import '@testing-library/jest-dom';
 import LoginModal from './LoginModal';
-import {loginWithMail, registerWithMail} from '../../firebase/login';
+// eslint-disable-next-line no-unused-vars
+import { loginWithMail, registerWithMail } from '../../firebase/login';
 
 const mockOnClose = jest.fn();
 const mockOnSuccess = jest.fn();
@@ -99,4 +100,26 @@ test('does not execute if mail and passwordInput is empty', async () => {
   expect(registerMailMock).toHaveBeenCalledTimes(0);
 });
 
-test.todo('does not execute if password is less than 6 characters');
+test('does not execute if password is less than 6 characters', async () => {
+  const loginMailMock = jest.spyOn(firebaseUtil, 'loginWithMail');
+  const registerMailMock = jest.spyOn(firebaseUtil, 'registerWithMail');
+  render(<LoginModal
+    isVisible
+    onClose={mockOnClose}
+    onSuccess={mockOnSuccess}
+  />);
+  const mailInput: HTMLInputElement = screen.getByLabelText('Mail');
+  const passwordInput: HTMLInputElement = screen.getByLabelText('Password');
+  const loginButton = screen.getByRole('button', { name: 'submit form' });
+  const user = userEvent.setup();
+
+  await user.type(mailInput, 'mail@example.org');
+  await user.type(passwordInput, 'bab');
+  await user.click(loginButton);
+
+  expect(loginMailMock).toHaveBeenCalledTimes(0);
+  expect(registerMailMock).toHaveBeenCalledTimes(0);
+
+  await user.type(passwordInput, 'baba');
+  expect(loginWithMail).toHaveBeenCalledTimes(1);
+});
