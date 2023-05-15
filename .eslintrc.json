@@ -25,7 +25,8 @@
         "import/extensions": [ "error", "ignorePackages", { "": "never" } ],
         "import/no-unresolved": "off",
         "react/require-default-props": "off",
-        "no-unused-expressions": "off"
+        "no-unused-expressions": "off",
+        "react/jsx-props-no-spreading": "off"
     },
     "globals": {
         "React": true,
