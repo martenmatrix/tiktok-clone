@@ -30,7 +30,7 @@ function Input({ label, ...inputProps }: InputType): JSX.Element {
   return (
     <InputContainer>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput name="username" id={label} {...inputProps} />
+      <StyledInput name={label} id={label} {...inputProps} />
     </InputContainer>
   );
 }
