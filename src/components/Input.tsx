@@ -5,7 +5,7 @@ const StyledLabel = styled.label`
   font-size: 15px;
 `;
 
-const StyledInput = styled.input`
+const StyledInput: any = styled.input`
   border: solid 1px #00000030;
   font-size: 20px;
   color: #000000;
@@ -22,24 +22,15 @@ const InputContainer = styled.div`
   color: #00000050;
 `;
 
-type InputType = {
+interface InputType extends React.ComponentProps<'input'> {
   label: string,
-  // eslint-disable-next-line no-unused-vars
-  onChange?: (e: any) => void,
-  value: string,
-  type: string,
-  disabled?: boolean,
-  required?: boolean,
 }
 
-function Input({
-  onChange = (() => {}), value, label, type, disabled = false, required = false,
-}: InputType): JSX.Element {
+function Input({ label, ...inputProps }: InputType): JSX.Element {
   return (
     <InputContainer>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput onChange={onChange} value={value} name="username" id={label} type={type} disabled={disabled} required={required} />
+      <StyledInput name="username" id={label} {...inputProps} />
     </InputContainer>
   );
 }
