@@ -111,7 +111,7 @@ function LoginModal({
         <CloseButton onClick={onClose} />
         <form onSubmit={loginOrSignup}>
           <Input label="Mail" value={mail} onChange={onMailChange} type="email" required />
-          <Input label="Password" value={password} onChange={onPasswordChange} type="password" required />
+          <Input label="Password" value={password} onChange={onPasswordChange} type="password" minLength={6} />
           <SubmitButton>
             <SubmitButtonImage />
           </SubmitButton>
