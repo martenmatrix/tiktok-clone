@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import { Outlet } from 'react-router-dom';
 import GlobalStyle from './globalStyle.js';
 import NavigationBar from '../NavigationBar';
-import UserSettings from '../../views/UserSettings/UserSettings';
-import LoginModal from '../LoginModal';
 
 const MainContainer = styled.div`
   display: block;
@@ -17,8 +16,7 @@ function App(): JSX.Element {
   return (
     <MainContainer>
       <GlobalStyle />
-      <UserSettings />
-      <LoginModal isVisible onClose={() => {}} onSuccess={() => {}} />
+      <Outlet />
       <NavigationBar onUpload={() => {}} />
     </MainContainer>
   );
