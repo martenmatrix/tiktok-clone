@@ -90,14 +90,19 @@ function LoginModal({
     setPassword(newPassword);
   }, []);
 
-  const loginOrSignup = useCallback(async () => {
+  async function loginOrSignup(): Promise<void> {
     try {
       await loginWithMail(mail, password);
       onSuccess();
     } catch (e) {
       await registerWithMail(mail, password).then(onSuccess);
     }
-  }, [mail, password]);
+  }
+
+  async function onSubmit(e: any) {
+    e.preventDefault();
+    await loginOrSignup();
+  }
 
   return (
     <Container
@@ -110,7 +115,7 @@ function LoginModal({
     >
       <Modal>
         <CloseButton onClick={onClose} />
-        <form onSubmit={loginOrSignup}>
+        <form onSubmit={onSubmit}>
           <Input label="Mail" value={mail} onChange={onMailChange} type="email" required />
           <Input label="Password" value={password} onChange={onPasswordChange} type="password" minLength={6} />
           <SubmitButton>
