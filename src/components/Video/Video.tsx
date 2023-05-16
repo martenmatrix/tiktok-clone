@@ -66,6 +66,7 @@ function Video({ id }: VideoType): JSX.Element {
   }, [id]);
 
   useEffect(() => {
+    if (!profileId) return;
     getProfilePicture(profileId).then((picURL) => {
       if (picURL === 'undefined') return;
       setProfilePicURL(picURL);
