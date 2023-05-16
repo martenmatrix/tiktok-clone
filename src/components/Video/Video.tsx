@@ -4,7 +4,7 @@ import {
 } from 'react';
 import InteractionButtons from '../InteractionButtons';
 import {
-  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
+  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid, isLoggedIn,
 } from '../../firebase/api';
 import { useFirstRender, inViewport } from '../hooks';
 
@@ -46,9 +46,14 @@ function Video({ id }: VideoType): JSX.Element {
   const [profileId, setProfileId] = useState<string>('');
   const [profilePicURL, setProfilePicURL] = useState<string>('');
   const [muted, setMuted] = useState<boolean>(true);
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
 
   const handleLikeChange = useCallback(async () => {
-    setIsLiked((prevLikeStatus) => !prevLikeStatus);
+    if (!isLoggedIn()) {
+      setShowLoginModal(true);
+    } else {
+      setIsLiked((prevLikeStatus) => !prevLikeStatus);
+    }
   }, [id, isLiked]);
 
   const handleMuteToggle = useCallback(() => {
