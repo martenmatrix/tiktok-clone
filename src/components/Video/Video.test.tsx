@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Video from './Video';
 import {
-  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid, isLoggedIn
+  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid, isLoggedIn,
 } from '../../firebase/api';
 import inViewport from '../hooks/inViewport';
 
@@ -155,4 +155,12 @@ test('calls onActionWhichRequiresAuth, if user is not logged in and attempts to 
     expect(mockSetLikeStatus).toHaveBeenCalledTimes(0);
   });
 });
-test.todo('does not fetch likeStatus, if user is not logged in');
+
+test('does not fetch likeStatus, if user is not logged in', async () => {
+  mockIsLoggedIn.mockReturnValue(false);
+  render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
+
+  await waitFor(() => {
+    expect(mockFetchVideoLikeStatus).toHaveBeenCalledTimes(0);
+  });
+});
