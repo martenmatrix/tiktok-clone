@@ -41,7 +41,7 @@ afterEach(() => {
 });
 
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
-  render(<Video id="5" />);
+  render(<Video id="5" onActionWhichRequiresAuth={() => {}} />);
   const user = userEvent.setup();
   const likeButton = screen.getByRole('button', { name: 'Like' });
 
@@ -57,7 +57,7 @@ test('if video is liked likeStatus is set correctly and setLikeStatus is called 
 });
 
 test('calls fetchVideo with correct id and sets response as video src', async () => {
-  render(<Video id="2" />);
+  render(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
   const video = screen.getByTestId('source-element');
 
   await waitFor(() => {
@@ -67,7 +67,7 @@ test('calls fetchVideo with correct id and sets response as video src', async ()
 });
 
 test('calls fetchLikeStatus with correct and id and sets response as like status', async () => {
-  render(<Video id="1" />);
+  render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
   const likeButton = screen.getByRole('button', { name: 'Like' });
 
   await waitFor(() => {
@@ -77,7 +77,7 @@ test('calls fetchLikeStatus with correct and id and sets response as like status
 });
 
 test('calls getProfilePicture with correct id and sets response as src on image', async () => {
-  render(<Video id="8" />);
+  render(<Video id="8" onActionWhichRequiresAuth={() => {}} />);
 
   const profilePictureElement = screen.getByAltText('Profile picture');
 
@@ -92,7 +92,7 @@ test('calls getProfilePicture with correct id and sets response as src on image'
 test('pauses video if not visible based on inViewport() hook', async () => {
   mockInViewport.mockReturnValue(false);
   const videoPauseStub = jest.spyOn(window.HTMLMediaElement.prototype, 'pause');
-  render(<Video id="1" />);
+  render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
   await waitFor(() => {
     expect(videoPauseStub).toHaveBeenCalledTimes(1);
   });
@@ -101,7 +101,7 @@ test('pauses video if not visible based on inViewport() hook', async () => {
 test('plays video if visible based on inViewport() hook', async () => {
   mockInViewport.mockReturnValue(true);
   const videoPlayStub = jest.spyOn(window.HTMLMediaElement.prototype, 'play');
-  render(<Video id="1" />);
+  render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
   await waitFor(() => {
     expect(videoPlayStub).toHaveBeenCalledTimes(1);
   });
@@ -109,7 +109,7 @@ test('plays video if visible based on inViewport() hook', async () => {
 
 // muted needs to be passed as a dataset to the element because of following react issue https://github.com/facebook/react/issues/10389
 test('clicking the mute button initially unmutes the video and clicking it again mutes the video', async () => {
-  render(<Video id="1" />);
+  render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
   const user = userEvent.setup();
   const muteButton = screen.getByRole('button', { name: 'Mute video' });
   const video = screen.getByTestId('video-element');
@@ -124,7 +124,7 @@ test('clicking the mute button initially unmutes the video and clicking it again
 test('video tries to autoplay unmuted, if not allow, tries to autoplay muted', async () => {
   const videoPlayStub = jest.spyOn(window.HTMLMediaElement.prototype, 'play').mockRejectedValueOnce(new DOMException());
   mockInViewport.mockReturnValue(true);
-  render(<Video id="1" />);
+  render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
   const video = screen.getByTestId('video-element');
   const muted = video.getAttribute('data-muted') === 'true';
 
