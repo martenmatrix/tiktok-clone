@@ -48,7 +48,7 @@ function Video({ id }: VideoType): JSX.Element {
   const [muted, setMuted] = useState<boolean>(true);
 
   const handleLikeChange = useCallback(async () => {
-    setIsLiked(!isLiked);
+    setIsLiked((prevLikeStatus) => !prevLikeStatus);
   }, [id, isLiked]);
 
   const handleMuteToggle = useCallback(() => {
