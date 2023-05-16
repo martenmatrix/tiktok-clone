@@ -139,5 +139,20 @@ test('video tries to autoplay unmuted, if not allow, tries to autoplay muted', a
   }
 });
 
-test.todo('calls onActionWhichRequiresAuth, if user is not logged in and attempts to like a video');
+test('calls onActionWhichRequiresAuth, if user is not logged in and attempts to like a video', async () => {
+  mockIsLoggedIn.mockReturnValue(false);
+  const mockOnActionWhichRequiresAuth = jest.fn();
+  render(<Video id="1" onActionWhichRequiresAuth={mockOnActionWhichRequiresAuth} />);
+  const user = userEvent.setup();
+  const likeButton = screen.getByRole('button', { name: 'Like' });
+
+  await act(async () => {
+    await user.click(likeButton);
+  });
+
+  await waitFor(() => {
+    expect(mockOnActionWhichRequiresAuth).toHaveBeenCalledTimes(1);
+    expect(mockSetLikeStatus).toHaveBeenCalledTimes(0);
+  });
+});
 test.todo('does not fetch likeStatus, if user is not logged in');
