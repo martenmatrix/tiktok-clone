@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import AccountIcon from './assets/account.svg';
 import ExploreIcon from './assets/explore.svg';
 import UploadIcon from './assets/upload.svg';
@@ -52,11 +53,15 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
 function NavigationBar({ onUpload }: NavigationBarType): JSX.Element {
   return (
     <NavigationBarContainer>
-      <ExploreButton />
+      <NavLink to="feed">
+        <ExploreButton />
+      </NavLink>
       <UploadButton onClick={onUpload}>
         <Icon src={UploadIcon} />
       </UploadButton>
-      <AccountButton />
+      <NavLink to="userSettings">
+        <AccountButton />
+      </NavLink>
     </NavigationBarContainer>
   );
 }
