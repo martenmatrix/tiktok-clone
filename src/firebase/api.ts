@@ -105,6 +105,10 @@ async function getAllVideoIds(): Promise<string[]> {
   return ids;
 }
 
+function isLoggedIn(): boolean {
+  return !!auth.currentUser;
+}
+
 export {
   getVideoURL,
   hasLiked,
@@ -116,4 +120,5 @@ export {
   uploadVideo,
   getVideoAuthorUid,
   getAllVideoIds,
+  isLoggedIn,
 };
