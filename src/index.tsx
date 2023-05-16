@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from './components';
-import GlobalStyle from './globalStyle';
+import { BrowserRouter } from 'react-router-dom';
 import { app } from './firebase/firebaseApp.js';
+import GlobalStyle from './globalStyle';
+import AvailableRoutes from './routes';
 
+// This logging needs to happen, otherwise app, auth, db, storage are undefined in api functions.
 console.log(app);
 
 const root = ReactDOM.createRoot(
@@ -12,6 +14,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <BrowserRouter>
+      <AvailableRoutes />
+    </BrowserRouter>
   </React.StrictMode>,
 );
