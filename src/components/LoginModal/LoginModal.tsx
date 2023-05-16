@@ -13,6 +13,7 @@ interface LoginModalProps {
 }
 
 const Container = styled.div<{ open: boolean }>`
+  z-index: 2;
   width: 100%;
   height: 100%;
   background: #00000025;
