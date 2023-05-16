@@ -73,7 +73,7 @@ function Video({ id }: VideoType): JSX.Element {
   }, [profileId]);
 
   useEffect(() => {
-    if (!firstRender) {
+    if (!firstRender && isLoggedIn()) {
       setLikeStatus(id, isLiked);
     }
   }, [isLiked]);
@@ -90,7 +90,7 @@ function Video({ id }: VideoType): JSX.Element {
     }
     async function getData() {
       await getVideo();
-      await getLikeStatus();
+      isLoggedIn() && await getLikeStatus();
     }
     getData().catch((e) => console.warn(e));
   }, []);
