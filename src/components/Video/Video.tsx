@@ -9,7 +9,8 @@ import {
 import { useFirstRender, inViewport } from '../hooks';
 
 type VideoType = {
-  id: string
+  id: string,
+  onActionWhichRequiresAuth: () => void
 }
 
 const ContentContainer = styled.div`
@@ -36,7 +37,7 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
   z-index: 1;
 `;
 
-function Video({ id }: VideoType): JSX.Element {
+function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const firstRender = useFirstRender();
   const videoVisible = inViewport(videoRef);
@@ -46,11 +47,10 @@ function Video({ id }: VideoType): JSX.Element {
   const [profileId, setProfileId] = useState<string>('');
   const [profilePicURL, setProfilePicURL] = useState<string>('');
   const [muted, setMuted] = useState<boolean>(true);
-  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
 
   const handleLikeChange = useCallback(async () => {
     if (!isLoggedIn()) {
-      setShowLoginModal(true);
+      onActionWhichRequiresAuth();
     } else {
       setIsLiked((prevLikeStatus) => !prevLikeStatus);
     }
