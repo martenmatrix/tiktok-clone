@@ -9,6 +9,7 @@ type NavigationBarType = {
 }
 
 const NavigationBarContainer = styled.div`
+  z-index: 1;
   position: absolute;
   bottom: 0;
   left: 0;
