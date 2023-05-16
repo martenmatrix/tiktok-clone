@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Video from './Video';
 import {
-  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid,
+  getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid, isLoggedIn
 } from '../../firebase/api';
 import inViewport from '../hooks/inViewport';
 
@@ -21,12 +21,14 @@ const mockSetLikeStatus = setLikeStatus as jest.MockedFunction<typeof setLikeSta
 const mockGetVideoAuthorUid = getVideoAuthorUid as jest.MockedFunction<typeof getVideoAuthorUid>;
 const mockGetProfilePicture = getProfilePicture as jest.MockedFunction<typeof getProfilePicture>;
 const mockInViewport = inViewport as jest.MockedFunction<typeof inViewport>;
+const mockIsLoggedIn = isLoggedIn as jest.MockedFunction<typeof isLoggedIn>;
 
 beforeEach(() => {
   mockGetVideoURL.mockResolvedValue('https://example.com/video.mp4');
   mockFetchVideoLikeStatus.mockResolvedValue(true);
   mockGetVideoAuthorUid.mockResolvedValue('anid');
   mockGetProfilePicture.mockResolvedValue('https://www.example.org');
+  mockIsLoggedIn.mockReturnValue(true);
 });
 
 afterEach(() => {
@@ -35,6 +37,7 @@ afterEach(() => {
   mockSetLikeStatus.mockClear();
   mockGetVideoAuthorUid.mockClear();
   mockGetProfilePicture.mockClear();
+  mockIsLoggedIn.mockClear();
 });
 
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
