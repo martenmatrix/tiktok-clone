@@ -138,3 +138,6 @@ test('video tries to autoplay unmuted, if not allow, tries to autoplay muted', a
     });
   }
 });
+
+test.todo('calls onActionWhichRequiresAuth, if user is not logged in and attempts to like a video');
+test.todo('does not fetch likeStatus, if user is not logged in');
