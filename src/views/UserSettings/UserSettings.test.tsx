@@ -49,6 +49,15 @@ test('automatically updates username when typing in new username', async () => {
   });
 });
 
-test('displays mail and unable to edit input field', () => {
+test('displays mail and unable to edit input field', async () => {
+  render(<UserSettings />);
+  const mailInput: HTMLInputElement = screen.getByLabelText('Mail');
 
+  await act(async () => {
+    const user = await userEvent.setup();
+    await user.click(mailInput);
+    await user.type(mailInput, 'peter');
+  });
+
+  expect(mailInput.value).toBe('mail@mail.mail');
 });
