@@ -86,7 +86,7 @@ async function getUsername(uid?: string): Promise<string> {
   const userDoc = doc(db, 'users', uid || auth.currentUser.uid);
   const userSnap = await getDoc(userDoc);
   if (userSnap.exists()) {
-    return userSnap.data().profilePicture;
+    return userSnap.data().username;
   }
   return 'undefined';
 }
