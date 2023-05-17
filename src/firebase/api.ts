@@ -82,8 +82,8 @@ async function setProfilePicture(image: File | Blob) {
 
 async function getUsername(uid?: string): Promise<string> {
   if (!uid && !auth.currentUser) return 'undefined';
-  const userId = uid || uuid();
-  const userDoc = doc(db, 'users', userId);
+  // @ts-ignore
+  const userDoc = doc(db, 'users', uid || auth.currentUser.uid);
   const userSnap = await getDoc(userDoc);
   if (userSnap.exists()) {
     return userSnap.data().profilePicture;
@@ -93,8 +93,8 @@ async function getUsername(uid?: string): Promise<string> {
 
 async function getMail(uid?: string): Promise<string> {
   if (!uid && !auth.currentUser) return 'undefined';
-  const userId = uid || uuid();
-  const userDoc = doc(db, 'users', userId);
+  // @ts-ignore
+  const userDoc = doc(db, 'users', uid || auth.currentUser.uid);
   const userSnap = await getDoc(userDoc);
   if (userSnap.exists()) {
     return userSnap.data().mail;
