@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/Input';
-import { getUsername, setUsername } from '../../firebase/api';
+import { getUsername, getMail, setUsername } from '../../firebase/api';
 
 const UserSettingsContainer = styled.div`
   display: flex;
@@ -18,6 +18,17 @@ function UserSettings(): JSX.Element {
 
   const onUsernameChange = useCallback((e: any) => {
     setName(e.target.value);
+  }, []);
+
+  useEffect(() => {
+    async function getUserAndMail() {
+      const username = await getUsername();
+      setName(username);
+      const mailFromUser = await getMail();
+      setMail(mailFromUser);
+    }
+
+    getUserAndMail();
   }, []);
 
   return (
