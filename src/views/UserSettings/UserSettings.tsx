@@ -18,6 +18,7 @@ function UserSettings(): JSX.Element {
 
   const onUsernameChange = useCallback((e: any) => {
     setName(e.target.value);
+    setUsername(e.target.value);
   }, []);
 
   useEffect(() => {
