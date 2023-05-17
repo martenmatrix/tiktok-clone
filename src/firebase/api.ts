@@ -91,6 +91,17 @@ async function getUsername(uid?: string): Promise<string> {
   return 'undefined';
 }
 
+async function getMail(uid?: string): Promise<string> {
+  if (!uid && !auth.currentUser) return 'undefined';
+  const userId = uid || uuid();
+  const userDoc = doc(db, 'users', userId);
+  const userSnap = await getDoc(userDoc);
+  if (userSnap.exists()) {
+    return userSnap.data().mail;
+  }
+  return 'undefined';
+}
+
 async function setUsername(newName: string): Promise<void> {
   if (!auth.currentUser) return;
 
@@ -116,6 +127,7 @@ export {
   setProfilePicture,
   getProfilePicture,
   getUsername,
+  getMail,
   setUsername,
   uploadVideo,
   getVideoAuthorUid,
