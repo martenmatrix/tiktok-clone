@@ -49,7 +49,8 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   const [muted, setMuted] = useState<boolean>(true);
 
   const handleLikeChange = useCallback(async () => {
-    if (!isLoggedIn()) {
+    const authenticated = await isLoggedIn();
+    if (!authenticated) {
       onActionWhichRequiresAuth();
     } else {
       setIsLiked((prevLikeStatus) => !prevLikeStatus);
@@ -74,7 +75,8 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   }, [profileId]);
 
   useEffect(() => {
-    if (!firstRender && isLoggedIn()) {
+    const authenticated = await isLoggedIn();
+    if (!firstRender && authenticated) {
       setLikeStatus(id, isLiked);
     }
   }, [isLiked]);
@@ -91,7 +93,10 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
     }
     async function getData() {
       await getVideo();
-      isLoggedIn() && await getLikeStatus();
+      const authenticated = await isLoggedIn();
+      if (authenticated) {
+        await getLikeStatus();
+      }
     }
     getData().catch((e) => console.warn(e));
   }, []);
