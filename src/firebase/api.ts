@@ -120,7 +120,7 @@ async function isLoggedIn(): Promise<boolean> {
   return new Promise((resolve, reject) => {
     const unsubscribe = auth.onAuthStateChanged(() => {
       unsubscribe();
-      resolve(true);
+      resolve(!!auth.currentUser);
     }, reject);
   });
 }
