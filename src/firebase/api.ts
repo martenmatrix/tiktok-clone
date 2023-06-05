@@ -116,8 +116,13 @@ async function getAllVideoIds(): Promise<string[]> {
   return ids;
 }
 
-function isLoggedIn(): boolean {
-  return !!auth.currentUser;
+async function isLoggedIn(): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(() => {
+      unsubscribe();
+      resolve(true);
+    }, reject);
+  });
 }
 
 export {
