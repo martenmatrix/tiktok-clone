@@ -1,9 +1,13 @@
-import { Routes, Navigate, Route } from 'react-router-dom';
+import {
+  Routes, Navigate, Route, useNavigate,
+} from 'react-router-dom';
 import { useCallback, useState } from 'react';
+import { isLoggedIn } from './firebase/api';
 import { App, LoginModal } from './components';
 import { Feed, UserSettings } from './views';
 
 function AvailableRoutes(): JSX.Element {
+  const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
 
   const displayLoginModal = useCallback(() => {
@@ -25,7 +29,7 @@ function AvailableRoutes(): JSX.Element {
         <Route path="/" element={<App />}>
           <Route index element={<Navigate to="/feed" />} />
           <Route index path="feed" element={<Feed onActionWhichRequiresAuth={displayLoginModal} />} />
-          <Route path="userSettings" element={<UserSettings />} />
+          <Route path="userSettings" element={isLoggedIn() ? <UserSettings /> : <LoginModal isVisible onClose={() => navigate('/')} onSuccess={closeLoginModal} />} />
         </Route>
       </Routes>
     </>
