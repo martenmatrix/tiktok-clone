@@ -1,6 +1,7 @@
 import {
   act, render, screen, waitFor,
 } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import {
   getUsername, getMail, setUsername, isLoggedIn,
@@ -39,6 +40,9 @@ test('fetches username and mail and displays it', async () => {
 
 test('automatically updates username when typing in new username', async () => {
   render(<UserSettings />);
+  await waitFor(() => {
+    expect(screen.getByLabelText('Username')).toBeInTheDocument();
+  });
   const usernameInput: HTMLInputElement = screen.getByLabelText('Username');
 
   await act(async () => {

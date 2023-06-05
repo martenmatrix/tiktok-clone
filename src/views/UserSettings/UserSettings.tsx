@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/Input';
-import { getUsername, getMail, setUsername } from '../../firebase/api';
+import {
+  getUsername, getMail, setUsername, isLoggedIn,
+} from '../../firebase/api';
 
 const UserSettingsContainer = styled.div`
   display: flex;
@@ -15,6 +17,11 @@ const UserSettingsContainer = styled.div`
 function UserSettings(): JSX.Element {
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
+  const [authLoaded, setAuthLoaded] = useState(false);
+
+  useEffect(() => {
+    isLoggedIn().then(() => setAuthLoaded(true));
+  }, []);
 
   const onUsernameChange = useCallback((e: any) => {
     setName(e.target.value);
@@ -29,15 +36,20 @@ function UserSettings(): JSX.Element {
       setMail(mailFromUser);
     }
 
-    getUserAndMail();
-  }, []);
+    if (authLoaded) {
+      getUserAndMail();
+    }
+  }, [authLoaded]);
 
-  return (
-    <UserSettingsContainer>
-      <Input label="Username" type="text" value={name} onChange={onUsernameChange} />
-      <Input label="Mail" type="email" value={mail} disabled />
-    </UserSettingsContainer>
-  );
+  if (authLoaded) {
+    return (
+      <UserSettingsContainer>
+        <Input label="Username" type="text" value={name} onChange={onUsernameChange} />
+        <Input label="Mail" type="email" value={mail} disabled />
+      </UserSettingsContainer>
+    );
+  }
+  return <p>Loading...</p>;
 }
 
 export default UserSettings;
