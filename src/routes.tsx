@@ -16,7 +16,11 @@ function AvailableRoutes(): JSX.Element {
 
   return (
     <>
-      <LoginModal isVisible={showLoginModal} onClose={closeLoginModal} onSuccess={() => {}} />
+      <LoginModal
+        isVisible={showLoginModal}
+        onClose={closeLoginModal}
+        onSuccess={closeLoginModal}
+      />
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Navigate to="/feed" />} />
