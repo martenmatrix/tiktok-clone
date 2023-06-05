@@ -14,11 +14,11 @@ import { uploadVideo, setProfilePicture } from './api';
 
 async function createFakeUsers(): Promise<void> {
   try {
-    await registerWithMail('parker@example.org', 'totallysafe');
+    // await registerWithMail('parker@example.org', 'totallysafe');
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`Unable to create accounts. Already created? ${e}`);
-    await loginWithMail('parker@example.org', 'totallysafe');
+    // await loginWithMail('parker@example.org', 'totallysafe');
   }
 }
 
