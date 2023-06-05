@@ -28,7 +28,7 @@ beforeEach(() => {
   mockFetchVideoLikeStatus.mockResolvedValue(true);
   mockGetVideoAuthorUid.mockResolvedValue('anid');
   mockGetProfilePicture.mockResolvedValue('https://www.example.org');
-  mockIsLoggedIn.mockReturnValue(true);
+  mockIsLoggedIn.mockResolvedValue(true);
 });
 
 afterEach(() => {
@@ -140,7 +140,7 @@ test('video tries to autoplay unmuted, if not allow, tries to autoplay muted', a
 });
 
 test('calls onActionWhichRequiresAuth, if user is not logged in and attempts to like a video', async () => {
-  mockIsLoggedIn.mockReturnValue(false);
+  mockIsLoggedIn.mockResolvedValue(false);
   const mockOnActionWhichRequiresAuth = jest.fn();
   render(<Video id="1" onActionWhichRequiresAuth={mockOnActionWhichRequiresAuth} />);
   const user = userEvent.setup();
@@ -157,7 +157,7 @@ test('calls onActionWhichRequiresAuth, if user is not logged in and attempts to 
 });
 
 test('does not fetch likeStatus, if user is not logged in', async () => {
-  mockIsLoggedIn.mockReturnValue(false);
+  mockIsLoggedIn.mockResolvedValue(false);
   render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
 
   await waitFor(() => {
