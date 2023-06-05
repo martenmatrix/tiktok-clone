@@ -75,10 +75,11 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   }, [profileId]);
 
   useEffect(() => {
-    const authenticated = await isLoggedIn();
-    if (!firstRender && authenticated) {
-      setLikeStatus(id, isLiked);
-    }
+    isLoggedIn().then((authenticated) => {
+      if (!firstRender && authenticated) {
+        setLikeStatus(id, isLiked);
+      }
+    });
   }, [isLiked]);
 
   useEffect(() => {
