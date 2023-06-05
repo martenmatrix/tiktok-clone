@@ -6,6 +6,10 @@ import { Feed, UserSettings } from './views';
 function AvailableRoutes(): JSX.Element {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
 
+  const displayLoginModal = useCallback(() => {
+    setShowLoginModal(true);
+  }, []);
+
   const closeLoginModal = useCallback(() => {
     setShowLoginModal(false);
   }, []);
@@ -16,7 +20,7 @@ function AvailableRoutes(): JSX.Element {
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Navigate to="/feed" />} />
-          <Route index path="feed" element={<Feed />} />
+          <Route index path="feed" element={<Feed onActionWhichRequiresAuth={displayLoginModal} />} />
           <Route path="userSettings" element={<UserSettings />} />
         </Route>
       </Routes>
