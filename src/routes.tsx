@@ -17,6 +17,7 @@ function AvailableRoutes(): JSX.Element {
 
   const closeLoginModal = useCallback(() => {
     setShowLoginModal(false);
+    setAuthenticated(true);
   }, []);
 
   useEffect(() => {
