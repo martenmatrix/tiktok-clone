@@ -12,3 +12,7 @@ test('onUpload gets called when upload button is clicked', async () => {
 
   expect(mockOnUpload).toHaveBeenCalledTimes(1);
 });
+
+test.todo('if uploadButton is clicked calls onActionWhichRequiresAuth if user is not logged in');
+test.todo('if uploadButton is clicked opens context menu if user is logged in');
+test.todo('if uploadVideo api function throws error display error with alert');
