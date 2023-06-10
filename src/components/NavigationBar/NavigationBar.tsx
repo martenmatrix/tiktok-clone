@@ -43,6 +43,10 @@ const Icon = styled.img`
   height: 40px;
 `;
 
+const HiddenFileUpload = styled.input.attrs({ type: 'file', id: 'fileElement', accept: 'video/mp4' })`
+  display: none;
+`;
+
 const ExploreButton = styled(Icon).attrs({ src: ExploreIcon, role: 'button', 'aria-label': 'go to explore page' })`
   cursor: pointer;
 `;
@@ -54,6 +58,7 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
 function NavigationBar({ onUpload }: NavigationBarType): JSX.Element {
   return (
     <NavigationBarContainer>
+      <HiddenFileUpload />
       <NavLink to="feed">
         <ExploreButton />
       </NavLink>
