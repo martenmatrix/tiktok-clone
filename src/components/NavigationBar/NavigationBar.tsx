@@ -1,11 +1,11 @@
 import styled from 'styled-components';
+import { useCallback, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import AccountIcon from './assets/account.svg';
 import ExploreIcon from './assets/explore.svg';
 import UploadIcon from './assets/upload.svg';
 
 type NavigationBarType = {
-  onUpload: () => void,
 }
 
 const NavigationBarContainer = styled.div`
@@ -43,7 +43,7 @@ const Icon = styled.img`
   height: 40px;
 `;
 
-const HiddenFileUpload = styled.input.attrs({ type: 'file', id: 'fileElement', accept: 'video/mp4' })`
+const HiddenFileUpload = styled.input.attrs((ref) => ({ type: 'file', accept: 'video/mp4', ref }))`
   display: none;
 `;
 
@@ -55,14 +55,22 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
   cursor: pointer;
 `;
 
-function NavigationBar({ onUpload }: NavigationBarType): JSX.Element {
+function NavigationBar(): JSX.Element {
+  const fileUploadElement = useRef<HTMLInputElement>();
+
+  const openFileContextMenu = useCallback(() => {
+    if (fileUploadElement.current) {
+      fileUploadElement.current.click();
+    }
+  }, []);
+
   return (
     <NavigationBarContainer>
-      <HiddenFileUpload />
+      <HiddenFileUpload ref={fileUploadElement} />
       <NavLink to="feed">
         <ExploreButton />
       </NavLink>
-      <UploadButton onClick={onUpload}>
+      <UploadButton onClick={openFileContextMenu}>
         <Icon src={UploadIcon} />
       </UploadButton>
       <NavLink to="userSettings">
