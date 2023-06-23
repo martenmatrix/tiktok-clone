@@ -6,6 +6,7 @@ import ExploreIcon from './assets/explore.svg';
 import UploadIcon from './assets/upload.svg';
 
 type NavigationBarType = {
+  onActionWhichRequiresAuth: () => void,
 }
 
 const NavigationBarContainer = styled.div`
@@ -55,7 +56,7 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
   cursor: pointer;
 `;
 
-function NavigationBar(): JSX.Element {
+function NavigationBar({ onActionWhichRequiresAuth }: NavigationBarType): JSX.Element {
   const fileUploadElement = useRef<HTMLInputElement>();
 
   const openFileContextMenu = useCallback(() => {
