@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import AccountIcon from './assets/account.svg';
 import ExploreIcon from './assets/explore.svg';
 import UploadIcon from './assets/upload.svg';
+import { uploadVideo } from '../../firebase/api';
 
 type NavigationBarType = {
   onActionWhichRequiresAuth: () => void,
@@ -65,9 +66,16 @@ function NavigationBar({ onActionWhichRequiresAuth }: NavigationBarType): JSX.El
     }
   }, []);
 
+  const onFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const videoToUpload = e.target.files[0];
+      uploadVideo(videoToUpload);
+    }
+  }, []);
+
   return (
     <NavigationBarContainer>
-      <HiddenFileUpload ref={fileUploadElement} />
+      <HiddenFileUpload ref={fileUploadElement} onChange={onFileChange} />
       <NavLink to="feed">
         <ExploreButton />
       </NavLink>
