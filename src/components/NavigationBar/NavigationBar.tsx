@@ -45,7 +45,9 @@ const Icon = styled.img`
   height: 40px;
 `;
 
-const HiddenFileUpload = styled.input.attrs((ref) => ({ type: 'file', accept: 'video/mp4', ref }))`
+const HiddenFileUpload = styled.input.attrs((ref) => ({
+  type: 'file', accept: 'video/mp4', 'aria-label': 'hidden upload input', ref,
+}))`
   display: none;
 `;
 
