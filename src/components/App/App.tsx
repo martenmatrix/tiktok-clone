@@ -12,12 +12,16 @@ const MainContainer = styled.div`
   margin: 0 auto;
 `;
 
-function App(): JSX.Element {
+type AppType = {
+  onActionWhichRequiresAuth: () => void,
+}
+
+function App({ onActionWhichRequiresAuth }: AppType): JSX.Element {
   return (
     <MainContainer>
       <GlobalStyle />
       <Outlet />
-      <NavigationBar onUpload={() => {}} />
+      <NavigationBar onActionWhichRequiresAuth={onActionWhichRequiresAuth} />
     </MainContainer>
   );
 }

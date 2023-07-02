@@ -32,7 +32,7 @@ function AvailableRoutes(): JSX.Element {
         onSuccess={closeLoginModal}
       />
       <Routes>
-        <Route path="/" element={<App />}>
+        <Route path="/" element={<App onActionWhichRequiresAuth={displayLoginModal} />}>
           <Route index element={<Navigate to="/feed" />} />
           <Route index path="feed" element={<Feed onActionWhichRequiresAuth={displayLoginModal} />} />
           <Route path="userSettings" element={authenticated ? <UserSettings /> : <LoginModal isVisible onClose={() => navigate('/')} onSuccess={closeLoginModal} />} />
