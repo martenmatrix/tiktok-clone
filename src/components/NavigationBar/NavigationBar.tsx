@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import AccountIcon from './assets/account.svg';
 import ExploreIcon from './assets/explore.svg';
 import UploadIcon from './assets/upload.svg';
-import { uploadVideo } from '../../firebase/api';
+import { isLoggedIn, uploadVideo } from '../../firebase/api';
 
 type NavigationBarType = {
   onActionWhichRequiresAuth: () => void,
@@ -62,9 +62,12 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
 function NavigationBar({ onActionWhichRequiresAuth }: NavigationBarType): JSX.Element {
   const fileUploadElement = useRef<HTMLInputElement>();
 
-  const openFileContextMenu = useCallback(() => {
-    if (fileUploadElement.current) {
+  const openFileContextMenu = useCallback(async () => {
+    const loggedIn = await isLoggedIn();
+    if (fileUploadElement.current && loggedIn) {
       fileUploadElement.current.click();
+    } else if (!loggedIn) {
+      onActionWhichRequiresAuth();
     }
   }, []);
 
