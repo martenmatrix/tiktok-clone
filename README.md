@@ -13,6 +13,8 @@ This section shows the steps to create a development environment for this applic
 5. Run the application with `npm start`. It should open in your default browser.
 6. Refresh the page.
 
+> :bulb: If you want to change, how the start state of the application is emulated (vidoes uploaded, user logged in) change the code in ./src/firebase/createDevEnvironment.js
+
 ### Current limitations :warning:
 - the ID of **every** uploaded video is fetched, when the page is loaded, this could lead to serious performance issues
 - the functions, which are interacting with the Firebase API are not being tested, however the Firebase Emulator is setup
