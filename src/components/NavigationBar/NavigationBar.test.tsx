@@ -27,7 +27,7 @@ test('if uploadButton is clicked calls onActionWhichRequiresAuth if user is not 
 });
 
 test('if uploadButton is clicked opens context menu if user is logged in', async () => {
-  mockIsLoggedIn.mockResolvedValue(false);
+  mockIsLoggedIn.mockResolvedValue(true);
   const mockOnAuth = jest.fn();
   const user = userEvent.setup();
   let contextMenuOpened = false;
