@@ -20,3 +20,4 @@ This section shows the steps to create a development environment for this applic
 - the functions, which are interacting with the Firebase API are not being tested, however the Firebase Emulator is setup
 - firebase rules are not being tested
 - the firebase app object needs to be logged in the index file, otherwise auth, app, storage, db are undefined in my api functions, because initialization must be awaited (see usersettings page)
+- blurring the site (opening login/register screen) while a video is playing, causes the site to lag because heavy calculations are required
