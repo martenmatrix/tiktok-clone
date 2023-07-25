@@ -129,6 +129,12 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
     }
   }, [videoVisible]);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = muted;
+    }
+  }, [muted]);
+
   return (
     <ContentContainer>
       <InteractionButtonsMidRight
