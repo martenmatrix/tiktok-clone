@@ -111,22 +111,21 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   useEffect(() => {
     async function tryToAutoPlayUnmuted() {
       try {
-        // @ts-ignore
-        await videoRef.current.play();
+        await videoRef.current!.play();
         setMuted(false);
       } catch (e) {
-        // @ts-ignore
-        videoRef.current.muted = true;
-        // @ts-ignore
-        await videoRef.current.play();
+        videoRef.current!.muted = true;
+        await videoRef.current!.play();
         setMuted(true);
       }
     }
-    if (videoRef.current === null) return;
-    if (videoVisible) {
-      tryToAutoPlayUnmuted();
-    } else {
-      videoRef.current.pause();
+
+    if (!(videoRef.current === null)) {
+      if (videoVisible) {
+        tryToAutoPlayUnmuted();
+      } else {
+        videoRef.current.pause();
+      }
     }
   }, [videoVisible]);
 
