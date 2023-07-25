@@ -6,9 +6,9 @@ function inViewport(ref: RefObject<HTMLElement>) {
   const [visible, setVisible] = useState<boolean>(false);
 
   const observer = useMemo(
-    () => new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-    ),
+    () => new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {
+      threshold: 0.25,
+    }),
     [ref],
   );
 
