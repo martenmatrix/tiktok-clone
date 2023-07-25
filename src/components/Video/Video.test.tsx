@@ -126,17 +126,11 @@ test('video tries to autoplay unmuted, if not allow, tries to autoplay muted', a
   mockInViewport.mockReturnValue(true);
   render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
   const video = screen.getByTestId('video-element');
-  const muted = video.getAttribute('data-muted') === 'true';
 
-  if (muted) {
-    await waitFor(() => {
-      expect(videoPlayStub).toHaveBeenCalledTimes(2);
-    });
-  } else {
-    await waitFor(() => {
-      expect(videoPlayStub).toHaveBeenCalledTimes(1);
-    });
-  }
+  await waitFor(() => {
+    expect(videoPlayStub).toHaveBeenCalledTimes(2);
+    expect(video).toHaveAttribute('data-muted', 'true');
+  });
 });
 
 test('calls onActionWhichRequiresAuth, if user is not logged in and attempts to like a video', async () => {
