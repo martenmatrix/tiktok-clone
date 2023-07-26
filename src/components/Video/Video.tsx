@@ -44,7 +44,6 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>('');
-  const [profileId, setProfileId] = useState<string>('');
   const [profilePicURL, setProfilePicURL] = useState<string>('');
   const [muted, setMuted] = useState<boolean>(true);
 
@@ -62,17 +61,33 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
     setMuted((prevMuted) => !prevMuted);
   }, []);
 
-  useEffect(() => {
-    getVideoAuthorUid(id).then((res) => setProfileId(res));
-  }, [id]);
+  async function getVideo(): Promise<void> {
+    const newVideoURL: string = await getVideoURL(id);
+    setVideoURL(newVideoURL);
+  }
+
+  async function getLikeStatus(): Promise<void> {
+    const likeStatus: boolean = await hasLiked(id);
+    setIsLiked(likeStatus);
+  }
+
+  async function fetchVideoInformation() {
+    const uid = await getVideoAuthorUid(id);
+    const profilePicture = await getProfilePicture(uid);
+    if (profilePicture !== 'undefined') {
+      setProfilePicURL(profilePicture);
+    }
+
+    await getVideo();
+    const authenticated = await isLoggedIn();
+    if (authenticated) {
+      await getLikeStatus();
+    }
+  }
 
   useEffect(() => {
-    if (!profileId) return;
-    getProfilePicture(profileId).then((picURL) => {
-      if (picURL === 'undefined') return;
-      setProfilePicURL(picURL);
-    });
-  }, [profileId]);
+    fetchVideoInformation();
+  }, []);
 
   useEffect(() => {
     isLoggedIn().then((authenticated) => {
@@ -81,26 +96,6 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
       }
     });
   }, [isLiked]);
-
-  useEffect(() => {
-    async function getVideo(): Promise<void> {
-      const newVideoURL: string = await getVideoURL(id);
-      setVideoURL(newVideoURL);
-    }
-
-    async function getLikeStatus(): Promise<void> {
-      const likeStatus: boolean = await hasLiked(id);
-      setIsLiked(likeStatus);
-    }
-    async function getData() {
-      await getVideo();
-      const authenticated = await isLoggedIn();
-      if (authenticated) {
-        await getLikeStatus();
-      }
-    }
-    getData().catch((e) => console.warn(e));
-  }, []);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -138,7 +133,6 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   return (
     <ContentContainer>
       <InteractionButtonsMidRight
-        profileId={profileId}
         profilePictureURL={profilePicURL}
         isLiked={isLiked}
         isMute={muted}

@@ -10,7 +10,7 @@ import {
 import inViewport from '../hooks/useInViewport';
 
 jest.mock('../../firebase/api');
-jest.mock('../hooks/inViewport');
+jest.mock('../hooks/useInViewport');
 jest.spyOn(window.HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
 jest.spyOn(window.HTMLMediaElement.prototype, 'play');
 jest.spyOn(window.HTMLMediaElement.prototype, 'pause');
