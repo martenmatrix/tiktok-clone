@@ -7,7 +7,7 @@ import Video from './Video';
 import {
   getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid, isLoggedIn,
 } from '../../firebase/api';
-import inViewport from '../hooks/inViewport';
+import inViewport from '../hooks/useInViewport';
 
 jest.mock('../../firebase/api');
 jest.mock('../hooks/inViewport');

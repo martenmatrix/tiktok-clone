@@ -1,4 +1,4 @@
 import useFirstRender from './useFirstRender';
-import inViewport from './inViewport';
+import useInViewport from './useInViewport';
 
-export { useFirstRender, inViewport };
+export { useFirstRender, useInViewport };

@@ -6,7 +6,7 @@ import InteractionButtons from '../InteractionButtons';
 import {
   getVideoURL, hasLiked, setLikeStatus, getProfilePicture, getVideoAuthorUid, isLoggedIn,
 } from '../../firebase/api';
-import { useFirstRender, inViewport } from '../hooks';
+import { useFirstRender, useInViewport } from '../hooks';
 
 type VideoType = {
   id: string,
@@ -40,7 +40,7 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
 function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const firstRender = useFirstRender();
-  const videoVisible = inViewport(videoRef);
+  const videoVisible = useInViewport(videoRef);
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [videoURL, setVideoURL] = useState<string>('');

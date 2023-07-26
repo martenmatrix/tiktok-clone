@@ -2,7 +2,7 @@ import {
   RefObject, useEffect, useMemo, useState,
 } from 'react';
 
-function inViewport(ref: RefObject<HTMLElement>) {
+function useInViewport(ref: RefObject<HTMLElement>) {
   const [visible, setVisible] = useState<boolean>(false);
 
   const observer = useMemo(
@@ -22,4 +22,4 @@ function inViewport(ref: RefObject<HTMLElement>) {
   return visible;
 }
 
-export default inViewport;
+export default useInViewport;
