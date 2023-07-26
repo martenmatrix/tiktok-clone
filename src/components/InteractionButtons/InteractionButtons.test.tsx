@@ -5,7 +5,6 @@ import InteractionButtons, { InteractionButtonsProps } from './InteractionButton
 
 function renderInteractionButtons(props: Partial<InteractionButtonsProps> = {}) {
   const defaultProps: InteractionButtonsProps = {
-    profileId: 'peter_baller187',
     profilePictureURL: 'https://www.example.org',
     onLikeChange: () => {},
     isLiked: true,

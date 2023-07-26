@@ -14,7 +14,6 @@ const Container = styled.div`
 
 export type InteractionButtonsProps = {
   className?: string,
-  profileId: string,
   profilePictureURL: string,
   onLikeChange: () => void;
   isLiked: boolean;
