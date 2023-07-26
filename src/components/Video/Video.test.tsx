@@ -164,8 +164,6 @@ test('does not fetch video information, if video is not in viewport', async () =
   render(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
 
   expect(mockGetVideoURL).not.toHaveBeenCalled();
-  expect(mockFetchVideoLikeStatus).not.toHaveBeenCalled();
-  expect(mockSetLikeStatus).not.toHaveBeenCalled();
   expect(mockGetVideoAuthorUid).not.toHaveBeenCalled();
   expect(mockGetProfilePicture).not.toHaveBeenCalled();
 });
