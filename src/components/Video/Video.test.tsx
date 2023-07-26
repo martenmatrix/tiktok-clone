@@ -167,3 +167,20 @@ test('does not fetch video information, if video is not in viewport', async () =
   expect(mockGetVideoAuthorUid).not.toHaveBeenCalled();
   expect(mockGetProfilePicture).not.toHaveBeenCalled();
 });
+
+// TODO: how to test this?
+
+test.todo('does not fetch video information again if video visible => invisible => visible', async () => {
+  mockInViewport.mockReturnValue(true);
+  const { rerender } = render(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
+  mockInViewport.mockReturnValue(false);
+  rerender(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
+  mockInViewport.mockReturnValue(true);
+  rerender(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
+
+  await waitFor(() => {
+    expect(mockGetVideoURL).toHaveBeenCalledTimes(1);
+    expect(mockGetVideoAuthorUid).toHaveBeenCalledTimes(1);
+    expect(mockGetProfilePicture).toHaveBeenCalledTimes(1);
+  });
+});
