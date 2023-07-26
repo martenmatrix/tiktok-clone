@@ -158,3 +158,14 @@ test('does not fetch likeStatus, if user is not logged in', async () => {
     expect(mockFetchVideoLikeStatus).toHaveBeenCalledTimes(0);
   });
 });
+
+test('does not fetch video information, if video is not in viewport', async () => {
+  mockInViewport.mockReturnValue(false);
+  render(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
+
+  expect(mockGetVideoURL).not.toHaveBeenCalled();
+  expect(mockFetchVideoLikeStatus).not.toHaveBeenCalled();
+  expect(mockSetLikeStatus).not.toHaveBeenCalled();
+  expect(mockGetVideoAuthorUid).not.toHaveBeenCalled();
+  expect(mockGetProfilePicture).not.toHaveBeenCalled();
+});

@@ -86,8 +86,13 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   }
 
   useEffect(() => {
-    fetchVideoInformation();
-  }, []);
+    let alreadyFetched = false;
+
+    if (videoVisible && !alreadyFetched) {
+      alreadyFetched = true;
+      fetchVideoInformation();
+    }
+  }, [videoVisible]);
 
   useEffect(() => {
     isLoggedIn().then((authenticated) => {
