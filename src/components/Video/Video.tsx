@@ -86,10 +86,8 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   }
 
   useEffect(() => {
-    let alreadyFetched = false;
-
+    const alreadyFetched = !!videoURL;
     if (videoVisible && !alreadyFetched) {
-      alreadyFetched = true;
       fetchVideoInformation();
     }
   }, [videoVisible]);
