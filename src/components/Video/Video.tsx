@@ -109,15 +109,18 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
   }, [videoURL]);
 
   useEffect(() => {
-    function tryToAutoPlayUnmuted() {
+    async function tryToAutoPlayUnmuted() {
       // do not use setMute here, otherwise mute value gets updated only on next render
       videoRef.current!.muted = false;
-      videoRef.current!.play().catch(() => {
+
+      try {
+        await videoRef.current!.play();
+      } catch (e) {
         // needs to be set twice https://react.dev/reference/react/useState#troubleshooting
         setMuted(true);
         videoRef.current!.muted = true;
-        videoRef.current!.play();
-      });
+        await videoRef.current!.play();
+      }
     }
 
     if (!(videoRef.current === null)) {
