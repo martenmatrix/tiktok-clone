@@ -1,7 +1,6 @@
 {
   "hosting": {
-    "public": "public",
-    "site": "tiktok-clone-123456789",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
