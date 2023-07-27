@@ -15,14 +15,21 @@ type FeedType = {
   onActionWhichRequiresAuth: () => void,
 }
 
+let didInit = false;
+
 function Feed({ onActionWhichRequiresAuth }: FeedType): JSX.Element {
   const [ids, setIds] = useState<string[]>([]);
 
   useEffect(() => {
-    async function getIds(): Promise<string[]> {
-      return getAllVideoIds();
+    async function loadIds(): Promise<void> {
+      const fetchedIds: string[] = await getAllVideoIds();
+      setIds((prevArray) => ([...prevArray, ...fetchedIds]));
     }
-    getIds().then((res) => setIds(res));
+
+    if (!didInit) {
+      didInit = true;
+      loadIds();
+    }
   }, []);
 
   return (
