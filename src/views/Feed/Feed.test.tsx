@@ -41,6 +41,23 @@ test('does not fetch video ids again when two renders happen', async () => {
   });
 });
 
+test('removes duplicate if video id was already fetched and is in search query', async () => {
+  mockGetAllVideoIds.mockResolvedValue(['id1']);
+  mockUseCurrentVideoId.mockReturnValue(['id1', () => {}]);
+  mockVideo.mockImplementation(({ id }) => (<h1>{id}</h1>));
+
+  await act(() => {
+    render(<Feed onActionWhichRequiresAuth={() => {}} />);
+  });
+
+  await waitFor(() => {
+    screen.getByText('id1');
+  });
+
+  const videoDivs = screen.getAllByRole('heading');
+  expect(videoDivs.length).toBe(1);
+});
+
 test.todo('isLiked gets fetched for the current video running');
 test.todo('three videos are displayed');
 test.todo('Swiping up displays the second video in the array and clicking the like button fires with the corresponding id');
