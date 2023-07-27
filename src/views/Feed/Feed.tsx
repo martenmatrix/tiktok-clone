@@ -16,8 +16,6 @@ type FeedType = {
   onActionWhichRequiresAuth: () => void,
 }
 
-let didInit = false;
-
 function Feed({ onActionWhichRequiresAuth }: FeedType): JSX.Element {
   const [currentID, setCurrentID] = useCurrentVideoID();
   const [ids, setIds] = useState<string[]>([]);
@@ -43,11 +41,8 @@ function Feed({ onActionWhichRequiresAuth }: FeedType): JSX.Element {
       });
     }
 
-    if (!didInit) {
-      didInit = true;
-      loadIds();
-      readCurrentSearchParamID();
-    }
+    loadIds();
+    readCurrentSearchParamID();
   }, []);
 
   return (

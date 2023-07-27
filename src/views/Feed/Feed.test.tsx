@@ -28,19 +28,6 @@ test('if search parameter for a id of a video is provided, displays the video as
   expect(videoDivs[0].textContent).toBe('randomid');
 });
 
-test('does not fetch video ids again when two renders happen', async () => {
-  mockGetAllVideoIds.mockResolvedValue(['id1', 'id2', 'id3']);
-  mockVideo.mockImplementation(({ id }) => (<h1>{id}</h1>));
-  render(<Feed onActionWhichRequiresAuth={() => {}} />);
-  await act(() => {
-    render(<Feed onActionWhichRequiresAuth={() => {}} />);
-  });
-
-  await waitFor(() => {
-    expect(mockGetAllVideoIds).toHaveBeenCalledTimes(1);
-  });
-});
-
 test('removes duplicate if video id was already fetched and is in search query', async () => {
   mockGetAllVideoIds.mockResolvedValue(['id1']);
   mockUseCurrentVideoId.mockReturnValue(['id1', () => {}]);
