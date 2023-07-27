@@ -57,9 +57,3 @@ test('removes duplicate if video id was already fetched and is in search query',
   const videoDivs = screen.getAllByRole('heading');
   expect(videoDivs.length).toBe(1);
 });
-
-test.todo('isLiked gets fetched for the current video running');
-test.todo('three videos are displayed');
-test.todo('Swiping up displays the second video in the array and clicking the like button fires with the corresponding id');
-test.todo('swiping down displays the previous video');
-test.todo('loginModal gets shown when user is not logged in and attempts to like');
