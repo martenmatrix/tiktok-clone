@@ -12,5 +12,5 @@ export default function useCurrentVideoID() {
     }
   }, [id]);
 
-  return [id, setId];
+  return [id, setId] as const;
 }
