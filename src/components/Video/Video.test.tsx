@@ -41,6 +41,7 @@ afterEach(() => {
 });
 
 test('if video is liked likeStatus is set correctly and setLikeStatus is called correctly', async () => {
+  mockInViewport.mockReturnValue(true);
   render(<Video id="5" onActionWhichRequiresAuth={() => {}} />);
   const user = userEvent.setup();
   const likeButton = screen.getByRole('button', { name: 'Like' });
@@ -57,6 +58,7 @@ test('if video is liked likeStatus is set correctly and setLikeStatus is called 
 });
 
 test('calls fetchVideo with correct id and sets response as video src', async () => {
+  mockInViewport.mockReturnValue(true);
   render(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
   const video = screen.getByTestId('source-element');
 
@@ -67,16 +69,19 @@ test('calls fetchVideo with correct id and sets response as video src', async ()
 });
 
 test('calls fetchLikeStatus with correct and id and sets response as like status', async () => {
+  mockInViewport.mockReturnValue(true);
   render(<Video id="1" onActionWhichRequiresAuth={() => {}} />);
   const likeButton = screen.getByRole('button', { name: 'Like' });
 
   await waitFor(() => {
+    mockInViewport.mockReturnValue(true);
     expect(likeButton).toHaveAttribute('aria-pressed', 'true');
     expect(mockFetchVideoLikeStatus).toHaveBeenCalledWith('1');
   });
 });
 
 test('calls getProfilePicture with correct id and sets response as src on image', async () => {
+  mockInViewport.mockReturnValue(true);
   render(<Video id="8" onActionWhichRequiresAuth={() => {}} />);
 
   const profilePictureElement = screen.getByAltText('Profile picture');
