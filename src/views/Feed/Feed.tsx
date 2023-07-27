@@ -56,6 +56,7 @@ function Feed({ onActionWhichRequiresAuth }: FeedType): JSX.Element {
         <Video
           id={id}
           key={id}
+          onNewVideoViewed={setCurrentID}
           onActionWhichRequiresAuth={onActionWhichRequiresAuth}
         />
       ))}
