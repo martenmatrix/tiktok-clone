@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {
-  useState, useCallback, useEffect, useRef,
+  useState, useCallback, useEffect, useRef, Dispatch, SetStateAction,
 } from 'react';
 import InteractionButtons from '../InteractionButtons';
 import {
@@ -11,7 +11,7 @@ import { useFirstRender, useInViewport } from '../hooks';
 type VideoType = {
   id: string,
   onActionWhichRequiresAuth: () => void,
-  onNewVideoViewed?: (id: string) => void,
+  onNewVideoViewed?: Dispatch<SetStateAction<string | null>> | null,
 }
 
 const ContentContainer = styled.div`
