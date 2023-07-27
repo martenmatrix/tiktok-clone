@@ -168,9 +168,18 @@ test('does not fetch video information, if video is not in viewport', async () =
   expect(mockGetProfilePicture).not.toHaveBeenCalled();
 });
 
+test('onNewVideoId is called with id of video currently being viewed', async () => {
+  const mockOnNewId = jest.fn();
+  mockInViewport.mockReturnValue(true);
+  await act(() => {
+    render(<Video id="2" onActionWhichRequiresAuth={() => {}} onNewVideoViewed={mockOnNewId} />);
+  });
+  expect(mockOnNewId).toHaveBeenCalledWith('2');
+});
+
 // TODO: how to test this?
 
-test.todo('does not fetch video information again if video visible => invisible => visible', async () => {
+test.skip('does not fetch video information again if video visible => invisible => visible', async () => {
   mockInViewport.mockReturnValue(true);
   const { rerender } = render(<Video id="2" onActionWhichRequiresAuth={() => {}} />);
   mockInViewport.mockReturnValue(false);

@@ -10,7 +10,8 @@ import { useFirstRender, useInViewport } from '../hooks';
 
 type VideoType = {
   id: string,
-  onActionWhichRequiresAuth: () => void
+  onActionWhichRequiresAuth: () => void,
+  onNewVideoViewed?: (id: string) => void,
 }
 
 const ContentContainer = styled.div`
@@ -37,7 +38,7 @@ const InteractionButtonsMidRight = styled(InteractionButtons)`
   z-index: 1;
 `;
 
-function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
+function Video({ id, onActionWhichRequiresAuth, onNewVideoViewed }: VideoType): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
   const firstRender = useFirstRender();
   const videoVisible = useInViewport(videoRef);
@@ -89,6 +90,12 @@ function Video({ id, onActionWhichRequiresAuth }: VideoType): JSX.Element {
     const alreadyFetched = !!videoURL;
     if (videoVisible && !alreadyFetched) {
       fetchVideoInformation();
+    }
+  }, [videoVisible]);
+
+  useEffect(() => {
+    if (videoVisible && onNewVideoViewed) {
+      onNewVideoViewed(id);
     }
   }, [videoVisible]);
 
