@@ -77,6 +77,11 @@ test('awaits firebase authentication', () => {
   expect(mockIsLoggedIn).toHaveBeenCalled();
 });
 
-test('displays profile picture of logged in user', () => {
+test('displays profile picture of logged in user', async () => {
   render(<UserSettings />);
+
+  await waitFor(() => {
+    const profilePicImage = screen.getByAltText('your profile picture');
+    expect(profilePicImage).toHaveAttribute('src', 'https://example.com');
+  });
 });
