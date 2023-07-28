@@ -4,7 +4,7 @@ import {
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import {
-  getUsername, getMail, setUsername, isLoggedIn,
+  getUsername, getMail, setUsername, isLoggedIn, getProfilePicture,
 } from '../../firebase/api';
 import UserSettings from './UserSettings';
 
@@ -14,11 +14,13 @@ const mockGetUsername = getUsername as jest.MockedFunction<typeof getUsername>;
 const mockGetMail = getMail as jest.MockedFunction<typeof getMail>;
 const mockSetUsername = setUsername as jest.MockedFunction<typeof setUsername>;
 const mockIsLoggedIn = isLoggedIn as jest.MockedFunction<typeof isLoggedIn>;
+const mockGetProfilePicture = jest.mocked(getProfilePicture);
 
 beforeEach(() => {
   mockGetUsername.mockResolvedValue('peter');
   mockGetMail.mockResolvedValue('mail@mail.mail');
   mockIsLoggedIn.mockResolvedValue(true);
+  mockGetProfilePicture.mockResolvedValue('https://example.com');
 });
 
 afterEach(() => {
@@ -73,4 +75,8 @@ test('displays mail and unable to edit input field', async () => {
 test('awaits firebase authentication', () => {
   render(<UserSettings />);
   expect(mockIsLoggedIn).toHaveBeenCalled();
+});
+
+test('displays profile picture of logged in user', () => {
+  render(<UserSettings />);
 });

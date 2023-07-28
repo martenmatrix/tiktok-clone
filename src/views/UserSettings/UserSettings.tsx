@@ -2,8 +2,9 @@ import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/Input';
 import {
-  getUsername, getMail, setUsername, isLoggedIn,
+  getUsername, getMail, setUsername, isLoggedIn, getProfilePicture,
 } from '../../firebase/api';
+import ChangeProfilePic from './ChangeProfilePic';
 
 const UserSettingsContainer = styled.div`
   display: flex;
@@ -17,6 +18,7 @@ const UserSettingsContainer = styled.div`
 function UserSettings(): JSX.Element {
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
+  const [profilePicURL, setProfilePicURL] = useState<string>('');
   const [authLoaded, setAuthLoaded] = useState(false);
 
   useEffect(() => {
@@ -29,21 +31,24 @@ function UserSettings(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    async function getUserAndMail() {
+    async function getUserInformation() {
       const username = await getUsername();
       setName(username);
       const mailFromUser = await getMail();
       setMail(mailFromUser);
+      const profilePicFromUser = await getProfilePicture();
+      setProfilePicURL(profilePicFromUser);
     }
 
     if (authLoaded) {
-      getUserAndMail();
+      getUserInformation();
     }
   }, [authLoaded]);
 
   if (authLoaded) {
     return (
       <UserSettingsContainer>
+        <ChangeProfilePic src={profilePicURL} alt="your profile picture" />
         <Input label="Username" type="text" value={name} onChange={onUsernameChange} />
         <Input label="Mail" type="email" value={mail} disabled />
       </UserSettingsContainer>
