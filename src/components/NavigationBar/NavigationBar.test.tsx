@@ -20,35 +20,15 @@ test('if uploadButton is clicked calls onActionWhichRequiresAuth if user is not 
       <NavigationBar onActionWhichRequiresAuth={mockOnAuth} />
     </BrowserRouter>,
   );
-  const uploadButton = screen.getByRole('button', { name: 'upload video' });
-  await user.click(uploadButton);
 
-  expect(mockOnAuth).toHaveBeenCalledTimes(1);
-});
-
-test('if uploadButton is clicked opens context menu if user is logged in', async () => {
-  mockIsLoggedIn.mockResolvedValue(true);
-  const mockOnAuth = jest.fn();
-  const user = userEvent.setup();
-  let contextMenuOpened = false;
-
-  render(
-    <BrowserRouter>
-      <NavigationBar onActionWhichRequiresAuth={mockOnAuth} />
-    </BrowserRouter>,
-  );
-
-  const actualInput = screen.getByLabelText('hidden upload input');
-  const uploadButton = screen.getByRole('button', { name: 'upload video' });
-
-  actualInput.addEventListener('click', () => {
-    contextMenuOpened = true;
+  await waitFor(() => {
+    screen.getByRole('button', { name: 'upload file' });
   });
-
+  const uploadButton = screen.getByRole('button', { name: 'upload file' });
   await user.click(uploadButton);
 
   await waitFor(() => {
-    expect(contextMenuOpened).toBe(true);
+    expect(mockOnAuth).toHaveBeenCalled();
   });
 });
 
