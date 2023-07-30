@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import AccountIcon from './assets/account.svg';
 import ExploreIcon from './assets/explore.svg';
 import UploadIcon from './assets/upload.svg';
+import UploadElement from '../UploadElement';
 import { isLoggedIn, uploadVideo } from '../../firebase/api';
 
 type NavigationBarType = {
@@ -28,7 +29,7 @@ const NavigationBarContainer = styled.div`
   background: #87878750;
 `;
 
-const UploadButton = styled.div.attrs({ role: 'button', 'aria-label': 'upload video' })`
+const UploadButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,12 +46,6 @@ const Icon = styled.img`
   height: 40px;
 `;
 
-const HiddenFileUpload = styled.input.attrs((ref) => ({
-  type: 'file', accept: 'video/mp4', 'aria-label': 'hidden upload input', ref,
-}))`
-  display: none;
-`;
-
 const ExploreButton = styled(Icon).attrs({ src: ExploreIcon, role: 'button', 'aria-label': 'go to explore page' })`
   cursor: pointer;
 `;
@@ -60,33 +55,25 @@ const AccountButton = styled(Icon).attrs({ src: AccountIcon, role: 'button', 'ar
 `;
 
 function NavigationBar({ onActionWhichRequiresAuth }: NavigationBarType): JSX.Element {
-  const fileUploadElement = useRef<HTMLInputElement>();
-
-  const openFileContextMenu = useCallback(async () => {
+  const onSelect = useCallback(async (data: any) => {
     const loggedIn = await isLoggedIn();
-    if (fileUploadElement.current && loggedIn) {
-      fileUploadElement.current.click();
-    } else if (!loggedIn) {
+    if (loggedIn) {
+      uploadVideo(data);
+    } else {
       onActionWhichRequiresAuth();
-    }
-  }, []);
-
-  const onFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const videoToUpload = e.target.files[0];
-      uploadVideo(videoToUpload);
     }
   }, []);
 
   return (
     <NavigationBarContainer>
-      <HiddenFileUpload ref={fileUploadElement} onChange={onFileChange} />
       <NavLink to="feed">
         <ExploreButton />
       </NavLink>
-      <UploadButton onClick={openFileContextMenu}>
-        <Icon src={UploadIcon} />
-      </UploadButton>
+      <UploadElement acceptedTypes="video/mp4" onSelect={onSelect}>
+        <UploadButton>
+          <Icon src={UploadIcon} />
+        </UploadButton>
+      </UploadElement>
       <NavLink to="userSettings">
         <AccountButton />
       </NavLink>
