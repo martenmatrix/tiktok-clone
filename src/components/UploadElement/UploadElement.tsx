@@ -7,7 +7,7 @@ type UploadElementType = {
   children?: ReactNode,
 }
 
-const Container = styled.div.attrs({ role: 'button' })`
+const Container = styled.div.attrs({ role: 'button', 'aria-label': 'upload file' })`
   width: 100%;
   height: 100%;
 `;
