@@ -5,10 +5,17 @@ import {
 import { BrowserRouter } from 'react-router-dom';
 import { isLoggedIn } from '../../firebase/api';
 import NavigationBar from './NavigationBar';
+import UploadElement from '../UploadElement/UploadElement';
 
 jest.mock('../../firebase/api');
+jest.mock('../UploadElement/UploadElement.tsx');
 
 const mockIsLoggedIn = jest.mocked(isLoggedIn);
+const mockUploadElement = jest.mocked(UploadElement);
+
+beforeEach(() => {
+  mockUploadElement.mockImplementation(({ onSelect }) => <button type="button" onClick={onSelect}>upload file</button>);
+});
 
 test('if uploadButton is clicked calls onActionWhichRequiresAuth if user is not logged in', async () => {
   mockIsLoggedIn.mockResolvedValue(false);
