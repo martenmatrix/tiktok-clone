@@ -8,8 +8,6 @@ type UploadElementType = {
 }
 
 const Container = styled.div.attrs({ role: 'button', 'aria-label': 'upload file' })`
-  width: 100%;
-  height: 100%;
 `;
 
 const HiddenFileUpload = styled.input.attrs(({ accept }) => ({
