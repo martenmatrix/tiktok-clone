@@ -3,6 +3,7 @@ import React, { ReactNode, useCallback, useRef } from 'react';
 
 type UploadElementType = {
   acceptedTypes: string,
+  // eslint-disable-next-line no-unused-vars
   onSelect: (data: any) => void,
   children?: ReactNode,
   className?: string,
