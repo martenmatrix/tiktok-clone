@@ -29,9 +29,14 @@ function ChangeProfilePic() {
   fetchProfilePicture();
 
   useEffect(() => {
-    if (selectedPicture) {
-      setProfilePicture(selectedPicture);
+    async function updateProfilePicture() {
+      if (selectedPicture) {
+        await setProfilePicture(selectedPicture);
+        await fetchProfilePicture();
+      }
     }
+
+    updateProfilePicture();
   }, [selectedPicture]);
 
   return (
