@@ -17,6 +17,7 @@ const StyledInput: any = styled.input`
 
 const InputContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   font-family: 'Montserrat', sans-serif;
   color: #00000050;
