@@ -1,14 +1,14 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { getProfilePicture, setProfilePicture } from '../../firebase/api';
+import UploadElement from '../../components/UploadElement';
 
-type ChangeProfilePicType = {
-  src: string,
-  alt: string,
-  onClick?: () => void
-}
-
-const ImageContainer = styled.div`
-  width: 10rem;
-  height: 10rem;
+const ImageContainer = styled(UploadElement)`
+  width: 7.5rem;
+  height: 7.5rem;
+  overflow: hidden;
+  border-radius: 5rem;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -17,10 +17,26 @@ const Image = styled.img`
   object-fit: cover;
 `;
 
-function ChangeProfilePic({ src, alt, onClick }: ChangeProfilePicType) {
+function ChangeProfilePic() {
+  const [profileURL, setProfileURL] = useState<string>('');
+  const [selectedPicture, setSelectedPicture] = useState<Blob | File | null>();
+
+  async function fetchProfilePicture() {
+    const url = await getProfilePicture();
+    setProfileURL(url);
+  }
+
+  fetchProfilePicture();
+
+  useEffect(() => {
+    if (selectedPicture) {
+      setProfilePicture(selectedPicture);
+    }
+  }, [selectedPicture]);
+
   return (
-    <ImageContainer onClick={onClick}>
-      <Image src={src} alt={alt} />
+    <ImageContainer acceptedTypes="image/*" onSelect={(picture) => setSelectedPicture(picture)}>
+      <Image src={profileURL} alt="your profile picture" />
     </ImageContainer>
   );
 }
