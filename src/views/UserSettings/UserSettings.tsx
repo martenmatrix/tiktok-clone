@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/Input';
 import {
-  getUsername, getMail, setUsername, isLoggedIn, getProfilePicture,
+  getUsername, getMail, setUsername, isLoggedIn,
 } from '../../firebase/api';
 import ChangeProfilePic from './ChangeProfilePic';
 
@@ -18,7 +18,6 @@ const UserSettingsContainer = styled.div`
 function UserSettings(): JSX.Element {
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
-  const [profilePicURL, setProfilePicURL] = useState<string>('');
   const [authLoaded, setAuthLoaded] = useState(false);
 
   useEffect(() => {
@@ -36,8 +35,6 @@ function UserSettings(): JSX.Element {
       setName(username);
       const mailFromUser = await getMail();
       setMail(mailFromUser);
-      const profilePicFromUser = await getProfilePicture();
-      setProfilePicURL(profilePicFromUser);
     }
 
     if (authLoaded) {
@@ -48,7 +45,7 @@ function UserSettings(): JSX.Element {
   if (authLoaded) {
     return (
       <UserSettingsContainer>
-        <ChangeProfilePic src={profilePicURL} alt="your profile picture" />
+        <ChangeProfilePic />
         <Input label="Username" type="text" value={name} onChange={onUsernameChange} />
         <Input label="Mail" type="email" value={mail} disabled />
       </UserSettingsContainer>
