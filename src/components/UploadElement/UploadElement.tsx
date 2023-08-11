@@ -5,6 +5,7 @@ type UploadElementType = {
   acceptedTypes: string,
   onSelect: (data: any) => void,
   children?: ReactNode,
+  className?: string,
 }
 
 const Container = styled.div.attrs({ role: 'button', 'aria-label': 'upload file' })`
@@ -16,7 +17,9 @@ const HiddenFileUpload = styled.input.attrs(({ accept }) => ({
   display: none;
 `;
 
-function UploadElement({ acceptedTypes, onSelect, children }: UploadElementType) {
+function UploadElement({
+  acceptedTypes, onSelect, children, className,
+}: UploadElementType) {
   const fileUploadElement = useRef<HTMLInputElement>(null);
 
   const openFileContextMenu = useCallback(async () => {
@@ -33,7 +36,7 @@ function UploadElement({ acceptedTypes, onSelect, children }: UploadElementType)
   }, []);
 
   return (
-    <Container onClick={openFileContextMenu}>
+    <Container onClick={openFileContextMenu} className={className}>
       <HiddenFileUpload ref={fileUploadElement} accept={acceptedTypes} onChange={onFileChange} />
       {children}
     </Container>
