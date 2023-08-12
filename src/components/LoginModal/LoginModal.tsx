@@ -99,7 +99,7 @@ function LoginModal({
   const onSubmit = useCallback(async (e: any) => {
     e.preventDefault();
     await loginOrSignup();
-  }, []);
+  }, [mail, password]);
 
   return (
     <Container
