@@ -39,7 +39,7 @@ const Modal = styled.div`
   height: 100%;
   max-height: 20rem;
   position: relative;
-  background: #87878770;
+  background: whitesmoke;
   border-radius: 0.5rem;
 `;
 
@@ -75,8 +75,8 @@ const StyledForm = styled.form`
 const SubmitButtonImage = styled.img.attrs({
   src: Arrow, alt: 'green arrow pointing right',
 })`
-  width: 6rem;
-  height: 6rem;
+  width: 4rem;
+  height: 4rem;
 `;
 
 function LoginModal({
