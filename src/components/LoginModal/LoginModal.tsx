@@ -106,10 +106,10 @@ function LoginModal({
     }
   }
 
-  async function onSubmit(e: any) {
+  const onSubmit = useCallback(async (e: any) => {
     e.preventDefault();
     await loginOrSignup();
-  }
+  }, []);
 
   return (
     <Container
