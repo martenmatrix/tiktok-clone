@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useCallback, useState } from 'react';
 import { fadeIn, fadeOut } from '../animations/fade.style';
 import { registerWithMail, loginWithMail } from '../../firebase/login';
-import Close from './assets/close.svg';
 import Arrow from './assets/green_right_arrow.svg';
 import Input from '../Input';
 
@@ -41,15 +40,6 @@ const Modal = styled.div`
   position: relative;
   background: whitesmoke;
   border-radius: 0.5rem;
-`;
-
-const CloseButton = styled.img.attrs({ src: Close, role: 'button', 'aria-label': 'close dialog' })`
-  cursor: pointer;
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  width: 2rem;
-  height: 2rem;
 `;
 
 const SubmitButton = styled.button.attrs({ 'aria-label': 'submit form' })`
@@ -121,7 +111,6 @@ function LoginModal({
       open={isVisible}
     >
       <Modal>
-        <CloseButton onClick={onClose} />
         <StyledForm onSubmit={onSubmit}>
           <StyledInput label="Mail" value={mail} onChange={onMailChange} type="email" required />
           <StyledInput label="Password" value={password} onChange={onPasswordChange} type="password" minLength={6} />
