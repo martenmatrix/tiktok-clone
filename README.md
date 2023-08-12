@@ -36,6 +36,7 @@ This section shows the steps to create a development environment for this applic
 > :warning: When rules for Firebase were changed, they need to be deployed with `firebase deploy --only [service]:rules`
 
 ## :warning: Current limitations
+- in createDevEnvironment.js videos are being imported for solely testing purposes, however they might also be imported in production
 - the ID of **every** uploaded video is fetched, when the page is loaded, this could lead to serious performance issues
 - the functions, which are interacting with the Firebase API are not being tested, however the Firebase Emulator is setup
 - firebase rules are not being tested
