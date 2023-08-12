@@ -33,6 +33,8 @@ This section shows the steps to create a development environment for this applic
 
 > :bulb: If you want to change, how the start state of the application is emulated (videos uploaded, user logged in) change the code in ./src/firebase/createDevEnvironment.js
 
+> :warning: When rules for Firebase were changed, they need to be deployed with `firebase deploy --only [service].rules`
+
 ## :warning: Current limitations
 - the ID of **every** uploaded video is fetched, when the page is loaded, this could lead to serious performance issues
 - the functions, which are interacting with the Firebase API are not being tested, however the Firebase Emulator is setup
