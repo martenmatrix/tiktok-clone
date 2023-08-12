@@ -12,6 +12,10 @@ interface LoginModalProps {
   onSuccess: () => void;
 }
 
+const StyledInput = styled(Input)`
+  width: 80%;
+`;
+
 const Container = styled.div<{ open: boolean }>`
   z-index: 2;
   width: 100%;
@@ -116,8 +120,8 @@ function LoginModal({
       <Modal>
         <CloseButton onClick={onClose} />
         <form onSubmit={onSubmit}>
-          <Input label="Mail" value={mail} onChange={onMailChange} type="email" required />
-          <Input label="Password" value={password} onChange={onPasswordChange} type="password" minLength={6} />
+          <StyledInput label="Mail" value={mail} onChange={onMailChange} type="email" required />
+          <StyledInput label="Password" value={password} onChange={onPasswordChange} type="password" minLength={6} />
           <SubmitButton>
             <SubmitButtonImage />
           </SubmitButton>
