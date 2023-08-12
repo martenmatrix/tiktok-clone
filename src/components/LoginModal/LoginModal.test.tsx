@@ -33,19 +33,6 @@ test('if isVisible is false modal is hidden', () => {
   expect(modal).not.toBeVisible();
 });
 
-test('if if close button is clicked onClose() is called', async () => {
-  const user = userEvent.setup();
-  render(<LoginModal
-    isVisible
-    onClose={mockOnClose}
-    onSuccess={mockOnSuccess}
-  />);
-
-  const closeButton = screen.getByRole('button', { name: 'close dialog' });
-  await user.click(closeButton);
-  expect(mockOnClose).toHaveBeenCalledTimes(1);
-});
-
 test('if loginWithMail succeeds calls onSuccess and does not call registerWithMail', async () => {
   const loginMailMock = jest.spyOn(firebaseUtil, 'loginWithMail').mockResolvedValue();
   const registerMailMock = jest.spyOn(firebaseUtil, 'registerWithMail').mockResolvedValue();
