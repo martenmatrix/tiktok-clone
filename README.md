@@ -3,7 +3,25 @@
 This repository tries to replicate the functionality of TikTok. A user can view videos, like them, share them and upload them.
 The backend heavily relies on Google Firebase (Authentication, Firestore Database, Storage).
 
-### Development :wrench:
+## Table of Contents
+- [Deployed links](#-globewithmeridians--deployed-links)
+- [Features](#-sparkles--features)
+- [Development](#-wrench--development)
+- [Current limitations](#-warning--current-limitations)
+- [Technology stack](#-bluebook--technology-stack)
+- [License](#-scroll--license)
+
+## :globe_with_meridians: Deployed links
+The site is hosted with Google Firebase and can be reached through the following addresses:
+- https://tiktok-clone-123456789.web.app/
+- https://tiktok-clone-123456789.firebaseapp.com/
+
+## :sparkles: Features
+- user can upload/like videos after logged in
+- currently viewed video is represented in link state
+- user can edit his profile picture and username
+
+## :wrench: Development
 This section shows the steps to create a development environment for this application.
 
 1. Clone the repository with `git clone git@github.com:martenmatrix/tiktok-clone.git`.
@@ -15,7 +33,7 @@ This section shows the steps to create a development environment for this applic
 
 > :bulb: If you want to change, how the start state of the application is emulated (videos uploaded, user logged in) change the code in ./src/firebase/createDevEnvironment.js
 
-### Current limitations :warning:
+## :warning: Current limitations
 - the ID of **every** uploaded video is fetched, when the page is loaded, this could lead to serious performance issues
 - the functions, which are interacting with the Firebase API are not being tested, however the Firebase Emulator is setup
 - firebase rules are not being tested
@@ -23,3 +41,11 @@ This section shows the steps to create a development environment for this applic
 - blurring the site (opening login/register screen) while a video is playing, causes the site to lag because heavy calculations are required
 - when updating the username or the profile picture race conditions could cause problems, maybe provide a signal to fetch requests (https://stackoverflow.com/questions/72431380/how-to-abort-a-batch-of-async-fetch-requests)
 - project pictures, which are not used anymore, are not being deleted and stay in the database forever
+
+## :blue_book: Technology Stack
+- React with TypeScript, styled-components and React Router
+- Testing Library for React
+- Google Firebase
+
+## :scroll: License
+[MIT](https://github.com/martenmatrix/tiktok-clone/blob/main/LICENSE)
