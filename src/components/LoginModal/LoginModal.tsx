@@ -38,13 +38,7 @@ const Modal = styled.div`
   max-width: 40rem;
   height: 100%;
   max-height: 20rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: space-between;
   position: relative;
-  
   background: #87878770;
   border-radius: 0.5rem;
 `;
@@ -67,6 +61,15 @@ const SubmitButton = styled.button.attrs({ 'aria-label': 'submit form' })`
   position: absolute;
   bottom: 0;
   right: 0;
+`;
+
+const StyledForm = styled.form`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SubmitButtonImage = styled.img.attrs({
@@ -119,13 +122,13 @@ function LoginModal({
     >
       <Modal>
         <CloseButton onClick={onClose} />
-        <form onSubmit={onSubmit}>
+        <StyledForm onSubmit={onSubmit}>
           <StyledInput label="Mail" value={mail} onChange={onMailChange} type="email" required />
           <StyledInput label="Password" value={password} onChange={onPasswordChange} type="password" minLength={6} />
           <SubmitButton>
             <SubmitButtonImage />
           </SubmitButton>
-        </form>
+        </StyledForm>
       </Modal>
     </Container>
   );
