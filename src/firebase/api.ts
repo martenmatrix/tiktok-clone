@@ -66,7 +66,7 @@ async function getProfilePicture(uid?: string): Promise<string> {
     return getDownloadURL(profileRef);
   }
 
-  return 'undefined';
+  return 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
 }
 
 async function setProfilePicture(image: File | Blob) {
