@@ -45,6 +45,7 @@ async function uploadProfilePicture(): Promise<void> {
   const profilePicRes = await fetch(profilePic);
   const profilePicBlob = await profilePicRes.blob();
   await setProfilePicture(profilePicBlob);
+  console.warn("Uploaded a new profile picture to create the development environment. This may override an image, which you've set on a test account!");
 }
 
 async function createDevEnvironment(): Promise<void> {
