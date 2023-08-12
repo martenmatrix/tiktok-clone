@@ -18,7 +18,7 @@ const Image = styled.img`
 `;
 
 function ChangeProfilePic() {
-  const [profileURL, setProfileURL] = useState<string>('');
+  const [profileURL, setProfileURL] = useState<string>('data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=');
   const [selectedPicture, setSelectedPicture] = useState<Blob | File | null>();
 
   async function fetchProfilePicture() {
