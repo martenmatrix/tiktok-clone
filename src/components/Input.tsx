@@ -25,11 +25,12 @@ const InputContainer = styled.div`
 
 interface InputType extends React.ComponentProps<'input'> {
   label: string,
+  className?: string,
 }
 
-function Input({ label, ...inputProps }: InputType): JSX.Element {
+function Input({ label, className, ...inputProps }: InputType): JSX.Element {
   return (
-    <InputContainer>
+    <InputContainer className={className}>
       <StyledLabel htmlFor={label}>{label}</StyledLabel>
       <StyledInput name={label} id={label} {...inputProps} />
     </InputContainer>
