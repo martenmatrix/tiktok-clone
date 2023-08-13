@@ -48,6 +48,7 @@ This section shows the steps to create a development environment for this applic
 - React with TypeScript, styled-components and React Router
 - Testing Library for React
 - Google Firebase
+- Figma [Template can be found here](https://www.figma.com/file/2NaFma04uYG35zi300qq40/TikTok-Clone-Frontend?type=design&mode=design&t=AhUIxvTijQDMRbpO-1)
 
 ## :scroll: License
 [MIT](https://github.com/martenmatrix/tiktok-clone/blob/main/LICENSE)
