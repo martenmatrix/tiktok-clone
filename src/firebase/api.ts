@@ -56,17 +56,19 @@ async function uploadVideo(source: File | Blob): Promise<void> {
 }
 
 async function getProfilePicture(uid?: string): Promise<string> {
-  if (!(uid || auth.currentUser)) return 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+  const blackPictureBase64 = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+  if (!(uid || auth.currentUser)) return blackPictureBase64;
   // @ts-ignore
   const userDoc = doc(db, 'users', uid || auth.currentUser.uid);
   const userSnap = await getDoc(userDoc);
   if (userSnap.exists()) {
     const profilePictureName = userSnap.data().profilePicture;
+    if (profilePictureName === 'undefined') return blackPictureBase64;
     const profileRef = ref(storage, `profilePictures/${profilePictureName}`);
     return getDownloadURL(profileRef);
   }
 
-  return 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+  return blackPictureBase64;
 }
 
 async function setProfilePicture(image: File | Blob) {
